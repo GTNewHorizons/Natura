@@ -24,8 +24,7 @@ Please include the following:
 	* ForgeModLoader-client-0.log (the FML log) from the root folder of the client
 
 
-Most code is public domain under [Creative Commons 0](http://creativecommons.org/publicdomain/zero/1.0/) 	 
-Textures and binaries are licensed under [Creative Commons 3](http://creativecommons.org/licenses/by/3.0/) 
-Any alternate licenses are noted where appropriate
+
+See LICENSE
+
 We do not take bug reports for outdated builds of Minecraft, or unofficial builds.
-If you have queries about any license or the other restrictions, please drop by our IRC channel, #TinkersConstruct on irc.esper.net
