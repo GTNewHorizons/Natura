@@ -49,7 +49,7 @@ import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.event.world.ChunkDataEvent;
 import net.minecraftforge.oredict.OreDictionary;
 
-@Mod(modid = "Natura", name = "Natura", version = "GRADLETOKEN_VERSION", acceptedMinecraftVersions = "[1.7.10]", dependencies = "required-after:Mantle")
+@Mod(modid = "Natura", name = "Natura", version = "GRADLETOKEN_VERSION", acceptedMinecraftVersions = "[1.7.10]", dependencies = "required-after:Mantle;after:TConstruct")
 public class Natura {
     /* Proxies for sides, used for graphics processing */
     @SidedProxy(clientSide = "mods.natura.client.NProxyClient", serverSide = "mods.natura.common.NProxyCommon")
