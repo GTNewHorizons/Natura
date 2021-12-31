@@ -151,6 +151,20 @@ tile.pressureplate.maple.name=Maple Pressure Plate
 tile.pressureplate.amaranth.name=Amaranth Pressure Plate
 tile.pressureplate.silverbell.name=Silverbell Pressure Plate
 
+tile.fence.eucalyptus.name=Eucalyptus Fence
+tile.fence.sakura.name=Sakura Fence
+tile.fence.ghostwood.name=Ghostwood Fence
+tile.fence.hopseed.name=Hopseed Fence
+tile.fence.redwood.name=Redwood Fence
+tile.fence.bloodwood.name=Blood Fence
+tile.fence.darkwood.name=Darkwood Fence
+tile.fence.fusewood.name=Fusewood Fence
+tile.fence.willow.name=Willow Fence
+tile.fence.tiger.name=Tigerwood Fence
+tile.fence.maple.name=Maple Fence
+tile.fence.purpleheart.name=Amaranth Fence
+tile.fence.silverbell.name=Silverbell Fence
+
 tile.fenceGate.eucalyptus.name=Eucalyptus Fence Gate
 tile.fenceGate.sakura.name=Sakura Fence Gate
 tile.fenceGate.ghostwood.name=Ghostwood Fence Gate

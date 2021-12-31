@@ -2,16 +2,16 @@ package mods.natura.items.blocks;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import mantle.blocks.abstracts.MultiItemBlock;
 import mods.natura.common.NContent;
 import net.minecraft.block.Block;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.util.IIcon;
 
-public class FenceItem extends ItemBlock
+public class FenceItem extends MultiItemBlock
 {
-    public FenceItem(Block i)
+    public FenceItem(Block block)
     {
-        super(i);
+        super(block, block.getUnlocalizedName(), NContent.woodTextureNames);
         setMaxDamage(0);
         setHasSubtypes(true);
     }
