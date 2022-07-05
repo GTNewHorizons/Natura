@@ -1,17 +1,21 @@
 package mods.natura;
 
 import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import mantle.lib.TabTools;
 import mantle.pulsar.control.PulseManager;
@@ -37,6 +41,7 @@ import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -91,6 +96,11 @@ public class Natura {
     public static BaseCloudWorldgen clouds;
     public static BaseTreeWorldgen trees;
 
+    public static final int DIM_WORLDGEN_CROP_BIT = 1;
+    public static final int DIM_WORLDGEN_CLOUD_BIT = 2;
+    public static final int DIM_WORLDGEN_TREE_BIT = 4;
+    private static final Map<Integer, Integer> dimensionWorldgenOverrides = new HashMap<>();
+
     @EventHandler
     public void init(FMLInitializationEvent evt) {
         if (PHNatura.enableBerryBushes | PHNatura.enableNetherBerryBushes)
@@ -128,6 +138,45 @@ public class Natura {
         content.modIntegration();
 
         pulsar.postInit(evt);
+    }
+
+    /**
+     * IMC Handler
+     *
+     * Message tag: set-worldgen-overrides
+     * Message NBT data:
+     *  dimensions: int[] - array of dimension IDs to update
+     *  settings: int[] - array of settings to set for the corresponding dimension IDs
+     *  Both arrays must be of the same length
+     *  Settings format: integer with bitfields, enable bits: 1 = crops (berry bushes), 2 = clouds, 4 = trees
+     */
+    @EventHandler
+    public void imcHandler(FMLInterModComms.IMCEvent event) {
+        for (final FMLInterModComms.IMCMessage message : event.getMessages()) {
+            try {
+                if (message.key.equalsIgnoreCase("set-worldgen-overrides") && message.isNBTMessage()) {
+                    NBTTagCompound tag = message.getNBTValue();
+                    int[] dimensions = tag.getIntArray("dimensions");
+                    int[] settings = tag.getIntArray("settings");
+                    if (dimensions == null || settings == null || dimensions.length != settings.length) {
+                        FMLLog.warning("Invalid Natura IMC format, mismatched array lengths");
+                        continue;
+                    }
+                    synchronized (dimensionWorldgenOverrides) {
+                        for (int i = 0; i < dimensions.length; i++) {
+                            dimensionWorldgenOverrides.put(dimensions[i], settings[i]);
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                FMLLog.warning("Exception while handling a Natura IMC message `{}`", message.key, e);
+            }
+        }
+    }
+
+    public static int getDimensionWorldgenOverrides(int dimId) {
+        Integer val = dimensionWorldgenOverrides.get(dimId);
+        return (val != null) ? val : Integer.MAX_VALUE;
     }
 
     @SubscribeEvent

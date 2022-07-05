@@ -2,6 +2,7 @@ package mods.natura.worldgen;
 
 import cpw.mods.fml.common.IWorldGenerator;
 import java.util.Random;
+import mods.natura.Natura;
 import mods.natura.common.NContent;
 import mods.natura.common.PHNatura;
 import net.minecraft.world.World;
@@ -65,6 +66,10 @@ public class BaseCloudWorldgen implements IWorldGenerator {
             World world,
             IChunkProvider chunkGenerator,
             IChunkProvider chunkProvider) {
+        int dimSettings = Natura.getDimensionWorldgenOverrides(world.provider.dimensionId);
+        if ((dimSettings & Natura.DIM_WORLDGEN_CLOUD_BIT) == 0) {
+            return;
+        }
         // Overworld
         int xCh, yCh, zCh;
         int xChunk = chunkX * 16 + 8, zChunk = chunkZ * 16 + 8;

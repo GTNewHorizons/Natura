@@ -4,16 +4,16 @@ dependencies {
 
 	compile("com.github.GTNewHorizons:Mantle:0.3.4:dev")
 
-	compileOnly("com.github.GTNewHorizons:waila:1.5.18:dev") {
+	compileOnly("com.github.GTNewHorizons:waila:1.5.21:dev") {
 		transitive = false
 	}
 	compileOnly("com.github.GTNewHorizons:ForgeMultipart:1.2.7:dev") {
 		transitive = false
 	}
-	compileOnly("com.github.GTNewHorizons:NotEnoughItems:2.1.22-GTNH:dev") {
+	compileOnly("com.github.GTNewHorizons:NotEnoughItems:2.2.17-GTNH:dev") {
 		transitive = false
 	}
-	compileOnly("com.github.GTNewHorizons:TinkersConstruct:1.9.0.9-GTNH:dev") {
+	compileOnly("com.github.GTNewHorizons:TinkersConstruct:1.9.0-16-GTNH:dev") {
 		transitive = false
 	}
 

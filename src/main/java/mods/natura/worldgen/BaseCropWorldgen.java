@@ -2,6 +2,7 @@ package mods.natura.worldgen;
 
 import cpw.mods.fml.common.IWorldGenerator;
 import java.util.Random;
+import mods.natura.Natura;
 import mods.natura.common.NContent;
 import mods.natura.common.PHNatura;
 import net.minecraft.init.Blocks;
@@ -39,6 +40,10 @@ public class BaseCropWorldgen implements IWorldGenerator {
             World world,
             IChunkProvider chunkGenerator,
             IChunkProvider chunkProvider) {
+        int dimSettings = Natura.getDimensionWorldgenOverrides(world.provider.dimensionId);
+        if ((dimSettings & Natura.DIM_WORLDGEN_CROP_BIT) == 0) {
+            return;
+        }
         final int xChunk = chunkX * 16 + 8, zChunk = chunkZ * 16 + 8;
         int xCh = chunkX * 16 + random.nextInt(16);
         int yCh = random.nextInt(128);

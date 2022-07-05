@@ -2,6 +2,7 @@ package mods.natura.worldgen;
 
 import cpw.mods.fml.common.IWorldGenerator;
 import java.util.Random;
+import mods.natura.Natura;
 import mods.natura.common.NContent;
 import mods.natura.common.PHNatura;
 import net.minecraft.block.Block;
@@ -63,6 +64,10 @@ public class BaseTreeWorldgen implements IWorldGenerator {
             World world,
             IChunkProvider chunkGenerator,
             IChunkProvider chunkProvider) {
+        int dimSettings = Natura.getDimensionWorldgenOverrides(world.provider.dimensionId);
+        if ((dimSettings & Natura.DIM_WORLDGEN_TREE_BIT) == 0) {
+            return;
+        }
         int xSpawn, ySpawn, zSpawn;
         int xPos = chunkX * 16 + 8, zPos = chunkZ * 16 + 8;
         String biomeName = world.getWorldChunkManager().getBiomeGenAt(xPos, zPos).biomeName;
