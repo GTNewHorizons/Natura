@@ -12,9 +12,11 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import mantle.lib.TabTools;
@@ -121,6 +123,7 @@ public class Natura {
             DimensionManager.registerProviderType(-1, NetheriteWorldProvider.class, true);
         }
         MinecraftForge.EVENT_BUS.register(WorldHandler.instance);
+        FMLCommonHandler.instance().bus().register(this);
 
         if (retrogen) {
             FMLCommonHandler.instance().bus().register(new TickHandlerWorld());
@@ -138,10 +141,11 @@ public class Natura {
         content.modIntegration();
 
         pulsar.postInit(evt);
+        imcHandler();
     }
 
     /**
-     * IMC Handler
+     * Runtime IMC Handler
      *
      * Message tag: set-worldgen-overrides
      * Message NBT data:
@@ -150,26 +154,35 @@ public class Natura {
      *  Both arrays must be of the same length
      *  Settings format: integer with bitfields, enable bits: 1 = crops (berry bushes), 2 = clouds, 4 = trees
      */
-    @EventHandler
-    public void imcHandler(FMLInterModComms.IMCEvent event) {
-        for (final FMLInterModComms.IMCMessage message : event.getMessages()) {
-            try {
-                if (message.key.equalsIgnoreCase("set-worldgen-overrides") && message.isNBTMessage()) {
-                    NBTTagCompound tag = message.getNBTValue();
-                    int[] dimensions = tag.getIntArray("dimensions");
-                    int[] settings = tag.getIntArray("settings");
-                    if (dimensions == null || settings == null || dimensions.length != settings.length) {
-                        FMLLog.warning("Invalid Natura IMC format, mismatched array lengths");
-                        continue;
-                    }
-                    synchronized (dimensionWorldgenOverrides) {
-                        for (int i = 0; i < dimensions.length; i++) {
-                            dimensionWorldgenOverrides.put(dimensions[i], settings[i]);
+    @SubscribeEvent
+    public void tickEvent(TickEvent.ServerTickEvent event) {
+        if (event.side.isServer() && event.phase.equals(TickEvent.Phase.START)) {
+            imcHandler();
+        }
+    }
+
+    private void imcHandler() {
+        List<FMLInterModComms.IMCMessage> imc = FMLInterModComms.fetchRuntimeMessages(this);
+        if (imc != null && !imc.isEmpty()) {
+            for (FMLInterModComms.IMCMessage message : imc) {
+                try {
+                    if (message.key.equalsIgnoreCase("set-worldgen-overrides") && message.isNBTMessage()) {
+                        NBTTagCompound tag = message.getNBTValue();
+                        int[] dimensions = tag.getIntArray("dimensions");
+                        int[] settings = tag.getIntArray("settings");
+                        if (dimensions == null || settings == null || dimensions.length != settings.length) {
+                            FMLLog.warning("Invalid Natura IMC format, mismatched array lengths");
+                            return;
+                        }
+                        synchronized (dimensionWorldgenOverrides) {
+                            for (int i = 0; i < dimensions.length; i++) {
+                                dimensionWorldgenOverrides.put(dimensions[i], settings[i]);
+                            }
                         }
                     }
+                } catch (Exception e) {
+                    FMLLog.warning("Exception while handling a Natura IMC message `{}`", message.key, e);
                 }
-            } catch (Exception e) {
-                FMLLog.warning("Exception while handling a Natura IMC message `{}`", message.key, e);
             }
         }
     }
