@@ -19,12 +19,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProviderHell;
 
-public class ImpEntity extends EntityAnimal
-{
-    public ImpEntity(World par1World)
-    {
+public class ImpEntity extends EntityAnimal {
+    public ImpEntity(World par1World) {
         super(par1World);
-        //this.texture = "/mods/natura/textures/mob/imp.png";
+        // this.texture = "/mods/natura/textures/mob/imp.png";
         this.setSize(0.9F, 0.9F);
         this.getNavigator().setAvoidsWater(true);
         this.isImmuneToFire = true;
@@ -44,21 +42,18 @@ public class ImpEntity extends EntityAnimal
      * Returns true if the newer Entity AI code should be run
      */
     @Override
-    public boolean isAIEnabled ()
-    {
+    public boolean isAIEnabled() {
         return true;
     }
 
     @Override
-    protected void applyEntityAttributes ()
-    {
+    protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(40.0D); //Health
+        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(40.0D); // Health
     }
 
     @Override
-    protected void updateAITasks ()
-    {
+    protected void updateAITasks() {
         super.updateAITasks();
     }
 
@@ -66,8 +61,7 @@ public class ImpEntity extends EntityAnimal
      * Returns the sound this mob makes while it's alive.
      */
     @Override
-    protected String getLivingSound ()
-    {
+    protected String getLivingSound() {
         return "mob.pig.say";
     }
 
@@ -75,8 +69,7 @@ public class ImpEntity extends EntityAnimal
      * Returns the sound this mob makes when it is hurt.
      */
     @Override
-    protected String getHurtSound ()
-    {
+    protected String getHurtSound() {
         return "mob.pig.say";
     }
 
@@ -84,16 +77,14 @@ public class ImpEntity extends EntityAnimal
      * Returns the sound this mob makes on death.
      */
     @Override
-    protected String getDeathSound ()
-    {
+    protected String getDeathSound() {
         return "mob.pig.death";
     }
 
     /**
      * Plays step sound at given x, y, z for the entity
      */
-    protected void playStepSound (int par1, int par2, int par3, int par4)
-    {
+    protected void playStepSound(int par1, int par2, int par3, int par4) {
         this.playSound("mob.pig.step", 0.15F, 1.0F);
     }
 
@@ -101,8 +92,7 @@ public class ImpEntity extends EntityAnimal
      * Returns the item ID for the item the mob drops on death.
      */
     @Override
-    protected Item getDropItem ()
-    {
+    protected Item getDropItem() {
         return NContent.impMeat;
     }
 
@@ -111,18 +101,15 @@ public class ImpEntity extends EntityAnimal
      * par2 - Level of Looting used to kill this mob.
      */
     @Override
-    protected void dropFewItems (boolean par1, int par2)
-    {
+    protected void dropFewItems(boolean par1, int par2) {
         int amount = this.rand.nextInt(3) + 1 + this.rand.nextInt(1 + par2);
 
-        for (int iter = 0; iter < amount; ++iter)
-        {
+        for (int iter = 0; iter < amount; ++iter) {
             this.dropItem(NContent.impMeat, 1);
         }
 
         amount = this.rand.nextInt(5) + 2 + this.rand.nextInt(1 + par2 * 2);
-        for (int iter = 0; iter < amount; ++iter)
-        {
+        for (int iter = 0; iter < amount; ++iter) {
             this.entityDropItem(new ItemStack(NContent.plantItem, 1, 6), 0f);
         }
     }
@@ -130,8 +117,7 @@ public class ImpEntity extends EntityAnimal
     /**
      * This function is used when two same-species animals in 'love mode' breed to generate the new baby animal.
      */
-    public ImpEntity spawnBabyAnimal (EntityAgeable par1EntityAgeable)
-    {
+    public ImpEntity spawnBabyAnimal(EntityAgeable par1EntityAgeable) {
         return new ImpEntity(this.worldObj);
     }
 
@@ -140,22 +126,25 @@ public class ImpEntity extends EntityAnimal
      * the animal type)
      */
     @Override
-    public boolean isBreedingItem (ItemStack par1ItemStack)
-    {
-        return par1ItemStack != null && par1ItemStack.getItem() == NContent.bowlStew && par1ItemStack.getItemDamage() >= 13;
+    public boolean isBreedingItem(ItemStack par1ItemStack) {
+        return par1ItemStack != null
+                && par1ItemStack.getItem() == NContent.bowlStew
+                && par1ItemStack.getItemDamage() >= 13;
     }
 
     @Override
-    public EntityAgeable createChild (EntityAgeable par1EntityAgeable)
-    {
+    public EntityAgeable createChild(EntityAgeable par1EntityAgeable) {
         return this.spawnBabyAnimal(par1EntityAgeable);
     }
 
     @Override
-    public boolean getCanSpawnHere ()
-    {
-        //return true;
-        return this.worldObj.provider instanceof WorldProviderHell && this.worldObj.checkNoEntityCollision(this.boundingBox)
-                && this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox).isEmpty() && !this.worldObj.isAnyLiquid(this.boundingBox);
+    public boolean getCanSpawnHere() {
+        // return true;
+        return this.worldObj.provider instanceof WorldProviderHell
+                && this.worldObj.checkNoEntityCollision(this.boundingBox)
+                && this.worldObj
+                        .getCollidingBoundingBoxes(this, this.boundingBox)
+                        .isEmpty()
+                && !this.worldObj.isAnyLiquid(this.boundingBox);
     }
 }

@@ -1,9 +1,8 @@
 package mods.natura.common;
 
-import java.util.List;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.List;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -49,8 +48,6 @@ public class NCraftingItem extends Item {
 
     @Override
     public void getSubItems(Item id, CreativeTabs tab, List list) {
-        for (int i = 0; i < unlocalizedNames.length; i++)
-            list.add(new ItemStack(id, 1, i));
+        for (int i = 0; i < unlocalizedNames.length; i++) list.add(new ItemStack(id, 1, i));
     }
-
 }

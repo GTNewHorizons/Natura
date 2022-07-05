@@ -20,5 +20,4 @@ public class NaturaSword extends ItemSword {
     public void registerIcons(IIconRegister par1IconRegister) {
         this.itemIcon = par1IconRegister.registerIcon("natura:" + texture + "_sword");
     }
-
 }

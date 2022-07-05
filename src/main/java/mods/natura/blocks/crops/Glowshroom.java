@@ -1,10 +1,9 @@
 package mods.natura.blocks.crops;
 
-import java.util.List;
-import java.util.Random;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.List;
+import java.util.Random;
 import mods.natura.common.NaturaTab;
 import mods.natura.worldgen.GlowshroomGenBlueGreen;
 import mods.natura.worldgen.GlowshroomGenPurple;
@@ -19,7 +18,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class Glowshroom extends BlockMushroom {
     IIcon[] icons;
-    String[] textureNames = { "green", "purple", "blue" };
+    String[] textureNames = {"green", "purple", "blue"};
 
     public Glowshroom() {
         super();
@@ -74,22 +73,21 @@ public class Glowshroom extends BlockMushroom {
     }
 
     public boolean fertilizeMushroom(World world, int x, int y, int z, Random random) {
-        if (world.isRemote)
-            return false;
+        if (world.isRemote) return false;
 
         int meta = world.getBlockMetadata(x, y, z);
         world.setBlockToAir(x, y, z);
         WorldGenerator obj = null;
 
         switch (meta) {
-        case 0:
-            obj = new GlowshroomGenBlueGreen(true, 0);
-            break;
-        case 1:
-            obj = new GlowshroomGenPurple(true);
-            break;
-        case 2:
-        	obj = new GlowshroomGenBlueGreen(true, 1);
+            case 0:
+                obj = new GlowshroomGenBlueGreen(true, 0);
+                break;
+            case 1:
+                obj = new GlowshroomGenPurple(true);
+                break;
+            case 2:
+                obj = new GlowshroomGenBlueGreen(true, 1);
         }
 
         if (obj != null && obj.generate(world, random, x, y, z)) {
@@ -125,8 +123,6 @@ public class Glowshroom extends BlockMushroom {
     @SideOnly(Side.CLIENT)
     @Override
     public void getSubBlocks(Item item, CreativeTabs par2CreativeTabs, List par3List) {
-        for (int i = 0; i < icons.length; i++)
-            par3List.add(new ItemStack(item, 1, i));
+        for (int i = 0; i < icons.length; i++) par3List.add(new ItemStack(item, 1, i));
     }
-
 }

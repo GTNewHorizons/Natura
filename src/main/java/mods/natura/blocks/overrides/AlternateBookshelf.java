@@ -1,9 +1,8 @@
 package mods.natura.blocks.overrides;
 
-import java.util.List;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.List;
 import mods.natura.common.NContent;
 import net.minecraft.block.BlockBookshelf;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -23,8 +22,7 @@ public class AlternateBookshelf extends BlockBookshelf {
     @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(int side, int metadata) {
-        if (side == 0 || side == 1)
-            return NContent.planks.getIcon(side, metadata);
+        if (side == 0 || side == 1) return NContent.planks.getIcon(side, metadata);
         return icons[metadata];
     }
 
@@ -52,8 +50,6 @@ public class AlternateBookshelf extends BlockBookshelf {
     @SideOnly(Side.CLIENT)
     @Override
     public void getSubBlocks(Item item, CreativeTabs tabs, List list) {
-        for (int i = 0; i < icons.length; i++)
-            list.add(new ItemStack(item, 1, i));
+        for (int i = 0; i < icons.length; i++) list.add(new ItemStack(item, 1, i));
     }
-
 }

@@ -1,9 +1,8 @@
 package mods.natura.items;
 
-import java.util.List;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.List;
 import mods.natura.common.NaturaTab;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
@@ -19,20 +18,19 @@ public class CactusJuice extends ItemFood {
     }
 
     @Override
-    public int getMaxItemUseDuration (ItemStack itemStack) {
+    public int getMaxItemUseDuration(ItemStack itemStack) {
         return 12;
     }
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void registerIcons (IIconRegister par1IconRegister) {
+    public void registerIcons(IIconRegister par1IconRegister) {
         this.itemIcon = par1IconRegister.registerIcon("natura:waterdrop");
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4) {
+    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
         list.add(StatCollector.translateToLocal("tooltip.cactusjuice"));
     }
-
 }

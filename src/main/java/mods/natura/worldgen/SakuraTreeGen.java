@@ -1,7 +1,6 @@
 package mods.natura.worldgen;
 
 import java.util.Random;
-
 import mods.natura.common.NContent;
 import mods.natura.common.PHNatura;
 import net.minecraft.block.Block;
@@ -13,7 +12,7 @@ import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class SakuraTreeGen extends WorldGenAbstractTree {
-    static final byte[] otherCoordPairs = new byte[] {(byte)2, (byte)0, (byte)0, (byte)1, (byte)2, (byte)1};
+    static final byte[] otherCoordPairs = new byte[] {(byte) 2, (byte) 0, (byte) 0, (byte) 1, (byte) 2, (byte) 1};
     Random rand = new Random();
     World worldObj;
     int[] basePos = new int[] {0, 0, 0};
@@ -28,7 +27,7 @@ public class SakuraTreeGen extends WorldGenAbstractTree {
     int heightLimitLimit = 12;
     int leafDistanceLimit = 4;
     int[][] leafNodes;
-    
+
     int metaWood;
     int metaLeaves;
     boolean dontFindHeight;
@@ -41,13 +40,13 @@ public class SakuraTreeGen extends WorldGenAbstractTree {
     }
 
     void generateLeafNodeList() {
-        this.height = (int)((double)this.heightLimit * this.heightAttenuation);
+        this.height = (int) ((double) this.heightLimit * this.heightAttenuation);
 
         if (this.height >= this.heightLimit) {
             this.height = this.heightLimit - 1;
         }
 
-        int i = (int)(1.382D + Math.pow(this.leafDensity * (double)this.heightLimit / 13.0D, 2.0D));
+        int i = (int) (1.382D + Math.pow(this.leafDensity * (double) this.heightLimit / 13.0D, 2.0D));
 
         if (i < 1) {
             i = 1;
@@ -64,7 +63,7 @@ public class SakuraTreeGen extends WorldGenAbstractTree {
         aint[0][3] = l;
         --j;
 
-        while (i1 >= 0)  {
+        while (i1 >= 0) {
             int j1 = 0;
             float f = this.layerSize(i1);
 
@@ -73,22 +72,23 @@ public class SakuraTreeGen extends WorldGenAbstractTree {
                 --i1;
             } else {
                 for (double d0 = 0.5D; j1 < i; ++j1) {
-                    double d1 = this.scaleWidth * (double)f * ((double)this.rand.nextFloat() + 0.328D);
-                    double d2 = (double)this.rand.nextFloat() * 2.0D * Math.PI;
-                    int k1 = MathHelper.floor_double(d1 * Math.sin(d2) + (double)this.basePos[0] + d0);
-                    int l1 = MathHelper.floor_double(d1 * Math.cos(d2) + (double)this.basePos[2] + d0);
+                    double d1 = this.scaleWidth * (double) f * ((double) this.rand.nextFloat() + 0.328D);
+                    double d2 = (double) this.rand.nextFloat() * 2.0D * Math.PI;
+                    int k1 = MathHelper.floor_double(d1 * Math.sin(d2) + (double) this.basePos[0] + d0);
+                    int l1 = MathHelper.floor_double(d1 * Math.cos(d2) + (double) this.basePos[2] + d0);
                     int[] aint1 = new int[] {k1, j, l1};
                     int[] aint2 = new int[] {k1, j + this.leafDistanceLimit, l1};
 
                     if (this.checkBlockLine(aint1, aint2) == -1) {
                         int[] aint3 = new int[] {this.basePos[0], this.basePos[1], this.basePos[2]};
-                        double d3 = Math.sqrt(Math.pow((double)Math.abs(this.basePos[0] - aint1[0]), 2.0D) + Math.pow((double)Math.abs(this.basePos[2] - aint1[2]), 2.0D));
+                        double d3 = Math.sqrt(Math.pow((double) Math.abs(this.basePos[0] - aint1[0]), 2.0D)
+                                + Math.pow((double) Math.abs(this.basePos[2] - aint1[2]), 2.0D));
                         double d4 = d3 * this.branchSlope;
 
-                        if ((double)aint1[1] - d4 > (double)l) {
+                        if ((double) aint1[1] - d4 > (double) l) {
                             aint3[1] = l;
                         } else {
-                            aint3[1] = (int)((double)aint1[1] - d4);
+                            aint3[1] = (int) ((double) aint1[1] - d4);
                         }
 
                         if (this.checkBlockLine(aint3, aint1) == -1) {
@@ -111,7 +111,7 @@ public class SakuraTreeGen extends WorldGenAbstractTree {
     }
 
     void func_150529_a(int x, int y, int z, float p_150529_4_, byte p_150529_5_, Block block) {
-        int l = (int)((double)p_150529_4_ + 0.618D);
+        int l = (int) ((double) p_150529_4_ + 0.618D);
         byte b1 = otherCoordPairs[p_150529_5_];
         byte b2 = otherCoordPairs[p_150529_5_ + 3];
         int[] aint = new int[] {x, y, z};
@@ -124,18 +124,20 @@ public class SakuraTreeGen extends WorldGenAbstractTree {
             j1 = -l;
 
             while (j1 <= l) {
-                double d0 = Math.pow((double)Math.abs(i1) + 0.5D, 2.0D) + Math.pow((double)Math.abs(j1) + 0.5D, 2.0D);
+                double d0 = Math.pow((double) Math.abs(i1) + 0.5D, 2.0D) + Math.pow((double) Math.abs(j1) + 0.5D, 2.0D);
 
-                if (d0 > (double)(p_150529_4_ * p_150529_4_)) {
+                if (d0 > (double) (p_150529_4_ * p_150529_4_)) {
                     ++j1;
                 } else {
                     aint1[b2] = aint[b2] + j1;
                     Block block1 = this.worldObj.getBlock(aint1[0], aint1[1], aint1[2]);
 
-                    if (!block1.isAir(worldObj, aint1[0], aint1[1], aint1[2]) && !block1.isLeaves(worldObj, aint1[0], aint1[1], aint1[2])) {
+                    if (!block1.isAir(worldObj, aint1[0], aint1[1], aint1[2])
+                            && !block1.isLeaves(worldObj, aint1[0], aint1[1], aint1[2])) {
                         ++j1;
                     } else {
-                        this.setBlockAndNotifyAdequately(this.worldObj, aint1[0], aint1[1], aint1[2], block, metaLeaves);
+                        this.setBlockAndNotifyAdequately(
+                                this.worldObj, aint1[0], aint1[1], aint1[2], block, metaLeaves);
                         ++j1;
                     }
                 }
@@ -144,24 +146,19 @@ public class SakuraTreeGen extends WorldGenAbstractTree {
     }
 
     float layerSize(int par1) {
-        if ((double)par1 < (double)((float)this.heightLimit) * 0.3D) {
+        if ((double) par1 < (double) ((float) this.heightLimit) * 0.3D) {
             return -1.618F;
         } else {
-            float f = (float)this.heightLimit / 2.0F;
-            float f1 = (float)this.heightLimit / 2.0F - (float)par1;
+            float f = (float) this.heightLimit / 2.0F;
+            float f1 = (float) this.heightLimit / 2.0F - (float) par1;
             float f2;
 
-            if (f1 == 0.0F)
-            {
+            if (f1 == 0.0F) {
                 f2 = f;
-            }
-            else if (Math.abs(f1) >= f)
-            {
+            } else if (Math.abs(f1) >= f) {
                 f2 = 0.0F;
-            }
-            else
-            {
-                f2 = (float)Math.sqrt(Math.pow((double)Math.abs(f), 2.0D) - Math.pow((double)Math.abs(f1), 2.0D));
+            } else {
+                f2 = (float) Math.sqrt(Math.pow((double) Math.abs(f), 2.0D) - Math.pow((double) Math.abs(f1), 2.0D));
             }
 
             f2 *= 0.5F;
@@ -170,7 +167,9 @@ public class SakuraTreeGen extends WorldGenAbstractTree {
     }
 
     float leafSize(int par1) {
-        return par1 >= 0 && par1 < this.leafDistanceLimit ? (par1 != 0 && par1 != this.leafDistanceLimit - 1 ? 3.0F : 2.0F) : -1.0F;
+        return par1 >= 0 && par1 < this.leafDistanceLimit
+                ? (par1 != 0 && par1 != this.leafDistanceLimit - 1 ? 3.0F : 2.0F)
+                : -1.0F;
     }
 
     void generateLeafNode(int par1, int par2, int par3) {
@@ -178,7 +177,7 @@ public class SakuraTreeGen extends WorldGenAbstractTree {
 
         for (int i1 = par2 + this.leafDistanceLimit; l < i1; ++l) {
             float f = this.leafSize(l - par2);
-            this.func_150529_a(par1, l, par3, f, (byte)1, NContent.floraLeavesNoColor);
+            this.func_150529_a(par1, l, par3, f, (byte) 1, NContent.floraLeavesNoColor);
         }
     }
 
@@ -206,15 +205,15 @@ public class SakuraTreeGen extends WorldGenAbstractTree {
                 b4 = -1;
             }
 
-            double d0 = (double)aint2[b2] / (double)aint2[b1];
-            double d1 = (double)aint2[b3] / (double)aint2[b1];
+            double d0 = (double) aint2[b2] / (double) aint2[b1];
+            double d1 = (double) aint2[b3] / (double) aint2[b1];
             int[] aint3 = new int[] {0, 0, 0};
             int i = 0;
 
             for (int j = aint2[b1] + b4; i != j; i += b4) {
-                aint3[b1] = MathHelper.floor_double((double)(p_150530_1_[b1] + i) + 0.5D);
-                aint3[b2] = MathHelper.floor_double((double)p_150530_1_[b2] + (double)i * d0 + 0.5D);
-                aint3[b3] = MathHelper.floor_double((double)p_150530_1_[b3] + (double)i * d1 + 0.5D);
+                aint3[b1] = MathHelper.floor_double((double) (p_150530_1_[b1] + i) + 0.5D);
+                aint3[b2] = MathHelper.floor_double((double) p_150530_1_[b2] + (double) i * d0 + 0.5D);
+                aint3[b3] = MathHelper.floor_double((double) p_150530_1_[b3] + (double) i * d1 + 0.5D);
                 int metadata = metaWood;
                 int k = Math.abs(aint3[0] - p_150530_1_[0]);
                 int l = Math.abs(aint3[2] - p_150530_1_[2]);
@@ -224,7 +223,7 @@ public class SakuraTreeGen extends WorldGenAbstractTree {
                     if (k == i1) {
                         metadata = metaWood + 4;
                     } else if (l == i1) {
-                        metadata = metaWood +  8;
+                        metadata = metaWood + 8;
                     }
                 }
 
@@ -245,7 +244,7 @@ public class SakuraTreeGen extends WorldGenAbstractTree {
     }
 
     boolean leafNodeNeedsBase(int par1) {
-        return (double)par1 >= (double)this.heightLimit * 0.2D;
+        return (double) par1 >= (double) this.heightLimit * 0.2D;
     }
 
     void generateTrunk() {
@@ -312,16 +311,16 @@ public class SakuraTreeGen extends WorldGenAbstractTree {
                 b4 = -1;
             }
 
-            double d0 = (double)aint2[b2] / (double)aint2[b1];
-            double d1 = (double)aint2[b3] / (double)aint2[b1];
+            double d0 = (double) aint2[b2] / (double) aint2[b1];
+            double d1 = (double) aint2[b3] / (double) aint2[b1];
             int[] aint3 = new int[] {0, 0, 0};
             int i = 0;
             int j;
 
             for (j = aint2[b1] + b4; i != j; i += b4) {
                 aint3[b1] = par1ArrayOfInteger[b1] + i;
-                aint3[b2] = MathHelper.floor_double((double)par1ArrayOfInteger[b2] + (double)i * d0);
-                aint3[b3] = MathHelper.floor_double((double)par1ArrayOfInteger[b3] + (double)i * d1);
+                aint3[b2] = MathHelper.floor_double((double) par1ArrayOfInteger[b2] + (double) i * d0);
+                aint3[b3] = MathHelper.floor_double((double) par1ArrayOfInteger[b3] + (double) i * d1);
 
                 if (!this.isReplaceable(worldObj, aint3[0], aint3[1], aint3[2])) {
                     break;
@@ -337,7 +336,8 @@ public class SakuraTreeGen extends WorldGenAbstractTree {
         int[] aint1 = new int[] {this.basePos[0], this.basePos[1] + this.heightLimit - 1, this.basePos[2]};
         Block block = this.worldObj.getBlock(this.basePos[0], this.basePos[1] - 1, this.basePos[2]);
 
-        boolean isSoil = block.canSustainPlant(worldObj, basePos[0], basePos[1] - 1, basePos[2], ForgeDirection.UP, (BlockSapling)Blocks.sapling);
+        boolean isSoil = block.canSustainPlant(
+                worldObj, basePos[0], basePos[1] - 1, basePos[2], ForgeDirection.UP, (BlockSapling) Blocks.sapling);
         if (!isSoil) {
             return false;
         } else {
@@ -355,7 +355,7 @@ public class SakuraTreeGen extends WorldGenAbstractTree {
     }
 
     public void setScale(double par1, double par3, double par5) {
-        this.heightLimitLimit = (int)(par1 * 12.0D);
+        this.heightLimitLimit = (int) (par1 * 12.0D);
 
         if (par1 > 0.5D) {
             this.leafDistanceLimit = 5;
@@ -365,14 +365,13 @@ public class SakuraTreeGen extends WorldGenAbstractTree {
         this.leafDensity = par5;
     }
 
-    int findGround (World world, int x, int y, int z) {
+    int findGround(World world, int x, int y, int z) {
         boolean foundGround = false;
         int height = PHNatura.seaLevel + 64;
         do {
             height--;
             Block underID = world.getBlock(x, height, z);
-            if (underID == Blocks.dirt || underID == Blocks.grass || height < PHNatura.seaLevel)
-                foundGround = true;
+            if (underID == Blocks.dirt || underID == Blocks.grass || height < PHNatura.seaLevel) foundGround = true;
         } while (!foundGround);
         return height + 1;
     }
@@ -382,10 +381,8 @@ public class SakuraTreeGen extends WorldGenAbstractTree {
         long l = par2Random.nextLong();
         this.rand.setSeed(l);
         this.basePos[0] = par3;
-        if (this.dontFindHeight)
-            this.basePos[1] = par4;
-        else
-            this.basePos[1] = findGround(par1World, par3, par4, par5);
+        if (this.dontFindHeight) this.basePos[1] = par4;
+        else this.basePos[1] = findGround(par1World, par3, par4, par5);
         this.basePos[2] = par5;
 
         if (this.heightLimit == 0) {
@@ -402,5 +399,4 @@ public class SakuraTreeGen extends WorldGenAbstractTree {
             return true;
         }
     }
-
 }

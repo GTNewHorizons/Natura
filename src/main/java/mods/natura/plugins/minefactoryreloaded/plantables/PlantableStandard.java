@@ -23,8 +23,9 @@ public class PlantableStandard implements IFactoryPlantable {
         this._sourceId = sourceId;
         this._plantedBlockId = plantedBlockId;
     }
+
     public boolean canBePlanted(ItemStack stack, boolean forFermenting) {
-        return true;//TODO figure out what on earth this is supposed to be
+        return true; // TODO figure out what on earth this is supposed to be
     }
 
     @Override
@@ -34,8 +35,9 @@ public class PlantableStandard implements IFactoryPlantable {
             return false;
         }
         return (_plantedBlockId.canPlaceBlockAt(world, x, y, z) && _plantedBlockId.canBlockStay(world, x, y, z))
-                || (_plantedBlockId instanceof IPlantable &&  groundId != null &&  groundId.canSustainPlant(world, x, y, z, ForgeDirection.UP,
-                        ((IPlantable)  _plantedBlockId)));
+                || (_plantedBlockId instanceof IPlantable
+                        && groundId != null
+                        && groundId.canSustainPlant(world, x, y, z, ForgeDirection.UP, ((IPlantable) _plantedBlockId)));
     }
 
     @Override
@@ -47,6 +49,7 @@ public class PlantableStandard implements IFactoryPlantable {
     public void postPlant(World world, int x, int y, int z, ItemStack stack) {
         return;
     }
+
     @Override
     public ReplacementBlock getPlantedBlock(World world, int x, int y, int z, ItemStack stack) {
         if (stack.getItem() != _sourceId) {
@@ -63,5 +66,4 @@ public class PlantableStandard implements IFactoryPlantable {
     public int getMeta(ItemStack i) {
         return i.getItemDamage();
     }
-
 }

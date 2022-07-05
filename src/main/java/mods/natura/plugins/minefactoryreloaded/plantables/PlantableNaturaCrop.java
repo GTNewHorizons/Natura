@@ -21,8 +21,13 @@ public class PlantableNaturaCrop extends PlantableStandard {
             if (!world.isAirBlock(x, y, z)) {
                 return false;
             }
-            return (groundId == Blocks.dirt || groundId == Blocks.grass || groundId == Blocks.farmland || (_plantedBlockId instanceof IPlantable
-                    && groundId != null && groundId.canSustainPlant(world, x, y, z, ForgeDirection.UP, ((IPlantable) _plantedBlockId))));
+            return (groundId == Blocks.dirt
+                    || groundId == Blocks.grass
+                    || groundId == Blocks.farmland
+                    || (_plantedBlockId instanceof IPlantable
+                            && groundId != null
+                            && groundId.canSustainPlant(
+                                    world, x, y, z, ForgeDirection.UP, ((IPlantable) _plantedBlockId))));
         }
         return false;
     }
@@ -30,8 +35,7 @@ public class PlantableNaturaCrop extends PlantableStandard {
     @Override
     public void prePlant(World world, int x, int y, int z, ItemStack stack) {
         Block groundId = world.getBlock(x, y - 1, z);
-        if (groundId == Blocks.dirt || groundId == Blocks.grass)
-        {
+        if (groundId == Blocks.dirt || groundId == Blocks.grass) {
             world.setBlock(x, y - 1, z, Blocks.farmland);
         }
     }
@@ -40,5 +44,4 @@ public class PlantableNaturaCrop extends PlantableStandard {
     public int getMeta(ItemStack stack) {
         return stack.getItemDamage() == 0 ? 0 : 4;
     }
-
 }

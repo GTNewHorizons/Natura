@@ -9,16 +9,14 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
 import net.minecraft.world.World;
 
-public class NitroCreeper extends EntityCreeper
-{
+public class NitroCreeper extends EntityCreeper {
     protected int fuseTime = 12;
     protected int timeSinceIgnited;
     protected int lastActiveTime;
 
     public float explosionRadius = 1f;
 
-    public NitroCreeper(World world)
-    {
+    public NitroCreeper(World world) {
         super(world);
         this.tasks.addTask(4, new EntityAIAttackOnCollide(this, 1.0F, false));
         this.isImmuneToFire = true;
@@ -37,65 +35,50 @@ public class NitroCreeper extends EntityCreeper
     }*/
 
     @Override
-    protected void fall (float distance)
-    {
-        if (!this.worldObj.isRemote)
-        {
-            if (distance > 5)
-            {
+    protected void fall(float distance) {
+        if (!this.worldObj.isRemote) {
+            if (distance > 5) {
                 boolean flag = this.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing");
 
-                if (this.getPowered())
-                {
+                if (this.getPowered()) {
                     this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, 20f, flag);
-                }
-                else
-                {
+                } else {
                     this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, 3f, false);
                 }
 
                 this.setDead();
-            }
-            else
-                super.fall(distance);
+            } else super.fall(distance);
         }
     }
 
     @Override
-    public void writeEntityToNBT (NBTTagCompound tagCompound)
-    {
+    public void writeEntityToNBT(NBTTagCompound tagCompound) {
         super.writeEntityToNBT(tagCompound);
         tagCompound.setShort("Fuse", (short) this.fuseTime);
     }
 
     @Override
-    public void readEntityFromNBT (NBTTagCompound tagCompound)
-    {
+    public void readEntityFromNBT(NBTTagCompound tagCompound) {
         super.readEntityFromNBT(tagCompound);
 
-        if (tagCompound.hasKey("Fuse"))
-        {
+        if (tagCompound.hasKey("Fuse")) {
             this.fuseTime = tagCompound.getShort("Fuse");
         }
     }
 
     @Override
-    public void onUpdate ()
-    {
-        if (this.isEntityAlive())
-        {
+    public void onUpdate() {
+        if (this.isEntityAlive()) {
             this.lastActiveTime = this.timeSinceIgnited;
             int i = this.getCreeperState();
 
-            if (i > 0 && this.timeSinceIgnited == 0)
-            {
+            if (i > 0 && this.timeSinceIgnited == 0) {
                 this.playSound("random.fuse", 1.0F, 0.5F);
             }
 
             this.timeSinceIgnited += i;
 
-            if (this.timeSinceIgnited < 0)
-            {
+            if (this.timeSinceIgnited < 0) {
                 this.timeSinceIgnited = 0;
             }
 
@@ -103,20 +86,15 @@ public class NitroCreeper extends EntityCreeper
             int lengthBoost = 4 * (3 - difficulty);
             int powered = this.getPowered() ? 12 : 0;
 
-            if (this.timeSinceIgnited >= this.fuseTime + difficulty + powered)
-            {
+            if (this.timeSinceIgnited >= this.fuseTime + difficulty + powered) {
                 this.timeSinceIgnited = this.fuseTime;
 
-                if (!this.worldObj.isRemote)
-                {
+                if (!this.worldObj.isRemote) {
                     boolean flag = this.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing");
 
-                    if (powered > 0)
-                    {
+                    if (powered > 0) {
                         this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, 20f, flag);
-                    }
-                    else
-                    {
+                    } else {
                         this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, 3f, flag);
                     }
 
@@ -129,44 +107,35 @@ public class NitroCreeper extends EntityCreeper
     }
 
     @Override
-    public float getCreeperFlashIntensity (float intensity)
-    {
+    public float getCreeperFlashIntensity(float intensity) {
         return (this.lastActiveTime + (this.timeSinceIgnited - this.lastActiveTime) * intensity) / (this.fuseTime - 2);
     }
 
     @Override
-    protected void dropFewItems (boolean hitByPlayer, int lootingLevel)
-    {
+    protected void dropFewItems(boolean hitByPlayer, int lootingLevel) {
         Item dropItem = this.getDropItem();
 
-        if (dropItem != null)
-        {
+        if (dropItem != null) {
             int dropCount = this.rand.nextInt(4) + 2;
 
-            if (lootingLevel > 0)
-            {
-            	dropCount += this.rand.nextInt(lootingLevel + 1);
+            if (lootingLevel > 0) {
+                dropCount += this.rand.nextInt(lootingLevel + 1);
             }
 
-            for (int l = 0; l < dropCount; ++l)
-            {
+            for (int l = 0; l < dropCount; ++l) {
                 this.dropItem(dropItem, 1);
             }
         }
 
-        if (this.getPowered())
-        {
-            if (dropItem != null)
-            {
+        if (this.getPowered()) {
+            if (dropItem != null) {
                 int dropCount = this.rand.nextInt(40) + 20;
 
-                if (lootingLevel > 0)
-                {
-                	dropCount += this.rand.nextInt(lootingLevel * 6 + 1);
+                if (lootingLevel > 0) {
+                    dropCount += this.rand.nextInt(lootingLevel * 6 + 1);
                 }
 
-                for (int l = 0; l < dropCount; ++l)
-                {
+                for (int l = 0; l < dropCount; ++l) {
                     this.dropItem(dropItem, 1);
                 }
             }
@@ -186,10 +155,9 @@ public class NitroCreeper extends EntityCreeper
         }
     }
 
-    public boolean attackEntityFrom (DamageSource source, int damage)
-    {
-        if (source instanceof EntityDamageSource && ((EntityDamageSource) source).getEntity() instanceof EntityIronGolem)
-        {
+    public boolean attackEntityFrom(DamageSource source, int damage) {
+        if (source instanceof EntityDamageSource
+                && ((EntityDamageSource) source).getEntity() instanceof EntityIronGolem) {
             damage = 1000;
         }
         return super.attackEntityFrom(source, damage);

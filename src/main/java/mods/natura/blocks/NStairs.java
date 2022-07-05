@@ -10,5 +10,4 @@ public class NStairs extends BlockStairs {
         this.setCreativeTab(NaturaTab.tab);
         this.setLightOpacity(0);
     }
-
 }

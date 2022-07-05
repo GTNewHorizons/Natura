@@ -1,7 +1,6 @@
 package mods.natura.worldgen;
 
 import java.util.Random;
-
 import mods.natura.common.NContent;
 import mods.natura.common.PHNatura;
 import net.minecraft.block.Block;
@@ -18,12 +17,13 @@ public class WillowGen extends WorldGenerator {
         seekHeight = !notify;
     }
 
-    int findGround (World world, int x, int y, int z) {
+    int findGround(World world, int x, int y, int z) {
         int ret = -1;
         int height = y;
         do {
             Block blockAtHeight = world.getBlock(x, height, z);
-            if ((blockAtHeight == Blocks.dirt || blockAtHeight == Blocks.grass || blockAtHeight == Blocks.sand) && !world.getBlock(x, height + 1, z).func_149730_j()) {
+            if ((blockAtHeight == Blocks.dirt || blockAtHeight == Blocks.grass || blockAtHeight == Blocks.sand)
+                    && !world.getBlock(x, height + 1, z).func_149730_j()) {
                 ret = height + 1;
                 break;
             }
@@ -32,11 +32,10 @@ public class WillowGen extends WorldGenerator {
         return ret;
     }
 
-    public boolean generate (World world, Random random, int x, int y, int z) {
+    public boolean generate(World world, Random random, int x, int y, int z) {
         if (seekHeight) {
             y = findGround(world, x, y, z);
-            if (y == -1)
-                return false;
+            if (y == -1) return false;
         }
         int l;
 
@@ -96,7 +95,8 @@ public class WillowGen extends WorldGenerator {
                                 int l2 = k2 - z;
                                 block = world.getBlock(l1, j2, k2);
 
-                                if ((Math.abs(i2) != k1 || Math.abs(l2) != k1 || random.nextInt(2) != 0 && j1 != 0) && block.canBeReplacedByLeaves(world, l1, j2, k2)) {
+                                if ((Math.abs(i2) != k1 || Math.abs(l2) != k1 || random.nextInt(2) != 0 && j1 != 0)
+                                        && block.canBeReplacedByLeaves(world, l1, j2, k2)) {
                                     this.setBlockAndNotifyAdequately(world, l1, j2, k2, NContent.floraLeavesNoColor, 3);
                                 }
                             }
@@ -106,7 +106,10 @@ public class WillowGen extends WorldGenerator {
                     for (j2 = 0; j2 < l; ++j2) {
                         block = world.getBlock(x, y + j2, z);
 
-                        if (block == Blocks.air || block.isLeaves(world, x, y + j2, z)  || block.canBeReplacedByLeaves(world, x, y + j2, z) || block == Blocks.water) {
+                        if (block == Blocks.air
+                                || block.isLeaves(world, x, y + j2, z)
+                                || block.canBeReplacedByLeaves(world, x, y + j2, z)
+                                || block == Blocks.water) {
                             this.setBlockAndNotifyAdequately(world, x, y + j2, z, NContent.willow, 0);
                         }
                     }
@@ -152,7 +155,7 @@ public class WillowGen extends WorldGenerator {
     /**
      * Generates vines at the given position until it hits a block.
      */
-    private void generateVines (World world, int x, int y, int z, int par5) {
+    private void generateVines(World world, int x, int y, int z, int par5) {
         this.setBlockAndNotifyAdequately(world, x, y, z, NContent.floraLeavesNoColor, par5);
         int i1 = 4;
 
@@ -166,5 +169,4 @@ public class WillowGen extends WorldGenerator {
             --i1;
         }
     }
-
 }

@@ -5,14 +5,12 @@ import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
 
 @Pulse(id = "Natura Forestry Compatibility", modsRequired = ForestryPulse.modId)
-public class ForestryPulse
-{
+public class ForestryPulse {
 
     public static final String modId = "Forestry";
 
     @Handler
-    public void init (FMLInitializationEvent evt)
-    {
+    public void init(FMLInitializationEvent evt) {
         /*
         //Forestry
         StringBuilder builder = new StringBuilder();
@@ -23,5 +21,4 @@ public class ForestryPulse
         FMLInterModComms.sendMessage("Forestry", "add-farmable-crop", string);
          */
     }
-
 }

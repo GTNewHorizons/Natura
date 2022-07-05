@@ -3,12 +3,10 @@ package mods.natura.items.blocks;
 import mantle.blocks.abstracts.MultiItemBlock;
 import net.minecraft.block.Block;
 
-public class GrassBlockItem extends MultiItemBlock
-{
-    public static final String blockType[] = { "grass", "bluegrass", "autumngrass" };
+public class GrassBlockItem extends MultiItemBlock {
+    public static final String blockType[] = {"grass", "bluegrass", "autumngrass"};
 
-    public GrassBlockItem(Block id)
-    {
+    public GrassBlockItem(Block id) {
         super(id, "block.soil", blockType);
         setMaxDamage(0);
         setHasSubtypes(true);

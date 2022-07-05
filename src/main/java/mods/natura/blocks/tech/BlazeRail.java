@@ -4,16 +4,13 @@ import net.minecraft.block.BlockRail;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.world.World;
 
-public class BlazeRail extends BlockRail
-{
-    public BlazeRail()
-    {
+public class BlazeRail extends BlockRail {
+    public BlazeRail() {
         super();
     }
 
     @Override
-    public float getRailMaxSpeed (World world, EntityMinecart cart, int y, int x, int z)
-    {
+    public float getRailMaxSpeed(World world, EntityMinecart cart, int y, int x, int z) {
         return 0.65f;
     }
 }

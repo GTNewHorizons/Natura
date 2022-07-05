@@ -4,19 +4,16 @@ import net.minecraft.block.BlockRailPowered;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.world.World;
 
-public class BlazeRailPowered extends BlockRailPowered
-{
+public class BlazeRailPowered extends BlockRailPowered {
     boolean activator;
 
-    public BlazeRailPowered(boolean activator)
-    {
+    public BlazeRailPowered(boolean activator) {
         super();
         this.activator = activator;
     }
 
     @Override
-    public float getRailMaxSpeed (World world, EntityMinecart cart, int y, int x, int z)
-    {
+    public float getRailMaxSpeed(World world, EntityMinecart cart, int y, int x, int z) {
         return 0.65f;
     }
 
@@ -30,50 +27,32 @@ public class BlazeRailPowered extends BlockRailPowered
      * @param z The rail Z coordinate.
      */
     @Override
-    public void onMinecartPass (World world, EntityMinecart cart, int x, int y, int z)
-    {
+    public void onMinecartPass(World world, EntityMinecart cart, int x, int y, int z) {
         int meta = world.getBlockMetadata(x, y, z);
-        if (meta >= 8)
-        {
-            if (activator)
-            {
+        if (meta >= 8) {
+            if (activator) {
 
-            }
-            else
-            {
-                //Start the cart rolling
-                if (meta == 8)
-                {
+            } else {
+                // Start the cart rolling
+                if (meta == 8) {
                     double speed = 0f;
-                    if (world.getBlock(x, y, z + 1).isNormalCube())
-                        speed += 0.2f;
-                    if (world.getBlock(x, y, z - 1).isNormalCube())
-                        speed -= 0.2f;
+                    if (world.getBlock(x, y, z + 1).isNormalCube()) speed += 0.2f;
+                    if (world.getBlock(x, y, z - 1).isNormalCube()) speed -= 0.2f;
                     cart.motionX += speed;
-                }
-                else if (meta == 9)
-                {
+                } else if (meta == 9) {
                     double speed = 0f;
-                    if (world.getBlock(x + 1, y, z).isNormalCube())
-                        speed -= 0.2f;
-                    if (world.getBlock(x - 1, y, z).isNormalCube())
-                        speed += 0.2f;
+                    if (world.getBlock(x + 1, y, z).isNormalCube()) speed -= 0.2f;
+                    if (world.getBlock(x - 1, y, z).isNormalCube()) speed += 0.2f;
                     cart.motionZ += speed;
                 }
 
-                //Then push it along
-                if (Math.abs(cart.motionX) < 0.2)
-                    cart.motionX *= 1.2;
-                else
-                    cart.motionX *= 1.05;
-                if (Math.abs(cart.motionZ) < 0.2)
-                    cart.motionZ *= 1.2;
-                else
-                    cart.motionZ *= 1.05;
+                // Then push it along
+                if (Math.abs(cart.motionX) < 0.2) cart.motionX *= 1.2;
+                else cart.motionX *= 1.05;
+                if (Math.abs(cart.motionZ) < 0.2) cart.motionZ *= 1.2;
+                else cart.motionZ *= 1.05;
             }
-        }
-        else if (!activator)
-        {
+        } else if (!activator) {
             cart.motionX *= 0.5;
             cart.motionZ *= 0.5;
         }

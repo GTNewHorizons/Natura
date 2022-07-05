@@ -1,7 +1,5 @@
 package mods.natura.client;
 
-import org.lwjgl.opengl.GL11;
-
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import mods.natura.client.entity.FlameSpiderBabyRender;
 import mods.natura.client.entity.FlameSpiderRender;
@@ -21,6 +19,7 @@ import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
 
 public class NProxyClient extends NProxyCommon {
     @Override
@@ -40,15 +39,19 @@ public class NProxyClient extends NProxyCommon {
 
         Minecraft mc = Minecraft.getMinecraft();
         try {
-            GrassColorizerAlternate.setBlueGrassBiomeColorizer(TextureUtil.readImageData(mc.getResourceManager(), bluegrass));
-            GrassColorizerAlternate.setOrangeGrassBiomeColorizer(TextureUtil.readImageData(mc.getResourceManager(), orangegrass));
+            GrassColorizerAlternate.setBlueGrassBiomeColorizer(
+                    TextureUtil.readImageData(mc.getResourceManager(), bluegrass));
+            GrassColorizerAlternate.setOrangeGrassBiomeColorizer(
+                    TextureUtil.readImageData(mc.getResourceManager(), orangegrass));
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private static final ResourceLocation bluegrass = new ResourceLocation("natura", "textures/misc/bluegrasscolor.png");
-    private static final ResourceLocation orangegrass = new ResourceLocation("natura", "textures/misc/orangegrasscolor.png");
+    private static final ResourceLocation bluegrass =
+            new ResourceLocation("natura", "textures/misc/bluegrasscolor.png");
+    private static final ResourceLocation orangegrass =
+            new ResourceLocation("natura", "textures/misc/orangegrasscolor.png");
 
     public static void renderStandardInvBlock(RenderBlocks renderblocks, Block block, int meta) {
         Tessellator tessellator = Tessellator.instance;
@@ -79,5 +82,4 @@ public class NProxyClient extends NProxyCommon {
         tessellator.draw();
         GL11.glTranslatef(0.5F, 0.5F, 0.5F);
     }
-
 }

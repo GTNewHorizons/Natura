@@ -17,7 +17,7 @@ import net.minecraft.world.World;
 
 public class CloudBlock extends NBlock {
     public CloudBlock() {
-        super(Natura.cloud, 0.3F, new String[] { "cloud_white", "cloud_gray", "cloud_dark", "cloud_sulfur" });
+        super(Natura.cloud, 0.3F, new String[] {"cloud_white", "cloud_gray", "cloud_dark", "cloud_sulfur"});
         this.setStepSound(soundTypeCloth);
         this.setBlockName("cloud");
         this.setCreativeTab(NaturaTab.tab);
@@ -30,7 +30,15 @@ public class CloudBlock extends NBlock {
             EntityArrow entityarrow = (EntityArrow) entity;
 
             if (entityarrow.isBurning()) {
-                this.explode(world, x, y, z, 1, entityarrow.shootingEntity instanceof EntityLiving ? (EntityLiving) entityarrow.shootingEntity : null);
+                this.explode(
+                        world,
+                        x,
+                        y,
+                        z,
+                        1,
+                        entityarrow.shootingEntity instanceof EntityLiving
+                                ? (EntityLiving) entityarrow.shootingEntity
+                                : null);
                 world.setBlockToAir(x, y, z);
                 return;
             }
@@ -43,9 +51,12 @@ public class CloudBlock extends NBlock {
     }
 
     @Override
-    public boolean onBlockActivated (World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
+    public boolean onBlockActivated(
+            World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
         int meta = world.getBlockMetadata(x, y, z);
-        if (meta == 3 && player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == Items.flint_and_steel) {
+        if (meta == 3
+                && player.getCurrentEquippedItem() != null
+                && player.getCurrentEquippedItem().getItem() == Items.flint_and_steel) {
             world.setBlockToAir(x, y, z);
             this.explode(world, x, y, z, 1, player);
             return true;
@@ -119,5 +130,4 @@ public class CloudBlock extends NBlock {
             return AxisAlignedBB.getBoundingBox(x, y, z, x + 1.0D, y + 0.0625D, z + 1.0D);
         }
     }
-
 }

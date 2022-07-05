@@ -1,7 +1,6 @@
 package mods.natura.blocks.crops;
 
 import java.util.Random;
-
 import mods.natura.common.NContent;
 import mods.natura.common.NaturaTab;
 import net.minecraft.block.Block;
@@ -26,7 +25,7 @@ public class HerbBlock extends CropBlock {
     }
 
     @Override
-    public void updateTick (World world, int x, int y, int z, Random random) {
+    public void updateTick(World world, int x, int y, int z, Random random) {
         this.checkAndDropBlock(world, x, y, z);
 
         int light = world.getBlockLightValue(x, y, z);
@@ -45,8 +44,7 @@ public class HerbBlock extends CropBlock {
     }
 
     /* Apply bonemeal to the crops. */
-    public void fertilize(World world, int x, int y, int z) {
-    }
+    public void fertilize(World world, int x, int y, int z) {}
 
     @Override
     boolean requiresSun(int meta) {
@@ -90,5 +88,4 @@ public class HerbBlock extends CropBlock {
         Block soil = par1World.getBlock(x, y - 1, z);
         return soil != null && soil.getMaterial() == Material.rock;
     }
-
 }

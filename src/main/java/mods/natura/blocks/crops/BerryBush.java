@@ -1,10 +1,9 @@
 package mods.natura.blocks.crops;
 
-import java.util.List;
-import java.util.Random;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.List;
+import java.util.Random;
 import mods.natura.client.BerryRender;
 import mods.natura.common.NContent;
 import mods.natura.common.NaturaTab;
@@ -31,7 +30,16 @@ public class BerryBush extends BlockLeavesBase implements IPlantable {
     Random random;
     public IIcon[] fastIcons;
     public IIcon[] fancyIcons;
-    public static String[] textureNames = new String[] { "raspberry", "blueberry", "blackberry", "geoberry", "raspberry_ripe", "blueberry_ripe", "blackberry_ripe", "geoberry_ripe" };
+    public static String[] textureNames = new String[] {
+        "raspberry",
+        "blueberry",
+        "blackberry",
+        "geoberry",
+        "raspberry_ripe",
+        "blueberry_ripe",
+        "blackberry_ripe",
+        "geoberry_ripe"
+    };
 
     public BerryBush() {
         super(Material.leaves, false);
@@ -60,12 +68,12 @@ public class BerryBush extends BlockLeavesBase implements IPlantable {
     @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(int side, int metadata) {
-    	return (Blocks.leaves.isOpaqueCube() ? fastIcons : fancyIcons)[metadata % 4 + (metadata < 12 ? 0 : 4)];
+        return (Blocks.leaves.isOpaqueCube() ? fastIcons : fancyIcons)[metadata % 4 + (metadata < 12 ? 0 : 4)];
     }
 
     /* Bushes are stored by size then type */
     @Override
-    public int damageDropped (int metadata) {
+    public int damageDropped(int metadata) {
         return metadata % 4;
     }
 
@@ -128,30 +136,38 @@ public class BerryBush extends BlockLeavesBase implements IPlantable {
             int meta = world.getBlockMetadata(x, y, z);
             if (meta >= 12) {
                 world.setBlock(x, y, z, this, meta - 4, 3);
-                EntityItem entityitem = new EntityItem(world, player.posX, player.posY - 1.0D, player.posZ, new ItemStack(NContent.berryItem, 1, meta - 12));
+                EntityItem entityitem = new EntityItem(
+                        world,
+                        player.posX,
+                        player.posY - 1.0D,
+                        player.posZ,
+                        new ItemStack(NContent.berryItem, 1, meta - 12));
                 world.spawnEntityInWorld(entityitem);
-                if (!(player instanceof FakePlayer))
-                    entityitem.onCollideWithPlayer(player);
+                if (!(player instanceof FakePlayer)) entityitem.onCollideWithPlayer(player);
             }
         }
     }
 
     /* Right-click harvests berries */
     @Override
-    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
+    public boolean onBlockActivated(
+            World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
         /*if (world.isRemote)
-        	return false;*/
+        return false;*/
 
         int meta = world.getBlockMetadata(x, y, z);
-        if (meta >= 12)  {
-            if (world.isRemote)
-                return true;
+        if (meta >= 12) {
+            if (world.isRemote) return true;
 
             world.setBlock(x, y, z, this, meta - 4, 3);
-            EntityItem entityitem = new EntityItem(world, player.posX, player.posY - 1.0D, player.posZ, new ItemStack(NContent.berryItem, 1, meta - 12));
+            EntityItem entityitem = new EntityItem(
+                    world,
+                    player.posX,
+                    player.posY - 1.0D,
+                    player.posZ,
+                    new ItemStack(NContent.berryItem, 1, meta - 12));
             world.spawnEntityInWorld(entityitem);
-            if (!(player instanceof FakePlayer))
-                entityitem.onCollideWithPlayer(player);
+            if (!(player instanceof FakePlayer)) entityitem.onCollideWithPlayer(player);
             return true;
         }
         return false;
@@ -177,31 +193,32 @@ public class BerryBush extends BlockLeavesBase implements IPlantable {
     @Override
     public boolean shouldSideBeRendered(IBlockAccess blockAccess, int x, int y, int z, int side) {
         Block block = blockAccess.getBlock(x, y, z);
-        //If the block touching the side is same type of bush and not fully grown then render side.
+        // If the block touching the side is same type of bush and not fully grown then render side.
         if (block == this & blockAccess.getBlockMetadata(x, y, z) < 8) {
             return true;
-        //If this block is fully grown and is touching a bush (fast mode) or solid block then don't render (Would be way less complex if metadata was passed in)
+            // If this block is fully grown and is touching a bush (fast mode) or solid block then don't render (Would
+            // be way less complex if metadata was passed in)
         } else if ((Blocks.leaves.isOpaqueCube() & block == this) | block.isOpaqueCube()) {
-            switch(side) {
-            case 0://-y
-                return false;
-            case 1://+y
-                if (blockAccess.getBlockMetadata(x, y - 1, z) > 7) return false;
-                break;
-            case 2://-z
-                if (blockAccess.getBlockMetadata(x, y, z + 1) > 7) return false;
-                break;
-            case 3://+z
-                if (blockAccess.getBlockMetadata(x, y, z - 1) > 7) return false;
-                break;
-            case 4://-x
-                if (blockAccess.getBlockMetadata(x + 1, y, z) > 7) return false;
-                break;
-            case 5://+x
-                if (blockAccess.getBlockMetadata(x - 1, y, z) > 7) return false;
+            switch (side) {
+                case 0: // -y
+                    return false;
+                case 1: // +y
+                    if (blockAccess.getBlockMetadata(x, y - 1, z) > 7) return false;
+                    break;
+                case 2: // -z
+                    if (blockAccess.getBlockMetadata(x, y, z + 1) > 7) return false;
+                    break;
+                case 3: // +z
+                    if (blockAccess.getBlockMetadata(x, y, z - 1) > 7) return false;
+                    break;
+                case 4: // -x
+                    if (blockAccess.getBlockMetadata(x + 1, y, z) > 7) return false;
+                    break;
+                case 5: // +x
+                    if (blockAccess.getBlockMetadata(x - 1, y, z) > 7) return false;
             }
         }
-        //If none of the above then render side.
+        // If none of the above then render side.
         return true;
     }
 
@@ -214,8 +231,7 @@ public class BerryBush extends BlockLeavesBase implements IPlantable {
 
         int height;
 
-        for (height = 1; world.getBlock(x, y - height, z) == this; ++height) {
-        }
+        for (height = 1; world.getBlock(x, y - height, z) == this; ++height) {}
 
         if (random1.nextInt(20) == 0 && world.getBlockLightValue(x, y, z) >= 8) {
             int md = world.getBlockMetadata(x, y, z);
@@ -229,8 +245,7 @@ public class BerryBush extends BlockLeavesBase implements IPlantable {
     }
 
     public boolean canSustainPlant(World world, int x, int y, int z, ForgeDirection direction, IPlantable plant) {
-        if (plant instanceof BerryBush)
-            return (world.getBlockMetadata(x, y, z) > 7);
+        if (plant instanceof BerryBush) return (world.getBlockMetadata(x, y, z) > 7);
         return super.canSustainPlant(world, x, y, z, direction, plant);
     }
 
@@ -279,21 +294,18 @@ public class BerryBush extends BlockLeavesBase implements IPlantable {
 
         if (meta / 4 < 2) {
             int setMeta = random.nextInt(2) + 1 + meta / 4;
-            if (setMeta > 2)
-                setMeta = 2;
+            if (setMeta > 2) setMeta = 2;
             world.setBlockMetadataWithNotify(x, y, z, meta % 4 + setMeta * 4, 4);
             return true;
         }
 
         Block block = world.getBlock(x, y + 1, z);
         if (block == null || world.isAirBlock(x, y + 1, z)) {
-            if (random.nextInt(3) == 0)
-                world.setBlock(x, y + 1, z, this, meta % 4, 3);
+            if (random.nextInt(3) == 0) world.setBlock(x, y + 1, z, this, meta % 4, 3);
 
             return true;
         }
 
         return false;
     }
-
 }

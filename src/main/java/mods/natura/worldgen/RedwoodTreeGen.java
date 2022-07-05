@@ -1,7 +1,6 @@
 package mods.natura.worldgen;
 
 import java.util.Random;
-
 import mods.natura.common.NContent;
 import mods.natura.common.PHNatura;
 import net.minecraft.block.Block;
@@ -60,10 +59,10 @@ public class RedwoodTreeGen extends WorldGenerator {
     	return true;
     }*/
 
-    static final byte otherCoordPairs[] = { 2, 0, 0, 1, 2, 1 };
+    static final byte otherCoordPairs[] = {2, 0, 0, 1, 2, 1};
     Random rand;
     World worldObj;
-    int basePos[] = { 0, 0, 0 };
+    int basePos[] = {0, 0, 0};
     int heightLimit;
     int height;
     double heightAttenuation;
@@ -101,13 +100,12 @@ public class RedwoodTreeGen extends WorldGenerator {
         do {
             height--;
             Block underID = world.getBlock(x, height, z);
-            if (underID == Blocks.dirt || underID == Blocks.grass || height < PHNatura.seaLevel)
-                foundGround = true;
+            if (underID == Blocks.dirt || underID == Blocks.grass || height < PHNatura.seaLevel) foundGround = true;
         } while (!foundGround);
         return height;
     }
 
-    public boolean isValidSpawn (World world, int x, int y, int z) {
+    public boolean isValidSpawn(World world, int x, int y, int z) {
         Block bID = world.getBlock(x, y, z);
         boolean ground = bID == Blocks.dirt || bID == Blocks.grass;
         boolean transparent = !world.getBlock(x, y + 1, z).func_149730_j();
@@ -119,8 +117,7 @@ public class RedwoodTreeGen extends WorldGenerator {
         int groundPoint = yPos;
         if (!useHeight) {
             groundPoint = findGround(world, x, yPos, z);
-            if (!isValidSpawn(world, x, groundPoint, z))
-                return false;
+            if (!isValidSpawn(world, x, groundPoint, z)) return false;
         }
 
         int treeHeight = random.nextInt(60) + 80;
@@ -136,11 +133,11 @@ public class RedwoodTreeGen extends WorldGenerator {
             for (int currentHeight = 0; currentHeight < treeHeight; currentHeight++) {
                 if (currentHeight < treeHeight * 1 / 10) {
                     genRing13(world, random, x, currentHeight + groundPoint, z);
-            	} else if (currentHeight < treeHeight * 2 / 10) {
+                } else if (currentHeight < treeHeight * 2 / 10) {
                     genRing12(world, random, x, currentHeight + groundPoint, z);
                 } else if (currentHeight < treeHeight * 3 / 10) {
                     genRing11(world, random, x, currentHeight + groundPoint, z);
-            	} else if (currentHeight < treeHeight * 4 / 10) {
+                } else if (currentHeight < treeHeight * 4 / 10) {
                     genRing10(world, random, x, currentHeight + groundPoint, z);
                 } else if (currentHeight < treeHeight * 5 / 10) {
                     genRing9(world, random, x, currentHeight + groundPoint, z);
@@ -616,7 +613,7 @@ public class RedwoodTreeGen extends WorldGenerator {
     }
 
     public boolean mediumRoot2(World world, Random random, int x, int y, int z) {
-    	if (world.getBlock(x, y, z) != Blocks.bedrock && y > 0) {
+        if (world.getBlock(x, y, z) != Blocks.bedrock && y > 0) {
             setBlockAndNotifyAdequately(world, x - 4, y, z - 1, genWoodID, genWoodMetadata + 2);
             setBlockAndNotifyAdequately(world, x - 4, y, z + 1, genWoodID, genWoodMetadata + 2);
             setBlockAndNotifyAdequately(world, x - 3, y, z - 2, genWoodID, genWoodMetadata + 2);
@@ -687,7 +684,7 @@ public class RedwoodTreeGen extends WorldGenerator {
         return true;
     }
 
-    public boolean mediumRoot4 (World world, Random random, int x, int y, int z) {
+    public boolean mediumRoot4(World world, Random random, int x, int y, int z) {
         if (world.getBlock(x, y, z) != Blocks.bedrock && y > 0) {
             setBlockAndNotifyAdequately(world, x - 2, y, z - 2, genWoodID, genWoodMetadata + 2);
             setBlockAndNotifyAdequately(world, x - 2, y, z + 2, genWoodID, genWoodMetadata + 2);
@@ -701,7 +698,7 @@ public class RedwoodTreeGen extends WorldGenerator {
         return true;
     }
 
-    public boolean mediumRoot5 (World world, Random random, int x, int y, int z) {
+    public boolean mediumRoot5(World world, Random random, int x, int y, int z) {
         if (world.getBlock(x, y, z) != Blocks.bedrock && y > 0) {
             setBlockAndNotifyAdequately(world, x - 1, y, z - 3, genWoodID, genWoodMetadata + 2);
             setBlockAndNotifyAdequately(world, x - 1, y, z + 3, genWoodID, genWoodMetadata + 2);
@@ -711,7 +708,7 @@ public class RedwoodTreeGen extends WorldGenerator {
         return true;
     }
 
-    public boolean bigRoot1 (World world, Random random, int x, int y, int z) {
+    public boolean bigRoot1(World world, Random random, int x, int y, int z) {
         if (world.getBlock(x, y, z) != Blocks.bedrock && y > 0) {
             setBlockAndNotifyAdequately(world, x - 6, y, z - 2, genWoodID, genWoodMetadata + 2);
             setBlockAndNotifyAdequately(world, x - 6, y, z - 1, genWoodID, genWoodMetadata + 2);
@@ -829,7 +826,7 @@ public class RedwoodTreeGen extends WorldGenerator {
         return true;
     }
 
-    public boolean bigRoot2 (World world, Random random, int x, int y, int z) {
+    public boolean bigRoot2(World world, Random random, int x, int y, int z) {
         if (world.getBlock(x, y, z) != Blocks.bedrock && y > 0) {
             setBlockAndNotifyAdequately(world, x - 5, y, z - 4, genWoodID, genWoodMetadata + 2);
             setBlockAndNotifyAdequately(world, x - 5, y, z - 3, genWoodID, genWoodMetadata + 2);
@@ -939,7 +936,7 @@ public class RedwoodTreeGen extends WorldGenerator {
         return true;
     }
 
-    public boolean bigRoot3 (World world, Random random, int x, int y, int z) {
+    public boolean bigRoot3(World world, Random random, int x, int y, int z) {
         if (world.getBlock(x, y, z) != Blocks.bedrock && y > 0) {
             setBlockAndNotifyAdequately(world, x - 4, y, z - 3, genWoodID, genWoodMetadata + 2);
             setBlockAndNotifyAdequately(world, x - 4, y, z - 2, genWoodID, genWoodMetadata + 2);
@@ -993,7 +990,7 @@ public class RedwoodTreeGen extends WorldGenerator {
         return true;
     }
 
-    public boolean bigRoot4 (World world, Random random, int x, int y, int z) {
+    public boolean bigRoot4(World world, Random random, int x, int y, int z) {
         if (world.getBlock(x, y, z) != Blocks.bedrock && y > 0) {
             setBlockAndNotifyAdequately(world, x - 4, y, z - 3, genWoodID, genWoodMetadata + 2);
             setBlockAndNotifyAdequately(world, x - 4, y, z + 3, genWoodID, genWoodMetadata + 2);
@@ -1027,7 +1024,7 @@ public class RedwoodTreeGen extends WorldGenerator {
         return true;
     }
 
-    public boolean bigRoot5 (World world, Random random, int x, int y, int z) {
+    public boolean bigRoot5(World world, Random random, int x, int y, int z) {
         if (world.getBlock(x, y, z) != Blocks.bedrock && y > 0) {
             setBlockAndNotifyAdequately(world, x - 3, y, z - 3, genWoodID, genWoodMetadata + 2);
             setBlockAndNotifyAdequately(world, x - 3, y, z + 3, genWoodID, genWoodMetadata + 2);
@@ -1049,7 +1046,7 @@ public class RedwoodTreeGen extends WorldGenerator {
         return true;
     }
 
-    public boolean bigRoot6 (World world, Random random, int x, int y, int z) {
+    public boolean bigRoot6(World world, Random random, int x, int y, int z) {
         if (world.getBlock(x, y, z) != Blocks.bedrock && y > 0) {
             setBlockAndNotifyAdequately(world, x - 2, y, z - 4, genWoodID, genWoodMetadata + 2);
             setBlockAndNotifyAdequately(world, x - 2, y, z - 3, genWoodID, genWoodMetadata + 2);
@@ -1063,7 +1060,7 @@ public class RedwoodTreeGen extends WorldGenerator {
         return true;
     }
 
-    public boolean genRing13 (World world, Random random, int x, int y, int z) {
+    public boolean genRing13(World world, Random random, int x, int y, int z) {
         if (world.getBlock(x, y, z) != Blocks.bedrock && y > 0) {
             setBlockAndNotifyAdequately(world, x - 6, y, z - 2, genWoodID, genWoodMetadata);
             setBlockAndNotifyAdequately(world, x - 6, y, z - 1, genWoodID, genWoodMetadata);
@@ -1206,7 +1203,7 @@ public class RedwoodTreeGen extends WorldGenerator {
         return true;
     }
 
-    public boolean genRing12 (World world, Random random, int x, int y, int z) {
+    public boolean genRing12(World world, Random random, int x, int y, int z) {
         if (world.getBlock(x, y, z) != Blocks.bedrock && y > 0) {
             setBlockAndNotifyAdequately(world, x - 6, y, z - 1, genWoodID, genWoodMetadata);
             setBlockAndNotifyAdequately(world, x - 6, y, z, genWoodID, genWoodMetadata);
@@ -1337,7 +1334,7 @@ public class RedwoodTreeGen extends WorldGenerator {
         return true;
     }
 
-    public boolean genRing11 (World world, Random random, int x, int y, int z) {
+    public boolean genRing11(World world, Random random, int x, int y, int z) {
         if (world.getBlock(x, y, z) != Blocks.bedrock && y > 0) {
             setBlockAndNotifyAdequately(world, x - 5, y, z - 1, genWoodID, genWoodMetadata);
             setBlockAndNotifyAdequately(world, x - 5, y, z, genWoodID, genWoodMetadata);
@@ -1432,7 +1429,7 @@ public class RedwoodTreeGen extends WorldGenerator {
         return true;
     }
 
-    public boolean genRing10 (World world, Random random, int x, int y, int z) {
+    public boolean genRing10(World world, Random random, int x, int y, int z) {
         if (world.getBlock(x, y, z) != Blocks.bedrock && y > 0) {
             setBlockAndNotifyAdequately(world, x - 4, y, z - 2, genWoodID, genWoodMetadata);
             setBlockAndNotifyAdequately(world, x - 4, y, z - 1, genWoodID, genWoodMetadata);
@@ -1507,7 +1504,7 @@ public class RedwoodTreeGen extends WorldGenerator {
         return true;
     }
 
-    public boolean genRing9 (World world, Random random, int x, int y, int z) {
+    public boolean genRing9(World world, Random random, int x, int y, int z) {
         if (world.getBlock(x, y, z) != Blocks.bedrock && y > 0) {
             setBlockAndNotifyAdequately(world, x - 4, y, z - 1, genWoodID, genWoodMetadata);
             setBlockAndNotifyAdequately(world, x - 4, y, z, genWoodID, genWoodMetadata);
@@ -1574,7 +1571,7 @@ public class RedwoodTreeGen extends WorldGenerator {
         return true;
     }
 
-    public boolean genRing8 (World world, Random random, int x, int y, int z) {
+    public boolean genRing8(World world, Random random, int x, int y, int z) {
         if (world.getBlock(x, y, z) != Blocks.bedrock && y > 0) {
             setBlockAndNotifyAdequately(world, x - 3, y, z - 2, genWoodID, genWoodMetadata);
             setBlockAndNotifyAdequately(world, x - 3, y, z - 1, genWoodID, genWoodMetadata);
@@ -1625,7 +1622,7 @@ public class RedwoodTreeGen extends WorldGenerator {
         return true;
     }
 
-    public boolean genRing7 (World world, Random random, int x, int y, int z) {
+    public boolean genRing7(World world, Random random, int x, int y, int z) {
         if (world.getBlock(x, y, z) != Blocks.bedrock && y > 0) {
             setBlockAndNotifyAdequately(world, x - 3, y, z - 1, genWoodID, genWoodMetadata);
             setBlockAndNotifyAdequately(world, x - 3, y, z, genWoodID, genWoodMetadata);
@@ -1668,7 +1665,7 @@ public class RedwoodTreeGen extends WorldGenerator {
         return true;
     }
 
-    public boolean genRing6 (World world, Random random, int x, int y, int z) {
+    public boolean genRing6(World world, Random random, int x, int y, int z) {
         if (world.getBlock(x, y, z) != Blocks.bedrock && y > 0) {
             setBlockAndNotifyAdequately(world, x - 2, y, z - 2, genWoodID, genWoodMetadata);
             setBlockAndNotifyAdequately(world, x - 2, y, z - 1, genWoodID, genWoodMetadata);
@@ -1699,7 +1696,7 @@ public class RedwoodTreeGen extends WorldGenerator {
         return true;
     }
 
-    public boolean genRing5 (World world, Random random, int x, int y, int z) {
+    public boolean genRing5(World world, Random random, int x, int y, int z) {
         if (world.getBlock(x, y, z) != Blocks.bedrock && y > 0) {
             setBlockAndNotifyAdequately(world, x - 2, y, z - 1, genWoodID, genWoodMetadata);
             setBlockAndNotifyAdequately(world, x - 2, y, z, genWoodID, genWoodMetadata);
@@ -1726,7 +1723,7 @@ public class RedwoodTreeGen extends WorldGenerator {
         return true;
     }
 
-    public boolean genRing4 (World world, Random random, int x, int y, int z) {
+    public boolean genRing4(World world, Random random, int x, int y, int z) {
         if (world.getBlock(x, y, z) != Blocks.bedrock && y > 0) {
             setBlockAndNotifyAdequately(world, x - 2, y, z - 1, genWoodID, genWoodMetadata);
             setBlockAndNotifyAdequately(world, x - 2, y, z, genWoodID, genWoodMetadata);
@@ -1744,7 +1741,7 @@ public class RedwoodTreeGen extends WorldGenerator {
         return true;
     }
 
-    public boolean genRing3s (World world, Random random, int x, int y, int z) {
+    public boolean genRing3s(World world, Random random, int x, int y, int z) {
         if (world.getBlock(x, y, z) != Blocks.bedrock && y > 0) {
             setBlockAndNotifyAdequately(world, x - 1, y, z - 1, genWoodID, genWoodMetadata);
             setBlockAndNotifyAdequately(world, x - 1, y, z, genWoodID, genWoodMetadata);
@@ -1822,13 +1819,14 @@ public class RedwoodTreeGen extends WorldGenerator {
                     double d2 = (double) rand.nextFloat() * 2D * 3.1415899999999999D;
                     int k1 = MathHelper.floor_double(d1 * Math.sin(d2) + (double) basePos[0] + d);
                     int l1 = MathHelper.floor_double(d1 * Math.cos(d2) + (double) basePos[2] + d);
-                    int ai1[] = { k1, j, l1 };
-                    int ai2[] = { k1, j + leafDistanceLimit, l1 };
+                    int ai1[] = {k1, j, l1};
+                    int ai2[] = {k1, j + leafDistanceLimit, l1};
                     if (checkBlockLine(ai1, ai2) != -1) {
                         continue;
                     }
-                    int ai3[] = { basePos[0], basePos[1], basePos[2] };
-                    double d3 = Math.sqrt(Math.pow(Math.abs(basePos[0] - ai1[0]), 2D) + Math.pow(Math.abs(basePos[2] - ai1[2]), 2D));
+                    int ai3[] = {basePos[0], basePos[1], basePos[2]};
+                    double d3 = Math.sqrt(
+                            Math.pow(Math.abs(basePos[0] - ai1[0]), 2D) + Math.pow(Math.abs(basePos[2] - ai1[2]), 2D));
                     double d4 = d3 * field_874_i;
                     if ((double) ai1[1] - d4 > (double) l) {
                         ai3[1] = l;
@@ -1852,26 +1850,26 @@ public class RedwoodTreeGen extends WorldGenerator {
         System.arraycopy(ai, 0, leafNodes, 0, k);
     }
 
-    void func_523_a (int i, int j, int k, float f, byte byte0, Block l) {
+    void func_523_a(int i, int j, int k, float f, byte byte0, Block l) {
         int i1 = (int) ((double) f + 0.61799999999999999D);
         byte byte1 = otherCoordPairs[byte0];
         byte byte2 = otherCoordPairs[byte0 + 3];
-        int ai[] = { i, j, k };
-        int ai1[] = { 0, 0, 0 };
+        int ai[] = {i, j, k};
+        int ai1[] = {0, 0, 0};
         int j1 = -i1;
         int k1 = -i1;
         ai1[byte0] = ai[byte0];
         for (; j1 <= i1; j1++) {
             ai1[byte1] = ai[byte1] + j1;
-            for (int l1 = -i1; l1 <= i1;) {
-                double d = Math.sqrt(Math.pow((double) Math.abs(j1) + 0.5D, 2D) + Math.pow((double) Math.abs(l1) + 0.5D, 2D));
+            for (int l1 = -i1; l1 <= i1; ) {
+                double d = Math.sqrt(
+                        Math.pow((double) Math.abs(j1) + 0.5D, 2D) + Math.pow((double) Math.abs(l1) + 0.5D, 2D));
                 if (d > (double) f) {
                     l1++;
                 } else {
                     ai1[byte2] = ai[byte2] + l1;
                     Block i2 = worldObj.getBlock(ai1[0], ai1[1], ai1[2]);
-                    if (i2 != Blocks.air && i2 != Blocks.leaves)
-                    {
+                    if (i2 != Blocks.air && i2 != Blocks.leaves) {
                         l1++;
                     } else {
                         setBlockAndNotifyAdequately(worldObj, ai1[0], ai1[1], ai1[2], l, 0);
@@ -1882,7 +1880,7 @@ public class RedwoodTreeGen extends WorldGenerator {
         }
     }
 
-    float func_528_a (int i) {
+    float func_528_a(int i) {
         if ((double) i < (double) (float) heightLimit * 0.29999999999999999D) {
             return -1.618F;
         }
@@ -1900,7 +1898,7 @@ public class RedwoodTreeGen extends WorldGenerator {
         return f2;
     }
 
-    float func_526_b (int i) {
+    float func_526_b(int i) {
         if (i < 0 || i >= leafDistanceLimit) {
             return -1F;
         } else {
@@ -1916,8 +1914,8 @@ public class RedwoodTreeGen extends WorldGenerator {
         }
     }
 
-    void placeBlockLine (int ai[], int ai1[], Block i) {
-        int ai2[] = { 0, 0, 0 };
+    void placeBlockLine(int ai[], int ai1[], Block i) {
+        int ai2[] = {0, 0, 0};
         byte byte0 = 0;
         int j = 0;
         for (; byte0 < 3; byte0++) {
@@ -1940,7 +1938,7 @@ public class RedwoodTreeGen extends WorldGenerator {
         }
         double d = (double) ai2[byte1] / (double) ai2[j];
         double d1 = (double) ai2[byte2] / (double) ai2[j];
-        int ai3[] = { 0, 0, 0 };
+        int ai3[] = {0, 0, 0};
         int k = 0;
         for (int l = ai2[j] + byte3; k != l; k += byte3) {
             ai3[j] = MathHelper.floor_double((double) (ai[j] + k) + 0.5D);
@@ -1966,10 +1964,10 @@ public class RedwoodTreeGen extends WorldGenerator {
     void generateLeafNodeBases() {
         int i = 0;
         int j = leafNodes.length;
-        int ai[] = { basePos[0], basePos[1], basePos[2] };
+        int ai[] = {basePos[0], basePos[1], basePos[2]};
         for (; i < j; i++) {
             int ai1[] = leafNodes[i];
-            int ai2[] = { ai1[0], ai1[1], ai1[2] };
+            int ai2[] = {ai1[0], ai1[1], ai1[2]};
             ai[1] = ai1[3];
             int k = ai[1] - basePos[1];
             if (leafNodeNeedsBase(k)) {
@@ -1978,8 +1976,8 @@ public class RedwoodTreeGen extends WorldGenerator {
         }
     }
 
-    int checkBlockLine (int ai[], int ai1[]) {
-        int ai2[] = { 0, 0, 0 };
+    int checkBlockLine(int ai[], int ai1[]) {
+        int ai2[] = {0, 0, 0};
         byte byte0 = 0;
         int i = 0;
         for (; byte0 < 3; byte0++) {
@@ -2002,10 +2000,10 @@ public class RedwoodTreeGen extends WorldGenerator {
         }
         double d = (double) ai2[byte1] / (double) ai2[i];
         double d1 = (double) ai2[byte2] / (double) ai2[i];
-        int ai3[] = { 0, 0, 0 };
+        int ai3[] = {0, 0, 0};
         int j = 0;
         int k = ai2[i] + byte3;
-        do  {
+        do {
             if (j == k) {
                 break;
             }
@@ -2024,34 +2022,34 @@ public class RedwoodTreeGen extends WorldGenerator {
             return Math.abs(j);
         }
     }
-/* Unused? - jss2a98aj
-    boolean validTreeLocation() {
-        int ai[] = { basePos[0], basePos[1], basePos[2] };
-        int ai1[] = { basePos[0], (basePos[1] + heightLimit) - 1, basePos[2] };
-        Block i = worldObj.getBlock(basePos[0], basePos[1] - 1, basePos[2]);
-        if (i != Blocks.dirt && i != Blocks.glass) {
-            return false;
+    /* Unused? - jss2a98aj
+        boolean validTreeLocation() {
+            int ai[] = { basePos[0], basePos[1], basePos[2] };
+            int ai1[] = { basePos[0], (basePos[1] + heightLimit) - 1, basePos[2] };
+            Block i = worldObj.getBlock(basePos[0], basePos[1] - 1, basePos[2]);
+            if (i != Blocks.dirt && i != Blocks.glass) {
+                return false;
+            }
+            int j = checkBlockLine(ai, ai1);
+            if (j == -1) {
+                return true;
+            }
+            if (j < 6) {
+                return false;
+            } else {
+                heightLimit = j;
+                return true;
+            }
         }
-        int j = checkBlockLine(ai, ai1);
-        if (j == -1) {
-            return true;
-        }
-        if (j < 6) {
-            return false;
-        } else {
-            heightLimit = j;
-            return true;
-        }
-    }
 
-    public void func_517_a (double d, double d1, double d2) {
-        heightLimitLimit = (int) (d * 12D);
-        if (d > 0.5D)
-        {
-            leafDistanceLimit = 5;
+        public void func_517_a (double d, double d1, double d2) {
+            heightLimitLimit = (int) (d * 12D);
+            if (d > 0.5D)
+            {
+                leafDistanceLimit = 5;
+            }
+            field_873_j = d1;
+            field_872_k = d2;
         }
-        field_873_j = d1;
-        field_872_k = d2;
-    }
-*/
+    */
 }

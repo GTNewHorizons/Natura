@@ -1,7 +1,6 @@
 package mods.natura.plugins.waila;
 
 import java.util.List;
-
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.api.IWailaDataProvider;
@@ -18,36 +17,39 @@ public class NaturaCropDataProvider implements IWailaDataProvider {
 
     @Override
     public ItemStack getWailaStack(IWailaDataAccessor accessor, IWailaConfigHandler config) {
-        Block block = accessor.getBlock(); 
+        Block block = accessor.getBlock();
         if (accessor.getBlock() instanceof CropBlock) {
             int meta = accessor.getMetadata();
             CropBlock cropBlock = (CropBlock) block;
-            
+
             return new ItemStack(cropBlock.getCropItem(meta), 1, cropBlock.damageDropped(meta));
         }
         return null;
     }
 
     @Override
-    public List<String> getWailaHead(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
+    public List<String> getWailaHead(
+            ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
         return currenttip;
     }
 
     @Override
-    public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
+    public List<String> getWailaBody(
+            ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
         if (config.getConfig("general.showcrop")) {
             Block block = accessor.getBlock();
 
             if (block instanceof CropBlock) {
                 int meta = accessor.getMetadata();
-                float startGrowth = ((CropBlock)block).getStartGrowth(meta);
-                float maxGrowth = ((CropBlock)block).getMaxGrowth(meta) - startGrowth;
+                float startGrowth = ((CropBlock) block).getStartGrowth(meta);
+                float maxGrowth = ((CropBlock) block).getMaxGrowth(meta) - startGrowth;
                 float growthValue;
 
                 growthValue = ((meta - startGrowth) / maxGrowth) * 100.0F;
 
                 if (growthValue < 100.0) {
-                    currenttip.add(StatCollector.translateToLocalFormatted("tooltip.waila.growth.percentage", growthValue));
+                    currenttip.add(
+                            StatCollector.translateToLocalFormatted("tooltip.waila.growth.percentage", growthValue));
                 } else {
                     currenttip.add(StatCollector.translateToLocal("tooltip.waila.growth.mature"));
                 }
@@ -58,13 +60,14 @@ public class NaturaCropDataProvider implements IWailaDataProvider {
     }
 
     @Override
-    public List<String> getWailaTail(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
+    public List<String> getWailaTail(
+            ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
         return currenttip;
     }
 
     @Override
-    public NBTTagCompound getNBTData(EntityPlayerMP player, TileEntity te, NBTTagCompound tag, World world, int x, int y, int z) {
+    public NBTTagCompound getNBTData(
+            EntityPlayerMP player, TileEntity te, NBTTagCompound tag, World world, int x, int y, int z) {
         return tag;
     }
-
 }

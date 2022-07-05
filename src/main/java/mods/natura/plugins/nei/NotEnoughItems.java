@@ -16,16 +16,15 @@ public class NotEnoughItems {
             API.registerGuiOverlay(WorkbenchGui.class, "crafting");
             API.registerGuiOverlayHandler(WorkbenchGui.class, new DefaultOverlayHandler(), "crafting");
             API.hideItem(new ItemStack(NContent.crops));
-			if (PHNatura.enableWoodenDoors) {
-	            API.hideItem(new ItemStack(NContent.redwoodDoor));
-	            API.hideItem(new ItemStack(NContent.eucalyptusDoor));
-	            API.hideItem(new ItemStack(NContent.hopseedDoor));
-	            API.hideItem(new ItemStack(NContent.sakuraDoor));
-	            API.hideItem(new ItemStack(NContent.ghostDoor));
-	            API.hideItem(new ItemStack(NContent.bloodDoor));
-	            API.hideItem(new ItemStack(NContent.redwoodBarkDoor));
-			}
+            if (PHNatura.enableWoodenDoors) {
+                API.hideItem(new ItemStack(NContent.redwoodDoor));
+                API.hideItem(new ItemStack(NContent.eucalyptusDoor));
+                API.hideItem(new ItemStack(NContent.hopseedDoor));
+                API.hideItem(new ItemStack(NContent.sakuraDoor));
+                API.hideItem(new ItemStack(NContent.ghostDoor));
+                API.hideItem(new ItemStack(NContent.bloodDoor));
+                API.hideItem(new ItemStack(NContent.redwoodBarkDoor));
+            }
         }
     }
-
 }

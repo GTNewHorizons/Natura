@@ -7,25 +7,21 @@ import mods.natura.common.NContent;
 import net.minecraft.block.Block;
 import net.minecraft.util.IIcon;
 
-public class FenceItem extends MultiItemBlock
-{
-    public FenceItem(Block block)
-    {
+public class FenceItem extends MultiItemBlock {
+    public FenceItem(Block block) {
         super(block, block.getUnlocalizedName(), NContent.woodTextureNames);
         setMaxDamage(0);
         setHasSubtypes(true);
     }
 
     @Override
-    public int getMetadata (int meta)
-    {
+    public int getMetadata(int meta) {
         return meta;
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIconFromDamage (int meta)
-    {
+    public IIcon getIconFromDamage(int meta) {
         return NContent.planks.getIcon(0, meta);
     }
 }

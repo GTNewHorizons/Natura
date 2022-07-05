@@ -1,7 +1,6 @@
 package mods.natura.blocks;
 
 import java.util.Random;
-
 import net.minecraft.block.BlockSnow;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.EnumSkyBlock;
@@ -39,13 +38,11 @@ public class NaturaSnow extends BlockSnow {
         if (world.isAirBlock(x, y + 1, z)) {
             int var6;
 
-            for (var6 = 1; world.getBlock(x, y - var6, z) == Blocks.snow; ++var6) {
-            }
+            for (var6 = 1; world.getBlock(x, y - var6, z) == Blocks.snow; ++var6) {}
 
             if (var6 < 3) {
                 world.setBlock(x, y, z, Blocks.snow, 0, 3);
             }
         }
     }
-
 }

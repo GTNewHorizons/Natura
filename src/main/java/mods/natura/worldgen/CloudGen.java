@@ -1,7 +1,6 @@
 package mods.natura.worldgen;
 
 import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -14,7 +13,7 @@ public class CloudGen extends WorldGenerator {
     private boolean flatCloud;
 
     public CloudGen(Block cloud, int metadata, int size, boolean isCloudFlat) {
-    	cloudBlock = cloud;
+        cloudBlock = cloud;
         cloudMeta = metadata;
         numberOfBlocks = size;
         flatCloud = isCloudFlat;
@@ -34,8 +33,8 @@ public class CloudGen extends WorldGenerator {
                 for (int yIter = y; yIter < y + random.nextInt(1) + 2; yIter++) {
                     for (int zIter = z; zIter < z + random.nextInt(4) + 3 * (flatCloud ? 3 : 1); zIter++) {
                         if (world.getBlock(xIter, yIter, zIter) == Blocks.air
-                                && Math.abs(xIter - x) + Math.abs(yIter - y)
-                                        + Math.abs(zIter - z) < 4 * (flatCloud ? 3 : 1) + random.nextInt(2)) {
+                                && Math.abs(xIter - x) + Math.abs(yIter - y) + Math.abs(zIter - z)
+                                        < 4 * (flatCloud ? 3 : 1) + random.nextInt(2)) {
                             setBlockAndNotifyAdequately(world, xIter, yIter, zIter, cloudBlock, cloudMeta);
                         }
                     }
@@ -44,5 +43,4 @@ public class CloudGen extends WorldGenerator {
         }
         return true;
     }
-
 }

@@ -19,19 +19,17 @@ import mods.natura.plugins.waila.WailaPulse;
  */
 public class PluginController {
 
-    private PluginController() {
-    } // Not to be instantiated.
+    private PluginController() {} // Not to be instantiated.
 
     public static void registerBuiltins() {
-    	pulsar.registerPulse(new TE4Pulse());
-    	pulsar.registerPulse(new BuildCraftPulse());
-    	pulsar.registerPulse(new ForestryPulse());
-    	pulsar.registerPulse(new TreeCapitatorPulse());
-    	pulsar.registerPulse(new ThaumcraftPulse());
-    	pulsar.registerPulse(new FMPPulse());
-    	pulsar.registerPulse(new NEIPulse());
-    	pulsar.registerPulse(new MFRPulse());
-    	pulsar.registerPulse(new WailaPulse());
+        pulsar.registerPulse(new TE4Pulse());
+        pulsar.registerPulse(new BuildCraftPulse());
+        pulsar.registerPulse(new ForestryPulse());
+        pulsar.registerPulse(new TreeCapitatorPulse());
+        pulsar.registerPulse(new ThaumcraftPulse());
+        pulsar.registerPulse(new FMPPulse());
+        pulsar.registerPulse(new NEIPulse());
+        pulsar.registerPulse(new MFRPulse());
+        pulsar.registerPulse(new WailaPulse());
     }
-
 }

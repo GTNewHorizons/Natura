@@ -22,13 +22,11 @@ public class NPressurePlate extends BlockPressurePlate {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerBlockIcons(IIconRegister iconRegister) {
-    }
+    public void registerBlockIcons(IIconRegister iconRegister) {}
 
     @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(int side, int meta) {
         return modelBlock.getIcon(side, modelMeta);
     }
-
 }

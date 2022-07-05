@@ -49,5 +49,4 @@ public class NetheriteChunk extends Chunk {
             }
         }*/
     }
-
 }

@@ -1,7 +1,6 @@
 package mods.natura.worldgen;
 
 import java.util.Random;
-
 import mods.natura.common.NContent;
 import mods.natura.common.PHNatura;
 import net.minecraft.block.Block;
@@ -31,17 +30,16 @@ public class RareTreeGen extends WorldGenerator {
         boolean flag = true;
         if (seekHeight) {
             yPos = findGround(world, xPos, yPos, zPos);
-            if (yPos == -1)
-                return false;
+            if (yPos == -1) return false;
         }
 
         if (yPos >= 1 && yPos + height + 1 <= 256) {
             Block soil = world.getBlock(xPos, yPos - 1, zPos);
-            boolean isSoil = (soil.canSustainPlant(world, xPos, yPos - 1, zPos, ForgeDirection.UP, NContent.rareSapling));
+            boolean isSoil =
+                    (soil.canSustainPlant(world, xPos, yPos - 1, zPos, ForgeDirection.UP, NContent.rareSapling));
 
             if (isSoil) {
-                if (!checkClear(world, xPos, yPos, zPos, height))
-                    return false;
+                if (!checkClear(world, xPos, yPos, zPos, height)) return false;
 
                 soil.onPlantGrow(world, xPos, yPos - 1, zPos, xPos, yPos, zPos);
                 placeCanopy(world, random, xPos, yPos, zPos, height);
@@ -56,10 +54,8 @@ public class RareTreeGen extends WorldGenerator {
         for (int yPos = 0; yPos < treeHeight + 1; yPos++) {
             int range = 1;
 
-            if (yPos == 0)
-                range = 0;
-            else if (yPos >= treeHeight - 1)
-                range = 2;
+            if (yPos == 0) range = 0;
+            else if (yPos >= treeHeight - 1) range = 2;
 
             for (int xPos = range; xPos <= range; xPos++) {
                 for (int zPos = range; zPos <= range; zPos++) {
@@ -78,7 +74,8 @@ public class RareTreeGen extends WorldGenerator {
         int height = y;
         do {
             Block heightID = world.getBlock(x, height, z);
-            if ((heightID == Blocks.dirt || heightID == Blocks.grass) && !world.getBlock(x, height + 1, z).func_149730_j()) {
+            if ((heightID == Blocks.dirt || heightID == Blocks.grass)
+                    && !world.getBlock(x, height + 1, z).func_149730_j()) {
                 ret = height + 1;
                 break;
             }
@@ -87,7 +84,7 @@ public class RareTreeGen extends WorldGenerator {
         return ret;
     }
 
-    void placeCanopy (World world, Random random, int xPos, int yPos, int zPos, int height) {
+    void placeCanopy(World world, Random random, int xPos, int yPos, int zPos, int height) {
         for (int y = yPos - 3 + height; y <= yPos + height; ++y) {
             int k1 = y - (yPos + height);
             int i2 = 0 + 1 - k1 / 2;
@@ -101,8 +98,7 @@ public class RareTreeGen extends WorldGenerator {
                     if (Math.abs(k2) != i2 || Math.abs(i3) != i2 || random.nextInt(2) != 0 && k1 != 0) {
                         Block block = world.getBlock(x, y, z);
 
-                        if (block.canBeReplacedByLeaves(world, x, y, z))
-                        {
+                        if (block.canBeReplacedByLeaves(world, x, y, z)) {
                             this.setBlockAndNotifyAdequately(world, x, y, z, NContent.rareLeaves, this.metaLeaves);
                         }
                     }
@@ -111,14 +107,16 @@ public class RareTreeGen extends WorldGenerator {
         }
     }
 
-    void placeTrunk (World world, int xPos, int yPos, int zPos, int height) {
+    void placeTrunk(World world, int xPos, int yPos, int zPos, int height) {
         for (int localHeight = 0; localHeight < height; ++localHeight) {
             Block block = world.getBlock(xPos, yPos + localHeight, zPos);
 
-            if (block == Blocks.air || block.isLeaves(world, xPos, yPos + localHeight, zPos) || block.canBeReplacedByLeaves(world, xPos, yPos + localHeight, zPos)) {
-                this.setBlockAndNotifyAdequately(world, xPos, yPos + localHeight, zPos, NContent.rareTree, this.metaWood);
+            if (block == Blocks.air
+                    || block.isLeaves(world, xPos, yPos + localHeight, zPos)
+                    || block.canBeReplacedByLeaves(world, xPos, yPos + localHeight, zPos)) {
+                this.setBlockAndNotifyAdequately(
+                        world, xPos, yPos + localHeight, zPos, NContent.rareTree, this.metaWood);
             }
         }
     }
-
 }

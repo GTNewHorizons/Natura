@@ -39,5 +39,4 @@ public class FlowerBlock extends BlockFlower {
     public void registerBlockIcons(IIconRegister iconRegister) {
         this.blockIcon = iconRegister.registerIcon("natura:flower_bluebells");
     }
-
 }

@@ -1,9 +1,8 @@
 package mods.natura.blocks.crops;
 
-import java.util.Random;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.Random;
 import mods.natura.common.NContent;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -20,10 +19,13 @@ import net.minecraft.world.World;
 
 public class LargeGlowshroom extends Block {
     private final String mushroomType;
+
     @SideOnly(Side.CLIENT)
     private IIcon iconSkin;
+
     @SideOnly(Side.CLIENT)
     private IIcon iconStem;
+
     @SideOnly(Side.CLIENT)
     private IIcon iconInside;
 
@@ -38,9 +40,21 @@ public class LargeGlowshroom extends Block {
     @SideOnly(Side.CLIENT)
     @Override
     public IIcon getIcon(int side, int meta) {
-        return meta == 10 && side > 1 ? this.iconStem : (meta >= 1 && meta <= 9 && side == 1 ? this.iconSkin : (meta >= 1 && meta <= 3 && side == 2 ? this.iconSkin : (meta >= 7 && meta <= 9
-                && side == 3 ? this.iconSkin : ((meta == 1 || meta == 4 || meta == 7) && side == 4 ? this.iconSkin : ((meta == 3 || meta == 6 || meta == 9) && side == 5 ? this.iconSkin
-                : (meta == 14 ? this.iconSkin : (meta == 15 ? this.iconStem : this.iconInside)))))));
+        return meta == 10 && side > 1
+                ? this.iconStem
+                : (meta >= 1 && meta <= 9 && side == 1
+                        ? this.iconSkin
+                        : (meta >= 1 && meta <= 3 && side == 2
+                                ? this.iconSkin
+                                : (meta >= 7 && meta <= 9 && side == 3
+                                        ? this.iconSkin
+                                        : ((meta == 1 || meta == 4 || meta == 7) && side == 4
+                                                ? this.iconSkin
+                                                : ((meta == 3 || meta == 6 || meta == 9) && side == 5
+                                                        ? this.iconSkin
+                                                        : (meta == 14
+                                                                ? this.iconSkin
+                                                                : (meta == 15 ? this.iconStem : this.iconInside)))))));
     }
 
     /* Returns the quantity of items to drop on block destruction. */
@@ -57,12 +71,9 @@ public class LargeGlowshroom extends Block {
 
     @Override
     public int damageDropped(int meta) {
-        if (this == NContent.glowshroomBlue)
-            return 2;
-        if (this == NContent.glowshroomPurple)
-            return 1;
-        if (this == NContent.glowshroomGreen)
-            return 0;
+        if (this == NContent.glowshroomBlue) return 2;
+        if (this == NContent.glowshroomPurple) return 1;
+        if (this == NContent.glowshroomGreen) return 0;
 
         return 0;
     }
@@ -95,7 +106,6 @@ public class LargeGlowshroom extends Block {
         return Item.getItemFromBlock(NContent.glowshroom);
     }
 
-    
     /* only called by clickMiddleMouseButton , and passed to inventory.setCurrentItem (along with isCreative) */
     /*@SideOnly(Side.CLIENT)
     public Item getItem(World world, int x, int y, int z) {
@@ -121,8 +131,7 @@ public class LargeGlowshroom extends Block {
 
     @Override
     public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
-        if (entity.motionY < 0)
-            entity.motionY *= 0.25F;
+        if (entity.motionY < 0) entity.motionY *= 0.25F;
         entity.fallDistance -= 0.25f;
 
         if (entity.motionY == 0f) {
@@ -135,5 +144,4 @@ public class LargeGlowshroom extends Block {
             living.addPotionEffect(new PotionEffect(Potion.confusion.id, 100, 0));
         }
     }
-
 }

@@ -1,7 +1,6 @@
 package mods.natura.worldgen;
 
 import java.util.Random;
-
 import mods.natura.common.NContent;
 import mods.natura.common.PHNatura;
 import net.minecraft.block.Block;
@@ -33,8 +32,7 @@ public class BushTreeGen extends WorldGenerator {
         do {
             height--;
             Block underID = world.getBlock(x, height, z);
-            if (underID == Blocks.dirt || underID == Blocks.grass || height < PHNatura.seaLevel)
-                foundGround = true;
+            if (underID == Blocks.dirt || underID == Blocks.grass || height < PHNatura.seaLevel) foundGround = true;
         } while (!foundGround);
         return height + 1;
     }
@@ -148,9 +146,11 @@ public class BushTreeGen extends WorldGenerator {
 
                     if ((var12 >= 0 || var14 >= 0 || var12 * var12 + var14 * var14 <= var10 * var10)
                             && (var12 <= 0 && var14 <= 0 || var12 * var12 + var14 * var14 <= (var10 + 1) * (var10 + 1))
-                            && (par6Random.nextInt(4) != 0 || var12 * var12 + var14 * var14 <= (var10 - 1) * (var10 - 1))
+                            && (par6Random.nextInt(4) != 0
+                                    || var12 * var12 + var14 * var14 <= (var10 - 1) * (var10 - 1))
                             && (block.canBeReplacedByLeaves(world, var11, var8, var13))) {
-                        this.setBlockAndNotifyAdequately(world, var11, var8, var13, NContent.floraLeaves, this.leavesMetadata);
+                        this.setBlockAndNotifyAdequately(
+                                world, var11, var8, var13, NContent.floraLeaves, this.leavesMetadata);
                     }
                 }
             }
@@ -173,6 +173,4 @@ public class BushTreeGen extends WorldGenerator {
         Block block = world.getBlock(x, y, z);
         return block.isAir(world, x, y, z) || block.isLeaves(world, x, y, z) || block.isWood(world, x, y, z);
     }
-
 }
-

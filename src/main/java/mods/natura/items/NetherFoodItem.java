@@ -1,9 +1,8 @@
 package mods.natura.items;
 
-import java.util.List;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.List;
 import mods.natura.Natura;
 import mods.natura.common.NaturaTab;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -18,18 +17,16 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
-public class NetherFoodItem extends ItemFood
-{
+public class NetherFoodItem extends ItemFood {
     public IIcon[] icons;
-    public String[] textureNames = new String[] { "potashapple" };//, "haste"
+    public String[] textureNames = new String[] {"potashapple"}; // , "haste"
 
-    public NetherFoodItem()
-    {
+    public NetherFoodItem() {
         super(4, 0.4F, false);
         setHasSubtypes(true);
         setMaxDamage(0);
         this.setCreativeTab(NaturaTab.tab);
-        //this.setAlwaysEdible();
+        // this.setAlwaysEdible();
     }
 
     /*public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer player)
@@ -43,25 +40,19 @@ public class NetherFoodItem extends ItemFood
     }*/
 
     @Override
-    protected void onFoodEaten (ItemStack stack, World world, EntityPlayer player)
-    {
-        if (!world.isRemote)
-        {
+    protected void onFoodEaten(ItemStack stack, World world, EntityPlayer player) {
+        if (!world.isRemote) {
             int duration = 0;
             PotionEffect potion;
-            switch (stack.getItemDamage())
-            {
-            case 0:
-                if (Natura.random.nextFloat() < 0.75f)
-                {
-                    potion = player.getActivePotionEffect(Potion.poison);
-                    if (potion != null)
-                        duration = potion.getDuration();
-                    else
-                        duration = 0;
-                    player.addPotionEffect(new PotionEffect(Potion.poison.id, duration + 2 * 25, 0));
-                }
-                break;
+            switch (stack.getItemDamage()) {
+                case 0:
+                    if (Natura.random.nextFloat() < 0.75f) {
+                        potion = player.getActivePotionEffect(Potion.poison);
+                        if (potion != null) duration = potion.getDuration();
+                        else duration = 0;
+                        player.addPotionEffect(new PotionEffect(Potion.poison.id, duration + 2 * 25, 0));
+                    }
+                    break;
             }
         }
     }
@@ -74,31 +65,27 @@ public class NetherFoodItem extends ItemFood
 
     @SideOnly(Side.CLIENT)
     @Override
-    public IIcon getIconFromDamage (int meta)
-    {
+    public IIcon getIconFromDamage(int meta) {
         return icons[meta];
     }
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void registerIcons (IIconRegister iconRegister)
-    {
+    public void registerIcons(IIconRegister iconRegister) {
         this.icons = new IIcon[textureNames.length];
 
-        for (int i = 0; i < this.icons.length; ++i)
-        {
+        for (int i = 0; i < this.icons.length; ++i) {
             this.icons[i] = iconRegister.registerIcon("natura:fruit_" + textureNames[i]);
         }
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
-    {
+    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
         list.add(StatCollector.translateToLocal("tooltip.netherfood"));
         /*switch (stack.getItemDamage())
         {
-        case 0: 
+        case 0:
         	list.add("Killer healing");
         	break;
         case 1:
@@ -115,9 +102,11 @@ public class NetherFoodItem extends ItemFood
 
     /* Name override */
     @Override
-    public String getUnlocalizedName (ItemStack itemstack)
-    {
-        return (new StringBuilder()).append("item.food.nether.").append(textureNames[itemstack.getItemDamage()]).toString();
+    public String getUnlocalizedName(ItemStack itemstack) {
+        return (new StringBuilder())
+                .append("item.food.nether.")
+                .append(textureNames[itemstack.getItemDamage()])
+                .toString();
     }
 
     /**
@@ -125,10 +114,8 @@ public class NetherFoodItem extends ItemFood
      */
     @SideOnly(Side.CLIENT)
     @Override
-    public void getSubItems (Item par1, CreativeTabs par2CreativeTabs, List par3List)
-    {
-        for (int var4 = 0; var4 < 1; ++var4)
-        {
+    public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
+        for (int var4 = 0; var4 < 1; ++var4) {
             par3List.add(new ItemStack(par1, 1, var4));
         }
     }

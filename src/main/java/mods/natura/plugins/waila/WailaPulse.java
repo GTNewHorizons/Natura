@@ -8,13 +8,12 @@ import mods.natura.Natura;
 
 @Pulse(id = "Natura Waila Compatibility", modsRequired = WailaPulse.modId)
 public class WailaPulse {
-    
+
     public static final String modId = "Waila";
-    
+
     @Handler
-    public void init (FMLInitializationEvent evt) {
+    public void init(FMLInitializationEvent evt) {
         Natura.logger.info("Waila detected.");
         FMLInterModComms.sendMessage(modId, "register", "mods.natura.plugins.waila.WailaRegistrar.wailaCallback");
     }
-    
 }

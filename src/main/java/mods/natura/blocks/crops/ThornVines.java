@@ -47,7 +47,7 @@ public class ThornVines extends BlockVine {
 
     @Override
     public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
-        //entity.motionY *= 1.5D;
+        // entity.motionY *= 1.5D;
         if (!(entity instanceof EntityItem) && !(entity instanceof EntityGhast) && Natura.random.nextInt(30) == 0) {
             DamageSource source = Natura.random.nextBoolean() ? DamageSource.cactus : DamageSource.lava;
             entity.attackEntityFrom(source, 1);

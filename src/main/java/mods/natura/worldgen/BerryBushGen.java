@@ -1,7 +1,6 @@
 package mods.natura.worldgen;
 
 import java.util.Random;
-
 import mods.natura.common.NContent;
 import mods.natura.common.PHNatura;
 import net.minecraft.block.Block;
@@ -24,14 +23,10 @@ public class BerryBushGen extends WorldGenerator {
         int height = findGround(world, x, y, z);
         if (height != -1) {
             int type = random.nextInt(10);
-            if (type == 9)
-                generateLargeNode(world, random, x, height, z);
-            else if (type >= 7)
-                generateShrub(world, random, x, height, z);
-            else if (type >= 3)
-                generateSmallNode(world, random, x, height, z);
-            else
-                generateTinyNode(world, random, x, height, z);
+            if (type == 9) generateLargeNode(world, random, x, height, z);
+            else if (type >= 7) generateShrub(world, random, x, height, z);
+            else if (type >= 3) generateSmallNode(world, random, x, height, z);
+            else generateTinyNode(world, random, x, height, z);
         }
         return true;
     }
@@ -123,7 +118,8 @@ public class BerryBushGen extends WorldGenerator {
 
                         block = world.getBlock(xPos, yPos, zPos);
 
-                        if ((Math.abs(j2) != l1 || Math.abs(l2) != l1 || random.nextInt(2) != 0) && block.canBeReplacedByLeaves(world, xPos, yPos, zPos)) {
+                        if ((Math.abs(j2) != l1 || Math.abs(l2) != l1 || random.nextInt(2) != 0)
+                                && block.canBeReplacedByLeaves(world, xPos, yPos, zPos)) {
                             // this.setBlockAndMetadata(world, i2, j1, k2, Block.leaves.blockID,
                             // this.field_76527_a);
                             generateBerryBlock(world, xPos, yPos, zPos, random);
@@ -136,14 +132,10 @@ public class BerryBushGen extends WorldGenerator {
 
     public void generateSmallNode(World world, Random random, int x, int y, int z) {
         generateBerryBlock(world, x, y, z, random);
-        if (random.nextBoolean())
-            generateBerryBush(world, x + 1, y, z, random);
-        if (random.nextBoolean())
-            generateBerryBush(world, x - 1, y, z, random);
-        if (random.nextBoolean())
-            generateBerryBush(world, x, y, z + 1, random);
-        if (random.nextBoolean())
-            generateBerryBush(world, x, y, z - 1, random);
+        if (random.nextBoolean()) generateBerryBush(world, x + 1, y, z, random);
+        if (random.nextBoolean()) generateBerryBush(world, x - 1, y, z, random);
+        if (random.nextBoolean()) generateBerryBush(world, x, y, z + 1, random);
+        if (random.nextBoolean()) generateBerryBush(world, x, y, z - 1, random);
     }
 
     public void generateTinyNode(World world, Random random, int x, int y, int z) {
@@ -163,5 +155,4 @@ public class BerryBushGen extends WorldGenerator {
             world.setBlock(x, y, z, NContent.berryBush, metadata + metaOffset * 4, 0);
         }
     }
-
 }

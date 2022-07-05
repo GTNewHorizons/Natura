@@ -29,5 +29,4 @@ public class NTrapdoor extends BlockTrapDoor {
     public IIcon getIcon(int side, int meta) {
         return this.blockIcon;
     }
-
 }

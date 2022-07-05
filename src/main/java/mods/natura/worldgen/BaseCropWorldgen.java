@@ -1,8 +1,7 @@
 package mods.natura.worldgen;
 
-import java.util.Random;
-
 import cpw.mods.fml.common.IWorldGenerator;
+import java.util.Random;
 import mods.natura.common.NContent;
 import mods.natura.common.PHNatura;
 import net.minecraft.init.Blocks;
@@ -17,23 +16,29 @@ import net.minecraft.world.chunk.IChunkProvider;
 public class BaseCropWorldgen implements IWorldGenerator {
 
     public BaseCropWorldgen() {
-    	if (PHNatura.enableBerryBushes) {
+        if (PHNatura.enableBerryBushes) {
             raspgen = new BerryBushGen(0, PHNatura.seaLevel + PHNatura.raspSpawnRange);
             bluegen = new BerryBushGen(1, PHNatura.seaLevel + PHNatura.blueSpawnRange);
             blackgen = new BerryBushGen(2, PHNatura.seaLevel + PHNatura.blackSpawnRange);
             malogen = new BerryBushGen(3, PHNatura.seaLevel + PHNatura.geoSpawnRange);
-    	}
+        }
 
-    	if (PHNatura.enableNetherBerryBushes) {
+        if (PHNatura.enableNetherBerryBushes) {
             blightgen = new NetherBerryBushGen(NContent.netherBerryBush, 0);
             duskgen = new NetherBerryBushGen(NContent.netherBerryBush, 1);
             skygen = new NetherBerryBushGen(NContent.netherBerryBush, 2);
             stinggen = new NetherBerryBushGen(NContent.netherBerryBush, 3);
-    	}
+        }
     }
 
     @Override
-    public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
+    public void generate(
+            Random random,
+            int chunkX,
+            int chunkZ,
+            World world,
+            IChunkProvider chunkGenerator,
+            IChunkProvider chunkProvider) {
         final int xChunk = chunkX * 16 + 8, zChunk = chunkZ * 16 + 8;
         int xCh = chunkX * 16 + random.nextInt(16);
         int yCh = random.nextInt(128);
@@ -59,35 +64,45 @@ public class BaseCropWorldgen implements IWorldGenerator {
         }
 
         // Berry bushes
-        if (PHNatura.generateRaspberries && random.nextInt(PHNatura.raspSpawnRarity) == 0 && goodClimate(biome, 0.6f, 2.0f, 0.2f, 0.93f)) {
+        if (PHNatura.generateRaspberries
+                && random.nextInt(PHNatura.raspSpawnRarity) == 0
+                && goodClimate(biome, 0.6f, 2.0f, 0.2f, 0.93f)) {
             xCh = xChunk + random.nextInt(16);
             yCh = random.nextInt(PHNatura.raspSpawnRange) + PHNatura.seaLevel;
             zCh = zChunk + random.nextInt(16);
             raspgen.generate(world, random, xCh, yCh, zCh);
         }
 
-        if (PHNatura.generateBlueberries && random.nextInt(PHNatura.blueSpawnRarity) == 0 && goodClimate(biome, 0.3f, 0.81f, 0.3f, 0.8f)) {
+        if (PHNatura.generateBlueberries
+                && random.nextInt(PHNatura.blueSpawnRarity) == 0
+                && goodClimate(biome, 0.3f, 0.81f, 0.3f, 0.8f)) {
             xCh = xChunk + random.nextInt(16);
             yCh = random.nextInt(PHNatura.blueSpawnRange) + PHNatura.seaLevel;
             zCh = zChunk + random.nextInt(16);
             bluegen.generate(world, random, xCh, yCh, zCh);
         }
 
-        if (PHNatura.generateBlackberries && random.nextInt(PHNatura.blackSpawnRarity) == 0 && goodClimate(biome, 0.5f, 5.0f, 0.6f, 3.0f)) {
+        if (PHNatura.generateBlackberries
+                && random.nextInt(PHNatura.blackSpawnRarity) == 0
+                && goodClimate(biome, 0.5f, 5.0f, 0.6f, 3.0f)) {
             xCh = xChunk + random.nextInt(16);
             yCh = random.nextInt(PHNatura.blackSpawnRange) + PHNatura.seaLevel;
             zCh = zChunk + random.nextInt(16);
             blackgen.generate(world, random, xCh, yCh, zCh);
         }
 
-        if (PHNatura.generateBlackberries && random.nextInt(PHNatura.blackSpawnRarity / 3) == 0 && biome == BiomeGenBase.swampland) {
+        if (PHNatura.generateBlackberries
+                && random.nextInt(PHNatura.blackSpawnRarity / 3) == 0
+                && biome == BiomeGenBase.swampland) {
             xCh = xChunk + random.nextInt(16);
             yCh = random.nextInt(PHNatura.blackSpawnRange) + PHNatura.seaLevel;
             zCh = zChunk + random.nextInt(16);
             blackgen.generate(world, random, xCh, yCh, zCh);
         }
 
-        if (PHNatura.generateMaloberries && random.nextInt(PHNatura.geoSpawnRarity) == 0 && goodClimate(biome, 0.0f, 0.3f, 0.0f, 5.0f)) {
+        if (PHNatura.generateMaloberries
+                && random.nextInt(PHNatura.geoSpawnRarity) == 0
+                && goodClimate(biome, 0.0f, 0.3f, 0.0f, 5.0f)) {
             xCh = xChunk + random.nextInt(16);
             yCh = random.nextInt(PHNatura.geoSpawnRange) + PHNatura.seaLevel;
             zCh = zChunk + random.nextInt(16);
@@ -182,5 +197,4 @@ public class BaseCropWorldgen implements IWorldGenerator {
     FlowerGen lily;
     FlowerGen tulip;
     FlowerGen pansy;
-
 }

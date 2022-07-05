@@ -1,16 +1,13 @@
 package mods.natura.blocks.trees;
 
 import java.util.Random;
-
 import mods.natura.common.NaturaTab;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLog;
 import net.minecraft.item.Item;
 
-public class FruitTreeBlock extends BlockLog
-{
-    public FruitTreeBlock()
-    {
+public class FruitTreeBlock extends BlockLog {
+    public FruitTreeBlock() {
         super();
         this.setHardness(1.5F);
         this.setResistance(5F);
@@ -23,7 +20,7 @@ public class FruitTreeBlock extends BlockLog
     {
     	int tex = blockIndexInTexture + (metadata % 4);
     	int orientation = metadata / 4;
-    	
+
     	switch (orientation) //Ends of logs
     	{
     	case 0:
@@ -39,19 +36,17 @@ public class FruitTreeBlock extends BlockLog
     			return tex + 16;
     		break;
     	}
-    	
+
     	return tex;
     }*/
 
     @Override
-    public Item getItemDropped (int par1, Random par2Random, int par3)
-    {
+    public Item getItemDropped(int par1, Random par2Random, int par3) {
         return Item.getItemFromBlock(this);
     }
 
     @Override
-    public int damageDropped (int meta)
-    {
+    public int damageDropped(int meta) {
         return meta % 4;
     }
 

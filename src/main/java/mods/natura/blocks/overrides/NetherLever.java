@@ -12,5 +12,4 @@ public class NetherLever extends BlockLever {
     public int getRenderType() {
         return LeverRender.model;
     }
-
 }

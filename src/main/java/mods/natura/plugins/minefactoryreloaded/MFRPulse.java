@@ -19,5 +19,4 @@ public class MFRPulse {
             Natura.logger.warn("Something went wrong in Natura plugin MineFactoryReloaded.", t);
         }
     }
-
 }

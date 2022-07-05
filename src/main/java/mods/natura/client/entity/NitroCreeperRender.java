@@ -4,20 +4,16 @@ import net.minecraft.client.renderer.entity.RenderCreeper;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 
-public class NitroCreeperRender extends RenderCreeper
-{
+public class NitroCreeperRender extends RenderCreeper {
 
-    public NitroCreeperRender()
-    {
+    public NitroCreeperRender() {
         super();
     }
 
     @Override
-    protected ResourceLocation getEntityTexture (Entity par1Entity)
-    {
+    protected ResourceLocation getEntityTexture(Entity par1Entity) {
         return texture;
     }
 
     static final ResourceLocation texture = new ResourceLocation("natura", "textures/mob/creeperunstable.png");
-
 }

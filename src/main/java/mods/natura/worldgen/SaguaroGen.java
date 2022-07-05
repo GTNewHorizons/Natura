@@ -1,8 +1,6 @@
 package mods.natura.worldgen;
 
 import java.util.Random;
-
-import mods.natura.common.NContent;
 import mods.natura.common.PHNatura;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -13,7 +11,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class SaguaroGen extends WorldGenerator {
     boolean useHeight;
-    
+
     private final int saguaroMeta;
     private final Block saguaroBlock;
 
@@ -25,7 +23,7 @@ public class SaguaroGen extends WorldGenerator {
     }
 
     @Override
-    public boolean generate (World world, Random random, int x, int y, int z) {
+    public boolean generate(World world, Random random, int x, int y, int z) {
         int yPos = findGround(world, x, y, z, useHeight);
         Block currentID = world.getBlock(x, yPos, z);
         if (!world.isAirBlock(x, yPos, z)) {
@@ -53,7 +51,7 @@ public class SaguaroGen extends WorldGenerator {
         return true;
     }
 
-    void generateCactusTree (World world, Random random, int x, int y, int z) {
+    void generateCactusTree(World world, Random random, int x, int y, int z) {
         for (int i = 0; i < 6; i++) {
             genBlock(world, x, y + i, z);
         }
@@ -81,7 +79,7 @@ public class SaguaroGen extends WorldGenerator {
         }
     }
 
-    void generateSmallCactus (World world, Random random, int x, int y, int z) {
+    void generateSmallCactus(World world, Random random, int x, int y, int z) {
 
         int height = random.nextInt(4) + 3;
         for (int iter = 0; iter < height; iter++) {
@@ -96,7 +94,6 @@ public class SaguaroGen extends WorldGenerator {
             for (int branch = 0; branch < size; branch++) {
                 genBlock(world, x + 1, y + branch, z);
             }
-
         }
         if (random.nextBoolean()) {
             size = random.nextInt(height - branchY) + branchY - random.nextInt(3);
@@ -120,12 +117,11 @@ public class SaguaroGen extends WorldGenerator {
         }
     }
 
-    void genBlock (World world, int x, int y, int z) {
-        if (!world.getBlock(x, y, z).isOpaqueCube())
-            world.setBlock(x, y, z, saguaroBlock, saguaroMeta, 3);
+    void genBlock(World world, int x, int y, int z) {
+        if (!world.getBlock(x, y, z).isOpaqueCube()) world.setBlock(x, y, z, saguaroBlock, saguaroMeta, 3);
     }
 
-    int findGround (World world, int x, int y, int z, boolean useHeight) {
+    int findGround(World world, int x, int y, int z, boolean useHeight) {
         if (useHeight) {
             return y;
         }
@@ -135,11 +131,13 @@ public class SaguaroGen extends WorldGenerator {
         do {
             height--;
             Block underID = world.getBlock(x, height, z);
-            if (underID == Blocks.sand || underID == Blocks.dirt || underID == Blocks.grass || height < PHNatura.seaLevel) {
+            if (underID == Blocks.sand
+                    || underID == Blocks.dirt
+                    || underID == Blocks.grass
+                    || height < PHNatura.seaLevel) {
                 foundGround = true;
             }
         } while (!foundGround);
         return height + 1;
     }
-
 }

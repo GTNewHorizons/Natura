@@ -10,23 +10,20 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.IBlockAccess;
 
-public class LeverRender implements ISimpleBlockRenderingHandler
-{
+public class LeverRender implements ISimpleBlockRenderingHandler {
     public static int model = RenderingRegistry.getNextAvailableRenderId();
 
     @Override
-    public boolean renderWorldBlock (IBlockAccess world, int par2, int par3, int par4, Block par1Block, int modelId, RenderBlocks renderer)
-    {
-        if (modelId == model)
-        {
+    public boolean renderWorldBlock(
+            IBlockAccess world, int par2, int par3, int par4, Block par1Block, int modelId, RenderBlocks renderer) {
+        if (modelId == model) {
             int l = renderer.blockAccess.getBlockMetadata(par2, par3, par4);
             int i1 = l & 7;
             boolean flag = (l & 8) > 0;
             Tessellator tessellator = Tessellator.instance;
             boolean flag1 = renderer.hasOverrideBlockTexture();
 
-            if (!flag1)
-            {
+            if (!flag1) {
                 renderer.setOverrideBlockTexture(renderer.getBlockIcon(Blocks.netherrack));
             }
 
@@ -34,59 +31,41 @@ public class LeverRender implements ISimpleBlockRenderingHandler
             float f1 = 0.1875F;
             float f2 = 0.1875F;
 
-            if (i1 == 5)
-            {
+            if (i1 == 5) {
                 renderer.setRenderBounds(0.5F - f1, 0.0D, 0.5F - f, 0.5F + f1, f2, 0.5F + f);
-            }
-            else if (i1 == 6)
-            {
+            } else if (i1 == 6) {
                 renderer.setRenderBounds(0.5F - f, 0.0D, 0.5F - f1, 0.5F + f, f2, 0.5F + f1);
-            }
-            else if (i1 == 4)
-            {
+            } else if (i1 == 4) {
                 renderer.setRenderBounds(0.5F - f1, 0.5F - f, 1.0F - f2, 0.5F + f1, 0.5F + f, 1.0D);
-            }
-            else if (i1 == 3)
-            {
+            } else if (i1 == 3) {
                 renderer.setRenderBounds(0.5F - f1, 0.5F - f, 0.0D, 0.5F + f1, 0.5F + f, f2);
-            }
-            else if (i1 == 2)
-            {
+            } else if (i1 == 2) {
                 renderer.setRenderBounds(1.0F - f2, 0.5F - f, 0.5F - f1, 1.0D, 0.5F + f, 0.5F + f1);
-            }
-            else if (i1 == 1)
-            {
+            } else if (i1 == 1) {
                 renderer.setRenderBounds(0.0D, 0.5F - f, 0.5F - f1, f2, 0.5F + f, 0.5F + f1);
-            }
-            else if (i1 == 0)
-            {
+            } else if (i1 == 0) {
                 renderer.setRenderBounds(0.5F - f, 1.0F - f2, 0.5F - f1, 0.5F + f, 1.0D, 0.5F + f1);
-            }
-            else if (i1 == 7)
-            {
+            } else if (i1 == 7) {
                 renderer.setRenderBounds(0.5F - f1, 1.0F - f2, 0.5F - f, 0.5F + f1, 1.0D, 0.5F + f);
             }
 
             renderer.renderStandardBlock(par1Block, par2, par3, par4);
 
-            if (!flag1)
-            {
+            if (!flag1) {
                 renderer.clearOverrideBlockTexture();
             }
 
             tessellator.setBrightness(par1Block.getMixedBrightnessForBlock(renderer.blockAccess, par2, par3, par4));
             float f3 = 1.0F;
 
-            if (par1Block.getLightValue() > 0)
-            {
+            if (par1Block.getLightValue() > 0) {
                 f3 = 1.0F;
             }
 
             tessellator.setColorOpaque_F(f3, f3, f3);
             IIcon icon = renderer.getBlockIconFromSide(par1Block, 0);
 
-            if (renderer.hasOverrideBlockTexture())
-            {
+            if (renderer.hasOverrideBlockTexture()) {
                 icon = renderer.overrideBlockTexture;
             }
 
@@ -107,66 +86,51 @@ public class LeverRender implements ISimpleBlockRenderingHandler
             avec3[6] = Vec3.createVectorHelper(f4, f6, f5);
             avec3[7] = Vec3.createVectorHelper((-f4), f6, f5);
 
-            for (int j1 = 0; j1 < 8; ++j1)
-            {
-                if (flag)
-                {
+            for (int j1 = 0; j1 < 8; ++j1) {
+                if (flag) {
                     avec3[j1].zCoord -= 0.0625D;
                     avec3[j1].rotateAroundX(((float) Math.PI * 2F / 9F));
-                }
-                else
-                {
+                } else {
                     avec3[j1].zCoord += 0.0625D;
                     avec3[j1].rotateAroundX(-((float) Math.PI * 2F / 9F));
                 }
 
-                if (i1 == 0 || i1 == 7)
-                {
+                if (i1 == 0 || i1 == 7) {
                     avec3[j1].rotateAroundZ((float) Math.PI);
                 }
 
-                if (i1 == 6 || i1 == 0)
-                {
+                if (i1 == 6 || i1 == 0) {
                     avec3[j1].rotateAroundY(((float) Math.PI / 2F));
                 }
 
-                if (i1 > 0 && i1 < 5)
-                {
+                if (i1 > 0 && i1 < 5) {
                     avec3[j1].yCoord -= 0.375D;
                     avec3[j1].rotateAroundX(((float) Math.PI / 2F));
 
-                    if (i1 == 4)
-                    {
+                    if (i1 == 4) {
                         avec3[j1].rotateAroundY(0.0F);
                     }
 
-                    if (i1 == 3)
-                    {
+                    if (i1 == 3) {
                         avec3[j1].rotateAroundY((float) Math.PI);
                     }
 
-                    if (i1 == 2)
-                    {
+                    if (i1 == 2) {
                         avec3[j1].rotateAroundY(((float) Math.PI / 2F));
                     }
 
-                    if (i1 == 1)
-                    {
+                    if (i1 == 1) {
                         avec3[j1].rotateAroundY(-((float) Math.PI / 2F));
                     }
 
                     avec3[j1].xCoord += par2 + 0.5D;
                     avec3[j1].yCoord += par3 + 0.5F;
                     avec3[j1].zCoord += par4 + 0.5D;
-                }
-                else if (i1 != 0 && i1 != 7)
-                {
+                } else if (i1 != 0 && i1 != 7) {
                     avec3[j1].xCoord += par2 + 0.5D;
                     avec3[j1].yCoord += par3 + 0.125F;
                     avec3[j1].zCoord += par4 + 0.5D;
-                }
-                else
-                {
+                } else {
                     avec3[j1].xCoord += par2 + 0.5D;
                     avec3[j1].yCoord += par3 + 0.875F;
                     avec3[j1].zCoord += par4 + 0.5D;
@@ -178,60 +142,45 @@ public class LeverRender implements ISimpleBlockRenderingHandler
             Vec3 vec32 = null;
             Vec3 vec33 = null;
 
-            for (int k1 = 0; k1 < 6; ++k1)
-            {
-                if (k1 == 0)
-                {
+            for (int k1 = 0; k1 < 6; ++k1) {
+                if (k1 == 0) {
                     d0 = icon.getInterpolatedU(7.0D);
                     d1 = icon.getInterpolatedV(6.0D);
                     d2 = icon.getInterpolatedU(9.0D);
                     d3 = icon.getInterpolatedV(8.0D);
-                }
-                else if (k1 == 2)
-                {
+                } else if (k1 == 2) {
                     d0 = icon.getInterpolatedU(7.0D);
                     d1 = icon.getInterpolatedV(6.0D);
                     d2 = icon.getInterpolatedU(9.0D);
                     d3 = icon.getMaxV();
                 }
 
-                if (k1 == 0)
-                {
+                if (k1 == 0) {
                     vec3 = avec3[0];
                     vec31 = avec3[1];
                     vec32 = avec3[2];
                     vec33 = avec3[3];
-                }
-                else if (k1 == 1)
-                {
+                } else if (k1 == 1) {
                     vec3 = avec3[7];
                     vec31 = avec3[6];
                     vec32 = avec3[5];
                     vec33 = avec3[4];
-                }
-                else if (k1 == 2)
-                {
+                } else if (k1 == 2) {
                     vec3 = avec3[1];
                     vec31 = avec3[0];
                     vec32 = avec3[4];
                     vec33 = avec3[5];
-                }
-                else if (k1 == 3)
-                {
+                } else if (k1 == 3) {
                     vec3 = avec3[2];
                     vec31 = avec3[1];
                     vec32 = avec3[5];
                     vec33 = avec3[6];
-                }
-                else if (k1 == 4)
-                {
+                } else if (k1 == 4) {
                     vec3 = avec3[3];
                     vec31 = avec3[2];
                     vec32 = avec3[6];
                     vec33 = avec3[7];
-                }
-                else if (k1 == 5)
-                {
+                } else if (k1 == 5) {
                     vec3 = avec3[0];
                     vec31 = avec3[3];
                     vec32 = avec3[7];
@@ -248,20 +197,17 @@ public class LeverRender implements ISimpleBlockRenderingHandler
     }
 
     @Override
-    public void renderInventoryBlock (Block block, int metadata, int modelID, RenderBlocks renderer)
-    {
-        //Nope!
+    public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
+        // Nope!
     }
 
     @Override
-    public int getRenderId ()
-    {
+    public int getRenderId() {
         return model;
     }
 
     @Override
-    public boolean shouldRender3DInInventory (int modelId)
-    {
+    public boolean shouldRender3DInInventory(int modelId) {
         return false;
     }
 }

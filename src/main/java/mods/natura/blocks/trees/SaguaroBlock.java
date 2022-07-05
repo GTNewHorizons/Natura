@@ -1,9 +1,8 @@
 package mods.natura.blocks.trees;
 
-import java.util.Random;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.Random;
 import mods.natura.client.SaguaroRenderer;
 import mods.natura.common.NContent;
 import mods.natura.common.NaturaTab;
@@ -34,26 +33,25 @@ public class SaguaroBlock extends Block implements IPlantable {
     }
 
     @Override
-    public void updateTick (World world, int x, int y, int z, Random random) {
+    public void updateTick(World world, int x, int y, int z, Random random) {
         int meta = world.getBlockMetadata(x, y, z);
-        if (meta == 0 && world.getWorldInfo().isRaining() && random.nextInt(20) == 0 && world.getBlock(x, y + 1, z) == Blocks.air) {
+        if (meta == 0
+                && world.getWorldInfo().isRaining()
+                && random.nextInt(20) == 0
+                && world.getBlock(x, y + 1, z) == Blocks.air) {
             switch (random.nextInt(4)) {
-            case 0:
-                if (world.getBlock(x + 1, y, z) == Blocks.air)
-                    world.setBlock(x + 1, y, z, this, 5, 3);
-                break;
-            case 1:
-                if (world.getBlock(x, y, z + 1) == Blocks.air)
-                    world.setBlock(x, y, z + 1, this, 6, 3);
-                break;
-            case 2:
-                if (world.getBlock(x - 1, y, z) == Blocks.air)
-                    world.setBlock(x - 1, y, z, this, 3, 3);
-                break;
-            case 3:
-                if (world.getBlock(x, y, z - 1) == Blocks.air)
-                    world.setBlock(x, y, z - 1, this, 4, 3);
-                break;
+                case 0:
+                    if (world.getBlock(x + 1, y, z) == Blocks.air) world.setBlock(x + 1, y, z, this, 5, 3);
+                    break;
+                case 1:
+                    if (world.getBlock(x, y, z + 1) == Blocks.air) world.setBlock(x, y, z + 1, this, 6, 3);
+                    break;
+                case 2:
+                    if (world.getBlock(x - 1, y, z) == Blocks.air) world.setBlock(x - 1, y, z, this, 3, 3);
+                    break;
+                case 3:
+                    if (world.getBlock(x, y, z - 1) == Blocks.air) world.setBlock(x, y, z - 1, this, 4, 3);
+                    break;
             }
         } else if (meta == 2 && random.nextInt(200) == 0) {
             SaguaroGen gen = new SaguaroGen(NContent.saguaro, 0, true);
@@ -62,80 +60,91 @@ public class SaguaroBlock extends Block implements IPlantable {
             world.setBlockMetadataWithNotify(x, y, z, 2, 3);
         }
 
-        //Fruit shouldn't do a thing
+        // Fruit shouldn't do a thing
     }
 
     @Override
-    public AxisAlignedBB getCollisionBoundingBoxFromPool (World world, int x, int y, int z) {
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
         int meta = world.getBlockMetadata(x, y, z);
         float offset;
-        switch(meta) {
-        case 0:
-        	offset = 0.125F;
-            return AxisAlignedBB.getBoundingBox(x + offset, y, z + offset, x + 1 - offset, y + 1 - offset, z + 1 - offset);
-        case 1:
-        case 2:
-        	offset = 0.325F;
-            return AxisAlignedBB.getBoundingBox(x + offset, y, z + offset, x + 1 - offset, y + 1 - offset, z + 1 - offset);
-        case 3:
-        	offset = 0.25F;
-            return AxisAlignedBB.getBoundingBox(x + 0.625f, y + 0.1875, z + offset, x + 1.125f, y + 0.75, z + 1 - offset);
-        case 4:
-        	offset = 0.25F;
-            return AxisAlignedBB.getBoundingBox(x + offset, y + 0.1875, z + 0.625f, x + 1 - offset, y + 0.75, z + 1.125f);
-        case 5:
-        	offset = 0.25F;
-            return AxisAlignedBB.getBoundingBox(x - 0.125f, y + 0.1875, z + offset, x + 0.375f, y + 0.75, z + 1 - offset);
-        case 6:
-        	offset = 0.25F;
-            return AxisAlignedBB.getBoundingBox(x + offset, y + 0.1875, z - 0.125f, x + 1 - offset, y + 0.75, z + 0.375f);
-        default:
-        	return null;	
+        switch (meta) {
+            case 0:
+                offset = 0.125F;
+                return AxisAlignedBB.getBoundingBox(
+                        x + offset, y, z + offset, x + 1 - offset, y + 1 - offset, z + 1 - offset);
+            case 1:
+            case 2:
+                offset = 0.325F;
+                return AxisAlignedBB.getBoundingBox(
+                        x + offset, y, z + offset, x + 1 - offset, y + 1 - offset, z + 1 - offset);
+            case 3:
+                offset = 0.25F;
+                return AxisAlignedBB.getBoundingBox(
+                        x + 0.625f, y + 0.1875, z + offset, x + 1.125f, y + 0.75, z + 1 - offset);
+            case 4:
+                offset = 0.25F;
+                return AxisAlignedBB.getBoundingBox(
+                        x + offset, y + 0.1875, z + 0.625f, x + 1 - offset, y + 0.75, z + 1.125f);
+            case 5:
+                offset = 0.25F;
+                return AxisAlignedBB.getBoundingBox(
+                        x - 0.125f, y + 0.1875, z + offset, x + 0.375f, y + 0.75, z + 1 - offset);
+            case 6:
+                offset = 0.25F;
+                return AxisAlignedBB.getBoundingBox(
+                        x + offset, y + 0.1875, z - 0.125f, x + 1 - offset, y + 0.75, z + 0.375f);
+            default:
+                return null;
         }
     }
 
     @Override
-    public AxisAlignedBB getSelectedBoundingBoxFromPool (World world, int x, int y, int z) {
+    public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z) {
         int meta = world.getBlockMetadata(x, y, z);
         float offset;
-        switch(meta) {
-        case 0:
-            offset = 0.125F;
-            float height = 0.125F;
-            float base = 0F;
-            if (world.getBlock(x, y + 1, z) == this) height = 0F;
-            Block block = world.getBlock(x, y - 1, z);
-            if (!block.isOpaqueCube()) base = 0.125F;
+        switch (meta) {
+            case 0:
+                offset = 0.125F;
+                float height = 0.125F;
+                float base = 0F;
+                if (world.getBlock(x, y + 1, z) == this) height = 0F;
+                Block block = world.getBlock(x, y - 1, z);
+                if (!block.isOpaqueCube()) base = 0.125F;
 
-            return AxisAlignedBB.getBoundingBox(x + offset, y, z + offset, x + 1 - offset, y + 1 - height, z + 1 - offset);
-        case 1:
-        case 2:
-            offset = 0.325F;
-            return AxisAlignedBB.getBoundingBox(x + offset, y, z + offset, x + 1 - offset, y + 0.5, z + 1 - offset);
-        case 3:
-            offset = 0.25F;
-            return AxisAlignedBB.getBoundingBox(x + 0.625f, y + 0.1875, z + offset, x + 1.125f, y + 0.75, z + 1 - offset);
-        case 4:
-        	offset = 0.25F;
-            return AxisAlignedBB.getBoundingBox(x + offset, y + 0.1875, z + 0.625f, x + 1 - offset, y + 0.75, z + 1.125f);
-        case 5:
-        	offset = 0.25F;
-            return AxisAlignedBB.getBoundingBox(x - 0.125f, y + 0.1875, z + offset, x + 0.375f, y + 0.75, z + 1 - offset);
-        case 6:
-        	offset = 0.25F;
-            return AxisAlignedBB.getBoundingBox(x + offset, y + 0.1875, z - 0.125f, x + 1 - offset, y + 0.75, z + 0.375f);
-        default:
-        	return null;
+                return AxisAlignedBB.getBoundingBox(
+                        x + offset, y, z + offset, x + 1 - offset, y + 1 - height, z + 1 - offset);
+            case 1:
+            case 2:
+                offset = 0.325F;
+                return AxisAlignedBB.getBoundingBox(x + offset, y, z + offset, x + 1 - offset, y + 0.5, z + 1 - offset);
+            case 3:
+                offset = 0.25F;
+                return AxisAlignedBB.getBoundingBox(
+                        x + 0.625f, y + 0.1875, z + offset, x + 1.125f, y + 0.75, z + 1 - offset);
+            case 4:
+                offset = 0.25F;
+                return AxisAlignedBB.getBoundingBox(
+                        x + offset, y + 0.1875, z + 0.625f, x + 1 - offset, y + 0.75, z + 1.125f);
+            case 5:
+                offset = 0.25F;
+                return AxisAlignedBB.getBoundingBox(
+                        x - 0.125f, y + 0.1875, z + offset, x + 0.375f, y + 0.75, z + 1 - offset);
+            case 6:
+                offset = 0.25F;
+                return AxisAlignedBB.getBoundingBox(
+                        x + offset, y + 0.1875, z - 0.125f, x + 1 - offset, y + 0.75, z + 0.375f);
+            default:
+                return null;
         }
     }
 
     @Override
-    public int getRenderType () {
+    public int getRenderType() {
         return SaguaroRenderer.model;
     }
 
     @Override
-    public Item getItemDropped (int meta, Random random, int fortune) {
+    public Item getItemDropped(int meta, Random random, int fortune) {
         if (meta == 0) {
             return Item.getItemFromBlock(this);
         } else {
@@ -144,11 +153,11 @@ public class SaguaroBlock extends Block implements IPlantable {
     }
 
     public IIcon[] icons;
-    public String[] textureNames = new String[] { "saguaro_bottom", "saguaro_top", "saguaro_side", "saguaro_fruit" };
+    public String[] textureNames = new String[] {"saguaro_bottom", "saguaro_top", "saguaro_side", "saguaro_fruit"};
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerBlockIcons (IIconRegister iconRegister) {
+    public void registerBlockIcons(IIconRegister iconRegister) {
         this.icons = new IIcon[textureNames.length];
 
         for (int i = 0; i < this.icons.length; ++i) {
@@ -158,41 +167,41 @@ public class SaguaroBlock extends Block implements IPlantable {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIcon (int side, int meta) {
-    	switch (meta) {
-    	case 0:
-            if (side < 2) {
-                return icons[side];
-            } else {
-                return icons[2];
-            }
-    	case 1:
-    	case 2:
-    		return icons[1];
-    	default:
-    		return icons[3];
-    	}
+    public IIcon getIcon(int side, int meta) {
+        switch (meta) {
+            case 0:
+                if (side < 2) {
+                    return icons[side];
+                } else {
+                    return icons[2];
+                }
+            case 1:
+            case 2:
+                return icons[1];
+            default:
+                return icons[3];
+        }
     }
 
     @Override
-    public boolean renderAsNormalBlock () {
+    public boolean renderAsNormalBlock() {
         return false;
     }
 
     @Override
-    public boolean isOpaqueCube () {
+    public boolean isOpaqueCube() {
         return false;
     }
-    
+
     @SideOnly(Side.CLIENT)
     @Override
     public boolean shouldSideBeRendered(IBlockAccess blockAccess, int x, int y, int z, int side) {
-        //This could be better.
+        // This could be better.
         return !(side == 0 && blockAccess.getBlock(x, y, z).isOpaqueCube());
     }
 
     @Override
-    public boolean canPlaceBlockAt (World world, int x, int y, int z) {
+    public boolean canPlaceBlockAt(World world, int x, int y, int z) {
         if (!super.canPlaceBlockAt(world, x, y, z)) {
             return false;
         } else {
@@ -200,7 +209,7 @@ public class SaguaroBlock extends Block implements IPlantable {
         }
     }
 
-    public void onNeighborBlockChange (World world, int x, int y, int z, int l) {
+    public void onNeighborBlockChange(World world, int x, int y, int z, int l) {
         if (!canBlockStay(world, x, y, z)) {
             dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z), 0);
             world.setBlockToAir(x, y, z);
@@ -208,36 +217,34 @@ public class SaguaroBlock extends Block implements IPlantable {
     }
 
     @Override
-    public boolean canBlockStay (World world, int x, int y, int z) {
+    public boolean canBlockStay(World world, int x, int y, int z) {
         Block block = world.getBlock(x, y - 1, z);
         return block == this || block == Blocks.sand || block == null;
-
     }
 
     @Override
-    public void onEntityCollidedWithBlock (World world, int x, int y, int z, Entity entity) {
+    public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
         if (!(entity instanceof EntityItem)) {
             entity.attackEntityFrom(DamageSource.cactus, 1);
         }
     }
 
-    public boolean canConnectSuguaroTo (IBlockAccess world, int x, int y, int z) {
-    	return world.getBlock(x, y, z) == this && world.getBlockMetadata(x, y, z) == 0;
+    public boolean canConnectSuguaroTo(IBlockAccess world, int x, int y, int z) {
+        return world.getBlock(x, y, z) == this && world.getBlockMetadata(x, y, z) == 0;
     }
 
     @Override
-    public EnumPlantType getPlantType (IBlockAccess world, int x, int y, int z) {
+    public EnumPlantType getPlantType(IBlockAccess world, int x, int y, int z) {
         return EnumPlantType.Desert;
     }
 
     @Override
-    public Block getPlant (IBlockAccess world, int x, int y, int z) {
+    public Block getPlant(IBlockAccess world, int x, int y, int z) {
         return this;
     }
 
     @Override
-    public int getPlantMetadata (IBlockAccess world, int x, int y, int z) {
+    public int getPlantMetadata(IBlockAccess world, int x, int y, int z) {
         return 1;
     }
-
 }

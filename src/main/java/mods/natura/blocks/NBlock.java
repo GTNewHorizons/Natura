@@ -1,9 +1,8 @@
 package mods.natura.blocks;
 
-import java.util.List;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.List;
 import mods.natura.common.NaturaTab;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -51,5 +50,4 @@ public class NBlock extends Block {
             list.add(new ItemStack(id, 1, iter));
         }
     }
-
 }

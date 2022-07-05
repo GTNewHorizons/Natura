@@ -1,9 +1,8 @@
 package mods.natura.blocks;
 
-import java.util.List;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.List;
 import mods.natura.common.NaturaTab;
 import net.minecraft.block.BlockLadder;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -36,8 +35,7 @@ public class NLadder extends BlockLadder {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIcon(int side, int meta)
-    {
+    public IIcon getIcon(int side, int meta) {
         return icons[meta / 4];
     }
 
@@ -47,5 +45,4 @@ public class NLadder extends BlockLadder {
             list.add(new ItemStack(id, 1, iter * 4));
         }
     }
-
 }

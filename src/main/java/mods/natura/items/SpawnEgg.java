@@ -1,9 +1,8 @@
 package mods.natura.items;
 
-import java.util.List;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.List;
 import mods.natura.common.PHNatura;
 import mods.natura.entity.BabyHeatscarSpider;
 import mods.natura.entity.HeatscarSpider;
@@ -22,46 +21,38 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
-public class SpawnEgg extends Item
-{
-    int[] primaryColor = { 0xF29735, 0xE64D10, 0xF73E6C, 0xE64D10 };
-    int[] secondaryColor = { 0x2E1F10, 0x57B1BD, 0x9B5004, 0x57B1BD };
-    String[] mobNames = { "Natura.Imp", "Natura.FlameSpider", "Natura.NitroCreeper", "Natura.FlameSpiderBaby" };
+public class SpawnEgg extends Item {
+    int[] primaryColor = {0xF29735, 0xE64D10, 0xF73E6C, 0xE64D10};
+    int[] secondaryColor = {0x2E1F10, 0x57B1BD, 0x9B5004, 0x57B1BD};
+    String[] mobNames = {"Natura.Imp", "Natura.FlameSpider", "Natura.NitroCreeper", "Natura.FlameSpiderBaby"};
 
-    public SpawnEgg()
-    {
+    public SpawnEgg() {
         super();
         this.setCreativeTab(CreativeTabs.tabMisc);
         this.setHasSubtypes(true);
     }
 
     @Override
-    public void registerIcons (IIconRegister iconRegister)
-    {
-    }
+    public void registerIcons(IIconRegister iconRegister) {}
 
     @Override
     @SideOnly(Side.CLIENT)
-    public boolean requiresMultipleRenderPasses ()
-    {
+    public boolean requiresMultipleRenderPasses() {
         return true;
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIconFromDamageForRenderPass (int par1, int par2)
-    {
+    public IIcon getIconFromDamageForRenderPass(int par1, int par2) {
         return Items.spawn_egg.getIconFromDamageForRenderPass(par1, par2);
     }
 
     @Override
-    public String getItemStackDisplayName (ItemStack par1ItemStack)
-    {
+    public String getItemStackDisplayName(ItemStack par1ItemStack) {
         String s = ("" + StatCollector.translateToLocal(this.getUnlocalizedName() + ".name")).trim();
         String s1 = mobNames[par1ItemStack.getItemDamage()];
 
-        if (s1 != null)
-        {
+        if (s1 != null) {
             s = s + " " + StatCollector.translateToLocal("entity." + s1 + ".name");
         }
 
@@ -69,8 +60,7 @@ public class SpawnEgg extends Item
     }
 
     @Override
-    public void getSubItems (Item item, CreativeTabs tab, List list)
-    {
+    public void getSubItems(Item item, CreativeTabs tab, List list) {
         if (PHNatura.enableImps) list.add(new ItemStack(item, 1, 0));
         if (PHNatura.enableHeatscarSpiders) list.add(new ItemStack(item, 1, 1));
         if (PHNatura.enableNitroCreepers) list.add(new ItemStack(item, 1, 2));
@@ -79,75 +69,77 @@ public class SpawnEgg extends Item
 
     @Override
     @SideOnly(Side.CLIENT)
-    public int getColorFromItemStack (ItemStack stack, int pass)
-    {
+    public int getColorFromItemStack(ItemStack stack, int pass) {
         int damage = stack.getItemDamage();
         return pass == 0 ? primaryColor[damage] : secondaryColor[damage];
     }
 
     @Override
-    public boolean onItemUse (ItemStack stack, EntityPlayer player, World world, int posX, int posY, int posZ, int par7, float par8, float par9, float par10)
-    {
-        if (!world.isRemote)
-        {
+    public boolean onItemUse(
+            ItemStack stack,
+            EntityPlayer player,
+            World world,
+            int posX,
+            int posY,
+            int posZ,
+            int par7,
+            float par8,
+            float par9,
+            float par10) {
+        if (!world.isRemote) {
             activateSpawnEgg(stack, world, posX, posY, posZ, par7);
-            if (!player.capabilities.isCreativeMode)
-            {
+            if (!player.capabilities.isCreativeMode) {
                 --stack.stackSize;
             }
         }
         return true;
     }
 
-    public static EntityLiving activateSpawnEgg (ItemStack stack, World world, double posX, double posY, double posZ, int par7)
-    {
+    public static EntityLiving activateSpawnEgg(
+            ItemStack stack, World world, double posX, double posY, double posZ, int par7) {
         Block i1 = world.getBlock((int) posX, (int) posY, (int) posZ);
         posX += Facing.offsetsXForSide[par7];
         posY += Facing.offsetsYForSide[par7];
         posZ += Facing.offsetsZForSide[par7];
         double d0 = 0.0D;
 
-        if (par7 == 1 && i1 != null && i1.getRenderType() == 11)
-        {
+        if (par7 == 1 && i1 != null && i1.getRenderType() == 11) {
             d0 = 0.5D;
         }
 
         int damage = stack.getItemDamage();
         EntityLiving entity = null;
-        switch (damage)
-        {
-        case 0:
-            if (PHNatura.enableImps) {
-        	    entity = new ImpEntity(world);
-                spawnEntity(posX, posY, posZ, entity, world);
-            }
-            break;
-        case 1:
-            if (PHNatura.enableHeatscarSpiders) {
-                entity = new HeatscarSpider(world);
-                spawnEntity(posX, posY, posZ, entity, world);
-            }
-            break;
-        case 2:
-            if (PHNatura.enableNitroCreepers) {
-                entity = new NitroCreeper(world);
-                spawnEntity(posX, posY, posZ, entity, world);
-            }
-            break;
-        case 3:
-            if (PHNatura.enableHeatscarSpiders) {
-                entity = new BabyHeatscarSpider(world);
-                spawnEntity(posX, posY, posZ, entity, world);
-            }
-            break;
+        switch (damage) {
+            case 0:
+                if (PHNatura.enableImps) {
+                    entity = new ImpEntity(world);
+                    spawnEntity(posX, posY, posZ, entity, world);
+                }
+                break;
+            case 1:
+                if (PHNatura.enableHeatscarSpiders) {
+                    entity = new HeatscarSpider(world);
+                    spawnEntity(posX, posY, posZ, entity, world);
+                }
+                break;
+            case 2:
+                if (PHNatura.enableNitroCreepers) {
+                    entity = new NitroCreeper(world);
+                    spawnEntity(posX, posY, posZ, entity, world);
+                }
+                break;
+            case 3:
+                if (PHNatura.enableHeatscarSpiders) {
+                    entity = new BabyHeatscarSpider(world);
+                    spawnEntity(posX, posY, posZ, entity, world);
+                }
+                break;
         }
         return entity;
     }
 
-    public static void spawnEntity (double x, double y, double z, EntityLiving entity, World world)
-    {
-        if (!world.isRemote)
-        {
+    public static void spawnEntity(double x, double y, double z, EntityLiving entity, World world) {
+        if (!world.isRemote) {
             entity.setPosition(x, y, z);
             world.spawnEntityInWorld(entity);
         }

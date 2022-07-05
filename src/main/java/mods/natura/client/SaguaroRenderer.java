@@ -16,41 +16,42 @@ public class SaguaroRenderer implements ISimpleBlockRenderingHandler {
     public static int model = RenderingRegistry.getNextAvailableRenderId();
 
     @Override
-    public void renderInventoryBlock (Block block, int metadata, int modelID, RenderBlocks renderer) {
-        if (modelID == model)
-            NProxyClient.renderStandardInvBlock(renderer, block, metadata);
+    public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
+        if (modelID == model) NProxyClient.renderStandardInvBlock(renderer, block, metadata);
     }
 
     @Override
-    public boolean renderWorldBlock (IBlockAccess world, int x, int y, int z, Block block, int modelID, RenderBlocks renderer) {
+    public boolean renderWorldBlock(
+            IBlockAccess world, int x, int y, int z, Block block, int modelID, RenderBlocks renderer) {
         if (modelID == model) {
             int meta = world.getBlockMetadata(x, y, z);
-            switch(meta) {
-            case 0:
-            	return renderCactus(renderer, world, x, y, z, (SaguaroBlock) block);
-            case 1:
-            case 2:
-            	return renderSmall(renderer, world, x, y, z, block);
-            case 3:
-            	return renderFruit((SaguaroBlock) block, x, y, z, world, meta);
-            }    
+            switch (meta) {
+                case 0:
+                    return renderCactus(renderer, world, x, y, z, (SaguaroBlock) block);
+                case 1:
+                case 2:
+                    return renderSmall(renderer, world, x, y, z, block);
+                case 3:
+                    return renderFruit((SaguaroBlock) block, x, y, z, world, meta);
+            }
         }
         return true;
     }
 
     @Override
-    public boolean shouldRender3DInInventory (int id) {
+    public boolean shouldRender3DInInventory(int id) {
         return true;
     }
 
     @Override
-    public int getRenderId () {
+    public int getRenderId() {
         return model;
     }
 
     /* Render methods, used for saguaro */
 
-    boolean renderCactus (RenderBlocks renderblocks, IBlockAccess iblockaccess, int x, int y, int z, SaguaroBlock cactus) {
+    boolean renderCactus(
+            RenderBlocks renderblocks, IBlockAccess iblockaccess, int x, int y, int z, SaguaroBlock cactus) {
         float offset = 0.125F;
 
         float botX = offset;
@@ -63,10 +64,8 @@ public class SaguaroRenderer implements ISimpleBlockRenderingHandler {
         Block airBelow = iblockaccess.getBlock(x, y - 1, z);
         Block cactusAbove = iblockaccess.getBlock(x, y + 1, z);
 
-        if (airBelow == Blocks.air)
-            botY = offset;
-        if (cactusAbove == cactus)
-            topY = 1.0F;
+        if (airBelow == Blocks.air) botY = offset;
+        if (cactusAbove == cactus) topY = 1.0F;
 
         renderblocks.setRenderBounds(botX, botY, botZ, topX, topY, topZ);
         renderblocks.renderStandardBlock(cactus, x, y, z);
@@ -74,14 +73,16 @@ public class SaguaroRenderer implements ISimpleBlockRenderingHandler {
         botY = offset;
         topY = 1.0F - offset;
 
-        if (cactus.canConnectSuguaroTo(iblockaccess, x + 1, y, z) && (airBelow == Blocks.air || iblockaccess.getBlock(x + 1, y - 1, z) == Blocks.air)) {
+        if (cactus.canConnectSuguaroTo(iblockaccess, x + 1, y, z)
+                && (airBelow == Blocks.air || iblockaccess.getBlock(x + 1, y - 1, z) == Blocks.air)) {
             botX = 1F - offset;
             topX = 1F;
             renderblocks.setRenderBounds(botX, botY, botZ, topX, topY, topZ);
             renderblocks.renderStandardBlock(cactus, x, y, z);
         }
 
-        if (cactus.canConnectSuguaroTo(iblockaccess, x - 1, y, z) && (airBelow == Blocks.air || iblockaccess.getBlock(x - 1, y - 1, z) == Blocks.air)) {
+        if (cactus.canConnectSuguaroTo(iblockaccess, x - 1, y, z)
+                && (airBelow == Blocks.air || iblockaccess.getBlock(x - 1, y - 1, z) == Blocks.air)) {
             botX = 0F;
             topX = offset;
             renderblocks.setRenderBounds(botX, botY, botZ, topX, topY, topZ);
@@ -91,14 +92,16 @@ public class SaguaroRenderer implements ISimpleBlockRenderingHandler {
         botX = offset;
         topX = 1.0F - offset;
 
-        if (cactus.canConnectSuguaroTo(iblockaccess, x, y, z + 1) && (airBelow == Blocks.air || iblockaccess.getBlock(x, y - 1, z + 1) == Blocks.air)) {
+        if (cactus.canConnectSuguaroTo(iblockaccess, x, y, z + 1)
+                && (airBelow == Blocks.air || iblockaccess.getBlock(x, y - 1, z + 1) == Blocks.air)) {
             botZ = 1F - offset;
             topZ = 1F;
             renderblocks.setRenderBounds(botX, botY, botZ, topX, topY, topZ);
             renderblocks.renderStandardBlock(cactus, x, y, z);
         }
 
-        if (cactus.canConnectSuguaroTo(iblockaccess, x, y, z - 1) && (airBelow == Blocks.air || iblockaccess.getBlock(x, y - 1, z - 1) == Blocks.air)) {
+        if (cactus.canConnectSuguaroTo(iblockaccess, x, y, z - 1)
+                && (airBelow == Blocks.air || iblockaccess.getBlock(x, y - 1, z - 1) == Blocks.air)) {
             botZ = 0F;
             topZ = offset;
             renderblocks.setRenderBounds(botX, botY, botZ, topX, topY, topZ);
@@ -107,7 +110,7 @@ public class SaguaroRenderer implements ISimpleBlockRenderingHandler {
         return true;
     }
 
-    public boolean renderFruit (SaguaroBlock block, int x, int y, int z, IBlockAccess world, int meta) {
+    public boolean renderFruit(SaguaroBlock block, int x, int y, int z, IBlockAccess world, int meta) {
         Tessellator tessellator = Tessellator.instance;
         tessellator.setBrightness(block.getMixedBrightnessForBlock(world, x, y, z));
         tessellator.setColorOpaque_F(1.0F, 1.0F, 1.0F);
@@ -131,22 +134,22 @@ public class SaguaroRenderer implements ISimpleBlockRenderingHandler {
         double d9 = 0.0D;
 
         switch (direction) {
-        case 0:
-            d8 = 8.0D - offsetX / 2;
-            d9 = 18.0D - offsetX;
-            break;
-        case 1:
-            d8 = -2.0D;
-            d9 = 8.0D - offsetX / 2;
-            break;
-        case 2:
-            d8 = 8.0D - offsetX / 2;
-            d9 = -2.0D;
-            break;
-        case 3:
-            d8 = 18.0D - offsetX;
-            d9 = 8.0D - offsetX / 2;
-            /*case 4:
+            case 0:
+                d8 = 8.0D - offsetX / 2;
+                d9 = 18.0D - offsetX;
+                break;
+            case 1:
+                d8 = -2.0D;
+                d9 = 8.0D - offsetX / 2;
+                break;
+            case 2:
+                d8 = 8.0D - offsetX / 2;
+                d9 = -2.0D;
+                break;
+            case 3:
+                d8 = 18.0D - offsetX;
+                d9 = 8.0D - offsetX / 2;
+                /*case 4:
                 d8 = 11.0D - (double)offsetX;
                 d9 = 8.0D - (double)(offsetX / 2);*/
         }
@@ -200,27 +203,27 @@ public class SaguaroRenderer implements ISimpleBlockRenderingHandler {
         double d16;
 
         switch (direction) {
-        case 0:
-            d8 = 8.0D;
-            d9 = 12.0D;
-            d16 = d4;
-            d4 = d5;
-            d5 = d16;
-        break;
-        case 1:
-            d8 = 0.0D;
-            d9 = 8.0D;
-        break;
-        case 2:
-            d8 = 8.0D;
-            d9 = 0.0D;
-        break;
-        case 3:
-            d8 = 12.0D;
-            d9 = 8.0D;
-            d16 = d4;
-            d4 = d5;
-            d5 = d16;
+            case 0:
+                d8 = 8.0D;
+                d9 = 12.0D;
+                d16 = d4;
+                d4 = d5;
+                d5 = d16;
+                break;
+            case 1:
+                d8 = 0.0D;
+                d9 = 8.0D;
+                break;
+            case 2:
+                d8 = 8.0D;
+                d9 = 0.0D;
+                break;
+            case 3:
+                d8 = 12.0D;
+                d9 = 8.0D;
+                d16 = d4;
+                d4 = d5;
+                d5 = d16;
         }
 
         d10 = x + d8 / 16.0D;
@@ -259,10 +262,9 @@ public class SaguaroRenderer implements ISimpleBlockRenderingHandler {
         return true;
     }
 
-    boolean renderSmall (RenderBlocks renderer, IBlockAccess iblockaccess, int x, int y, int z, Block block) {
+    boolean renderSmall(RenderBlocks renderer, IBlockAccess iblockaccess, int x, int y, int z, Block block) {
         renderer.setRenderBounds(0.325F, 0.0F, 0.325F, 0.675F, 0.5F, 0.675F);
         renderer.renderStandardBlock(block, x, y, z);
         return true;
     }
-
 }

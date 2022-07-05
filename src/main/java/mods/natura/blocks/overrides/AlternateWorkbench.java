@@ -1,9 +1,8 @@
 package mods.natura.blocks.overrides;
 
-import java.util.List;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.List;
 import mods.natura.Natura;
 import mods.natura.common.NContent;
 import mods.natura.gui.NGuiHandler;
@@ -29,15 +28,15 @@ public class AlternateWorkbench extends BlockWorkbench {
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(int side, int metadata) {
         switch (side) {
-        case 0:
-            return NContent.planks.getIcon(side, metadata);
-        case 1:
-            return topIcons[metadata];
-        case 2:
-        case 4:
-            return faceIcons[metadata];
-        default:
-        	return sideIcons[metadata];
+            case 0:
+                return NContent.planks.getIcon(side, metadata);
+            case 1:
+                return topIcons[metadata];
+            case 2:
+            case 4:
+                return faceIcons[metadata];
+            default:
+                return sideIcons[metadata];
         }
     }
 
@@ -63,19 +62,18 @@ public class AlternateWorkbench extends BlockWorkbench {
     @SideOnly(Side.CLIENT)
     @Override
     public void getSubBlocks(Item par1, CreativeTabs tabs, List list) {
-        for (int i = 0; i < topIcons.length; i++)
-            list.add(new ItemStack(par1, 1, i));
+        for (int i = 0; i < topIcons.length; i++) list.add(new ItemStack(par1, 1, i));
     }
 
     @Override
-    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
+    public boolean onBlockActivated(
+            World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
         if (world.isRemote) {
             return true;
         } else {
             player.openGui(Natura.instance, NGuiHandler.craftingGui, world, x, y, z);
-            //player.displayGUIWorkbench(par2, par3, par4);
+            // player.displayGUIWorkbench(par2, par3, par4);
             return true;
         }
     }
-
 }

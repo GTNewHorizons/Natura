@@ -42,13 +42,11 @@ public class HeatSand extends BlockFalling {
     public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
         if (entity instanceof EntityPlayer) {
             ItemStack stack = ((EntityPlayer) entity).inventory.getStackInSlot(36);
-            if (stack == null)
-                entity.attackEntityFrom(DamageSource.inFire, 1);
+            if (stack == null) entity.attackEntityFrom(DamageSource.inFire, 1);
         } else if (entity instanceof EntityLiving && !entity.isImmuneToFire()) {
             entity.attackEntityFrom(DamageSource.inFire, 1);
         }
         /*entity.motionX *= 0.4D;
         entity.motionZ *= 0.4D;*/
     }
-
 }

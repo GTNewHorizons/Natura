@@ -5,12 +5,10 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.MathHelper;
 
-public class ImpModel extends ModelBase
-{
+public class ImpModel extends ModelBase {
     public ModelRenderer impParts[];
 
-    public ImpModel()
-    {
+    public ImpModel() {
         impParts = new ModelRenderer[6];
         impParts[0] = new ModelRenderer(this, 16, 16);
         impParts[0].addBox(-5F, 0.0F, -18.5F, 10, 5, 9, 0.0F);
@@ -33,8 +31,7 @@ public class ImpModel extends ModelBase
     }
 
     @Override
-    public void render (Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
-    {
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         setRotationAngles(f, f1, f2, f3, f4, f5);
         impParts[0].render(f5);
         impParts[1].render(f5);
@@ -44,8 +41,7 @@ public class ImpModel extends ModelBase
         impParts[5].render(f5);
     }
 
-    public void setRotationAngles (float f, float f1, float f2, float f3, float f4, float f5)
-    {
+    public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5) {
         impParts[0].rotateAngleX = 1.570796F;
         impParts[1].rotateAngleX = f4 / -57.29578F;
         impParts[1].rotateAngleY = f3 / 57.29578F;

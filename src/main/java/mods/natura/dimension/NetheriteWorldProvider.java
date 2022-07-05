@@ -7,14 +7,12 @@ import net.minecraft.world.WorldProviderHell;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.IChunkProvider;
 
-public class NetheriteWorldProvider extends WorldProviderHell
-{
+public class NetheriteWorldProvider extends WorldProviderHell {
     /**
      * creates a new world chunk manager for WorldProvider
      */
     @Override
-    public void registerWorldChunkManager ()
-    {
+    public void registerWorldChunkManager() {
         this.worldChunkMgr = new NetheriteChunkManager(BiomeGenBase.hell, 1.0F, 0.0F);
         this.isHellWorld = true;
         this.hasNoSky = true;
@@ -22,31 +20,25 @@ public class NetheriteWorldProvider extends WorldProviderHell
     }
 
     @Override
-    public IChunkProvider createChunkGenerator ()
-    {
+    public IChunkProvider createChunkGenerator() {
         return new NetheriteChunkProvider(this.worldObj, this.worldObj.getSeed());
     }
 
     @Override
-    public boolean canRespawnHere ()
-    {
+    public boolean canRespawnHere() {
         return false;
     }
 
     @Override
-    public boolean doesXZShowFog (int par1, int par2)
-    {
+    public boolean doesXZShowFog(int par1, int par2) {
         return false;
     }
 
     @Override
-    public int getRespawnDimension (EntityPlayerMP player)
-    {
-        if (PHNatura.canRespawnInNether)
-        {
+    public int getRespawnDimension(EntityPlayerMP player) {
+        if (PHNatura.canRespawnInNether) {
             ChunkCoordinates coords = player.getBedLocation(-1);
-            if (coords != null)
-                return -1;
+            if (coords != null) return -1;
         }
         return 0;
     }

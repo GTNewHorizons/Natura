@@ -1,7 +1,6 @@
 package mods.natura.worldgen;
 
 import java.util.Random;
-
 import mods.natura.common.NContent;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -17,12 +16,12 @@ public class EucalyptusTreeGenShort extends WorldGenerator {
         mdLeaves = leavesMetadata;
     }
 
-    public boolean generate (World world, Random random, int x, int y, int z) {
+    public boolean generate(World world, Random random, int x, int y, int z) {
         int height = findGround(world, x, y, z);
         return generateRandomTree(world, random, x, height, z);
     }
 
-    int findGround (World world, int x, int y, int z) {
+    int findGround(World world, int x, int y, int z) {
         int l = 0;
         Block i1 = world.getBlock(x, y - 1, z);
         if (!world.getBlock(x, y, z).func_149730_j() && (i1 == Blocks.grass || i1 == Blocks.dirt)) {
@@ -34,7 +33,8 @@ public class EucalyptusTreeGenShort extends WorldGenerator {
                 break;
             }
             Block j1 = world.getBlock(x, k1, z);
-            if ((j1 == Blocks.grass || j1 == Blocks.dirt) && !world.getBlock(x, k1 + 1, z).func_149730_j()) {
+            if ((j1 == Blocks.grass || j1 == Blocks.dirt)
+                    && !world.getBlock(x, k1 + 1, z).func_149730_j()) {
                 l = k1 + 1;
                 break;
             }
@@ -43,8 +43,8 @@ public class EucalyptusTreeGenShort extends WorldGenerator {
         return l;
     }
 
-    public boolean generateRandomTree (World world, Random random, int posX, int posY, int posZ) {
-        int height = random.nextInt(3) + 6; //Height
+    public boolean generateRandomTree(World world, Random random, int posX, int posY, int posZ) {
+        int height = random.nextInt(3) + 6; // Height
         boolean flag = true;
         if (posY < 1 || posY + height + 1 > 256) {
             return false;
@@ -57,7 +57,8 @@ public class EucalyptusTreeGenShort extends WorldGenerator {
             if (i1 >= (posY + 1 + height) - 2) {
                 byte0 = 2;
             }
-            label0: for (int l1 = posX - byte0; l1 <= posX + byte0 && flag; l1++) {
+            label0:
+            for (int l1 = posX - byte0; l1 <= posX + byte0 && flag; l1++) {
                 int j2 = posZ - byte0;
                 do {
                     if (j2 > posZ + byte0 || !flag) {
@@ -65,13 +66,11 @@ public class EucalyptusTreeGenShort extends WorldGenerator {
                     }
                     if (i1 >= 0 && i1 < 256) {
                         Block k2 = world.getBlock(l1, i1, j2);
-                        if (k2 != Blocks.air && k2 != NContent.floraLeaves)
-                        {
+                        if (k2 != Blocks.air && k2 != NContent.floraLeaves) {
                             flag = false;
                             continue label0;
                         }
-                    }
-                    else {
+                    } else {
                         flag = false;
                         continue label0;
                     }
@@ -96,7 +95,10 @@ public class EucalyptusTreeGenShort extends WorldGenerator {
         }
         for (int k1 = 0; k1 < height; k1++) {
             Block block = world.getBlock(posX, posY + k1, posZ);
-            if (block == Blocks.air || block.isLeaves(world, posX, posX + k1, posZ) || block.canBeReplacedByLeaves(world, posX, posX + k1, posZ) || block == NContent.floraSapling) {
+            if (block == Blocks.air
+                    || block.isLeaves(world, posX, posX + k1, posZ)
+                    || block.canBeReplacedByLeaves(world, posX, posX + k1, posZ)
+                    || block == NContent.floraSapling) {
                 this.setBlockAndNotifyAdequately(world, posX, posY + k1, posZ, NContent.tree, mdWood);
             }
         }
@@ -113,29 +115,29 @@ public class EucalyptusTreeGenShort extends WorldGenerator {
         return true;
     }
 
-    private void genBranch (World world, Random random, int x, int y, int z, int height, int direction) {
+    private void genBranch(World world, Random random, int x, int y, int z, int height, int direction) {
         int posX = x;
         int posY = y + height - 3;
         int posZ = z;
         byte byte0 = 0;
         byte byte1 = 0;
         switch (direction) {
-        case 1:
-            byte0 = 1;
-            byte1 = 1;
-            break;
-        case 2:
-            byte0 = -1;
-            byte1 = 1;
-            break;
-        case 3:
-            byte0 = 1;
-            byte1 = -1;
-            break;
-        case 4:
-            byte0 = -1;
-            byte1 = -1;
-            break;
+            case 1:
+                byte0 = 1;
+                byte1 = 1;
+                break;
+            case 2:
+                byte0 = -1;
+                byte1 = 1;
+                break;
+            case 3:
+                byte0 = 1;
+                byte1 = -1;
+                break;
+            case 4:
+                byte0 = -1;
+                byte1 = -1;
+                break;
         }
         int heightShift = random.nextInt(6);
         for (int bIter = 4; bIter > 0; bIter--) {
@@ -158,29 +160,29 @@ public class EucalyptusTreeGenShort extends WorldGenerator {
         }
     }
 
-    private void genStraightBranch (World world, Random random, int x, int y, int z, int height, int direction) {
+    private void genStraightBranch(World world, Random random, int x, int y, int z, int height, int direction) {
         int posX = x;
         int posY = y + height - 3;
         int posZ = z;
         byte xShift = 0;
         byte zShift = 0;
         switch (direction) {
-        case 1:
-            xShift = 1;
-            zShift = 0;
-            break;
-        case 2:
-            xShift = 0;
-            zShift = 1;
-            break;
-        case 3:
-            xShift = -1;
-            zShift = 0;
-            break;
-        case 4:
-            xShift = 0;
-            zShift = -1;
-            break;
+            case 1:
+                xShift = 1;
+                zShift = 0;
+                break;
+            case 2:
+                xShift = 0;
+                zShift = 1;
+                break;
+            case 3:
+                xShift = -1;
+                zShift = 0;
+                break;
+            case 4:
+                xShift = 0;
+                zShift = -1;
+                break;
         }
         int heightShift = random.nextInt(6);
         for (int j2 = 4; j2 > 0; j2--) {
@@ -194,16 +196,14 @@ public class EucalyptusTreeGenShort extends WorldGenerator {
             }
             int branch = heightShift % 3;
             posY += branch;
-            if (branch == 2)
-                this.setBlockAndNotifyAdequately(world, posX, posY - 1, posZ, NContent.tree, mdWood);
+            if (branch == 2) this.setBlockAndNotifyAdequately(world, posX, posY - 1, posZ, NContent.tree, mdWood);
             this.setBlockAndNotifyAdequately(world, posX, posY, posZ, NContent.tree, mdWood);
-            if (j2 == 1)
-                generateNode(world, random, posX, posY, posZ);
+            if (j2 == 1) generateNode(world, random, posX, posY, posZ);
             heightShift = random.nextInt(6);
         }
     }
 
-    public boolean generateNode (World world, Random random, int x, int y, int z) {
+    public boolean generateNode(World world, Random random, int x, int y, int z) {
         this.setBlockAndNotifyAdequately(world, x, y, z, NContent.tree, mdWood);
         for (int xIter = x - 2; xIter <= x + 2; xIter++) {
             for (int zIter = z - 1; zIter <= z + 1; zIter++) {
@@ -233,5 +233,4 @@ public class EucalyptusTreeGenShort extends WorldGenerator {
         }
         return true;
     }
-    
 }

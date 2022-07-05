@@ -7,10 +7,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class FlintAndBlaze extends Item
-{
-    public FlintAndBlaze()
-    {
+public class FlintAndBlaze extends Item {
+    public FlintAndBlaze() {
         super();
         this.maxStackSize = 1;
         this.setMaxDamage(256);
@@ -62,49 +60,49 @@ public class FlintAndBlaze extends Item
         return EnumAction.bow;
     }*/
 
-    //Right-click on blocks
+    // Right-click on blocks
     @Override
-    public boolean onItemUse (ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
-    {
-        if (side == 0)
-        {
+    public boolean onItemUse(
+            ItemStack stack,
+            EntityPlayer player,
+            World world,
+            int x,
+            int y,
+            int z,
+            int side,
+            float hitX,
+            float hitY,
+            float hitZ) {
+        if (side == 0) {
             --y;
         }
 
-        if (side == 1)
-        {
+        if (side == 1) {
             ++y;
         }
 
-        if (side == 2)
-        {
+        if (side == 2) {
             --z;
         }
 
-        if (side == 3)
-        {
+        if (side == 3) {
             ++z;
         }
 
-        if (side == 4)
-        {
+        if (side == 4) {
             --x;
         }
 
-        if (side == 5)
-        {
+        if (side == 5) {
             ++x;
         }
 
-        if (!player.canPlayerEdit(x, y, z, side, stack))
-        {
+        if (!player.canPlayerEdit(x, y, z, side, stack)) {
             return false;
-        }
-        else
-        {
-            if (world.isAirBlock(x, y, z))
-            {
-                world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, "fire.ignite", 1.0F, itemRand.nextFloat() * 0.4F + 0.8F);
+        } else {
+            if (world.isAirBlock(x, y, z)) {
+                world.playSoundEffect(
+                        x + 0.5D, y + 0.5D, z + 0.5D, "fire.ignite", 1.0F, itemRand.nextFloat() * 0.4F + 0.8F);
                 world.setBlock(x, y, z, Blocks.fire);
             }
 

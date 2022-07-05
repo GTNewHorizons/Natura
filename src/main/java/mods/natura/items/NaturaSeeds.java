@@ -1,9 +1,8 @@
 package mods.natura.items;
 
-import java.util.List;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.List;
 import mods.natura.common.NaturaTab;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -18,15 +17,13 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class NaturaSeeds extends ItemSeeds
-{
-    public String[] textureNames = new String[] { "barley", "cotton" };
+public class NaturaSeeds extends ItemSeeds {
+    public String[] textureNames = new String[] {"barley", "cotton"};
     public IIcon[] icons;
 
     public Block blockType;
 
-    public NaturaSeeds(Block cropID, Block soilID)
-    {
+    public NaturaSeeds(Block cropID, Block soilID) {
         super(cropID, soilID);
         blockType = cropID;
         this.setCreativeTab(NaturaTab.tab);
@@ -35,77 +32,73 @@ public class NaturaSeeds extends ItemSeeds
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void registerIcons (IIconRegister iconRegister)
-    {
+    public void registerIcons(IIconRegister iconRegister) {
         this.icons = new IIcon[textureNames.length];
 
-        for (int i = 0; i < this.icons.length; ++i)
-        {
+        for (int i = 0; i < this.icons.length; ++i) {
             this.icons[i] = iconRegister.registerIcon("natura:" + textureNames[i] + "_seeds");
         }
     }
 
     @Override
-    public void getSubItems (Item id, CreativeTabs tab, List list)
-    {
-        for (int i = 0; i < textureNames.length; i++)
-            list.add(new ItemStack(id, 1, i));
+    public void getSubItems(Item id, CreativeTabs tab, List list) {
+        for (int i = 0; i < textureNames.length; i++) list.add(new ItemStack(id, 1, i));
     }
 
     @SideOnly(Side.CLIENT)
     @Override
-    public IIcon getIconFromDamage (int meta)
-    {
+    public IIcon getIconFromDamage(int meta) {
         return icons[meta];
     }
 
     @Override
-    public boolean onItemUse (ItemStack stack, EntityPlayer player, World world, int xPos, int yPos, int zPos, int side, float xClick, float yClick, float zClick)
-    {
-        if (side != 1)
-        {
+    public boolean onItemUse(
+            ItemStack stack,
+            EntityPlayer player,
+            World world,
+            int xPos,
+            int yPos,
+            int zPos,
+            int side,
+            float xClick,
+            float yClick,
+            float zClick) {
+        if (side != 1) {
             return false;
-        }
-        else if (player.canPlayerEdit(xPos, yPos, zPos, side, stack) && player.canPlayerEdit(xPos, yPos + 1, zPos, side, stack))
-        {
+        } else if (player.canPlayerEdit(xPos, yPos, zPos, side, stack)
+                && player.canPlayerEdit(xPos, yPos + 1, zPos, side, stack)) {
             Block soil = world.getBlock(xPos, yPos, zPos);
 
-            if (soil != null && soil.canSustainPlant(world, xPos, yPos, zPos, ForgeDirection.UP, this) && world.isAirBlock(xPos, yPos + 1, zPos))
-            {
+            if (soil != null
+                    && soil.canSustainPlant(world, xPos, yPos, zPos, ForgeDirection.UP, this)
+                    && world.isAirBlock(xPos, yPos + 1, zPos)) {
                 world.setBlock(xPos, yPos + 1, zPos, this.blockType, stack.getItemDamage() * 4, 3);
                 --stack.stackSize;
                 return true;
-            }
-            else
-            {
+            } else {
                 return false;
             }
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
 
     @Override
-    public String getUnlocalizedName (ItemStack stack)
-    {
+    public String getUnlocalizedName(ItemStack stack) {
         int arr = MathHelper.clamp_int(stack.getItemDamage(), 0, textureNames.length);
         return "item." + textureNames[arr] + ".seed";
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
-    {
-        switch (stack.getItemDamage())
-        {
-        case 0:
-            list.add(StatCollector.translateToLocal("tooltip.barley"));
-            break;
-        case 1:
-            list.add(StatCollector.translateToLocal("tooltip.cotton"));
-            break;
+    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
+        switch (stack.getItemDamage()) {
+            case 0:
+                list.add(StatCollector.translateToLocal("tooltip.barley"));
+                break;
+            case 1:
+                list.add(StatCollector.translateToLocal("tooltip.cotton"));
+                break;
         }
     }
 }

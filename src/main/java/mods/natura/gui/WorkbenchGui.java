@@ -1,17 +1,14 @@
 package mods.natura.gui;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import org.lwjgl.opengl.GL11;
 
-public class WorkbenchGui extends GuiContainer
-{
-    public WorkbenchGui(InventoryPlayer inventoryplayer, World world)
-    {
+public class WorkbenchGui extends GuiContainer {
+    public WorkbenchGui(InventoryPlayer inventoryplayer, World world) {
         super(new WorkbenchContainer(inventoryplayer, world));
     }
 
@@ -31,18 +28,17 @@ public class WorkbenchGui extends GuiContainer
         drawTexturedModalRect(l, i1, 0, 0, xSize, ySize);
     }*/
 
-    private static final ResourceLocation field_110422_t = new ResourceLocation("textures/gui/container/crafting_table.png");
+    private static final ResourceLocation field_110422_t =
+            new ResourceLocation("textures/gui/container/crafting_table.png");
 
     @Override
-    protected void drawGuiContainerForegroundLayer (int par1, int par2)
-    {
+    protected void drawGuiContainerForegroundLayer(int par1, int par2) {
         this.fontRendererObj.drawString(I18n.format("container.crafting"), 28, 6, 4210752);
         this.fontRendererObj.drawString(I18n.format("container.inventory"), 8, this.ySize - 96 + 2, 4210752);
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer (float par1, int par2, int par3)
-    {
+    protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3) {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(field_110422_t);
         int k = (this.width - this.xSize) / 2;

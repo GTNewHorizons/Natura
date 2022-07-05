@@ -1,10 +1,9 @@
 package mods.natura.blocks.nether;
 
-import java.util.List;
-import java.util.Random;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.List;
+import java.util.Random;
 import mods.natura.common.NContent;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -81,16 +80,14 @@ public class NetherGlass extends Block {
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(IBlockAccess world, int x, int y, int z, int side) {
         int meta = world.getBlockMetadata(x, y, z);
-        if (meta < 1)
-            return icons[0];
+        if (meta < 1) return icons[0];
         return icons[1];
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(int side, int meta) {
-        if (meta < 1)
-            return icons[2];
+        if (meta < 1) return icons[2];
         return icons[3];
     }
 
@@ -125,5 +122,4 @@ public class NetherGlass extends Block {
             par3List.add(new ItemStack(item, 1, var4));
         }
     }
-
 }

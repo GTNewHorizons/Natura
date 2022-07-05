@@ -17,8 +17,7 @@ public class NaturaHatchet extends ItemAxe {
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void registerIcons (IIconRegister iconRegister) {
+    public void registerIcons(IIconRegister iconRegister) {
         this.itemIcon = iconRegister.registerIcon("natura:" + texture + "_hatchet");
     }
-
 }

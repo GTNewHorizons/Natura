@@ -18,12 +18,13 @@ public class PlantableNaturaBerry extends PlantableStandard {
     public boolean canBePlantedHere(World world, int x, int y, int z, ItemStack stack) {
         Block groundBlock = world.getBlock(x, y - 1, z);
 
-        return (groundBlock != null && groundBlock.canSustainPlant(world, x, y - 1, z, ForgeDirection.UP, (IPlantable) NContent.berryBush) && world.isAirBlock(x, y, z));
+        return (groundBlock != null
+                && groundBlock.canSustainPlant(world, x, y - 1, z, ForgeDirection.UP, (IPlantable) NContent.berryBush)
+                && world.isAirBlock(x, y, z));
     }
 
     @Override
     public int getMeta(ItemStack stack) {
         return stack.getItemDamage() % 4;
     }
-
 }

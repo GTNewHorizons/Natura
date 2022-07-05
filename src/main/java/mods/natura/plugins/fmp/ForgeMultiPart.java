@@ -22,7 +22,7 @@ public class ForgeMultiPart {
         registerBlock(NContent.floraLeavesNoColor, 0, 2);
     }
 
-    //For blocks with metadata values only
+    // For blocks with metadata values only
     public static void registerBlock(Block block, int metastart, int metaend) {
         for (int meta = metastart; meta <= metaend; meta++) {
             String identifier = new String(block.getUnlocalizedName());
@@ -30,22 +30,22 @@ public class ForgeMultiPart {
         }
     }
 
-    //For blocks without metadata values only.
+    // For blocks without metadata values only.
     public static void registerBlock(Block block) {
         BlockMicroMaterial.createAndRegister(block, 0);
     }
 
-    //For blocks with metadata values and special MicroMaterial only
-    public static void registerBlock(Block block, int metastart, int metaend, MicroMaterialRegistry.IMicroMaterial material) {
+    // For blocks with metadata values and special MicroMaterial only
+    public static void registerBlock(
+            Block block, int metastart, int metaend, MicroMaterialRegistry.IMicroMaterial material) {
         for (int meta = metastart; meta <= metaend; meta++) {
             String identifier = new String(block.getUnlocalizedName());
             MicroMaterialRegistry.registerMaterial(material, identifier + meta);
         }
     }
 
-    //For blocks without metadata values and special MicroMaterial only.
+    // For blocks without metadata values and special MicroMaterial only.
     public static void registerBlock(Block block, MicroMaterialRegistry.IMicroMaterial material) {
         MicroMaterialRegistry.registerMaterial(material, new String(block.getUnlocalizedName()));
     }
-
 }

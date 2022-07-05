@@ -12,8 +12,7 @@ public class NEIPulse {
 
     @Handler
     public void init(FMLInitializationEvent evt) {
-        if (FMLCommonHandler.instance().getSide().isServer())
-            return;
+        if (FMLCommonHandler.instance().getSide().isServer()) return;
 
         try {
             Natura.logger.debug("[NEI] Registering Natura NEI plugin.");
@@ -22,5 +21,4 @@ public class NEIPulse {
             e.printStackTrace();
         }
     }
-
 }

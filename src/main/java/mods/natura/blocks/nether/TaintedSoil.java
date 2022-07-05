@@ -13,7 +13,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class TaintedSoil extends NBlock {
     public TaintedSoil() {
-        super(Material.ground, 2.2f, new String[] { "tainted_soil", "tainted_farmland_dry", "tainted_farmland_heated" });
+        super(Material.ground, 2.2f, new String[] {"tainted_soil", "tainted_farmland_dry", "tainted_farmland_heated"});
         this.setStepSound(Block.soundTypeGravel);
         this.setResistance(25f);
     }
@@ -30,14 +30,12 @@ public class TaintedSoil extends NBlock {
 
     public boolean canSustainPlant(World world, int x, int y, int z, ForgeDirection direction, IPlantable plant) {
         EnumPlantType plantType = plant.getPlantType(world, x, y + 1, z);
-        if (plantType == EnumPlantType.Nether)
-            return true;
+        if (plantType == EnumPlantType.Nether) return true;
         return super.canSustainPlant(world, x, y, z, direction, plant);
     }
 
     @Override
     public boolean isFireSource(World world, int x, int y, int z, ForgeDirection side) {
-    	return side == UP;
+        return side == UP;
     }
-
 }

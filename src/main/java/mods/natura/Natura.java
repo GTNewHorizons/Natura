@@ -1,10 +1,5 @@
 package mods.natura;
 
-import java.util.Random;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -17,6 +12,7 @@ import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
+import java.util.Random;
 import mantle.lib.TabTools;
 import mantle.pulsar.control.PulseManager;
 import mods.natura.common.NContent;
@@ -48,20 +44,29 @@ import net.minecraftforge.event.entity.player.BonemealEvent;
 import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.event.world.ChunkDataEvent;
 import net.minecraftforge.oredict.OreDictionary;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-@Mod(modid = "Natura", name = "Natura", version = "GRADLETOKEN_VERSION", acceptedMinecraftVersions = "[1.7.10]", dependencies = "required-after:Mantle;after:TConstruct")
+@Mod(
+        modid = "Natura",
+        name = "Natura",
+        version = "GRADLETOKEN_VERSION",
+        acceptedMinecraftVersions = "[1.7.10]",
+        dependencies = "required-after:Mantle;after:TConstruct")
 public class Natura {
     /* Proxies for sides, used for graphics processing */
     @SidedProxy(clientSide = "mods.natura.client.NProxyClient", serverSide = "mods.natura.common.NProxyCommon")
     public static NProxyCommon proxy;
+
     public static final String modID = "Natura";
     /* Instance of this mod, used for grabbing prototype fields */
     @Instance(modID)
     public static Natura instance;
+
     public static Material cloud = new CloudMaterial();
 
     public static Logger logger = LogManager.getLogger(modID);
-    
+
     public static final PulseManager pulsar = new PulseManager(modID, "Natura-Dynamic");
 
     @EventHandler
@@ -88,9 +93,13 @@ public class Natura {
 
     @EventHandler
     public void init(FMLInitializationEvent evt) {
-        if(PHNatura.enableBerryBushes | PHNatura.enableNetherBerryBushes) GameRegistry.registerWorldGenerator(crops = new BaseCropWorldgen(), 20); // TODO 1.7 Find correct weight (param 2)
-        GameRegistry.registerWorldGenerator(clouds = new BaseCloudWorldgen(), 20); // TODO 1.7 Find correct weight (param 2)
-        GameRegistry.registerWorldGenerator(trees = new BaseTreeWorldgen(), 20); // TODO 1.7 Find correct weight (param 2)
+        if (PHNatura.enableBerryBushes | PHNatura.enableNetherBerryBushes)
+            GameRegistry.registerWorldGenerator(
+                    crops = new BaseCropWorldgen(), 20); // TODO 1.7 Find correct weight (param 2)
+        GameRegistry.registerWorldGenerator(
+                clouds = new BaseCloudWorldgen(), 20); // TODO 1.7 Find correct weight (param 2)
+        GameRegistry.registerWorldGenerator(
+                trees = new BaseTreeWorldgen(), 20); // TODO 1.7 Find correct weight (param 2)
 
         proxy.registerRenderer();
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, new NGuiHandler());
@@ -139,11 +148,15 @@ public class Natura {
 
     @SubscribeEvent
     public void interactEvent(EntityInteractEvent event) {
-        //if (event.target == null)
+        // if (event.target == null)
         if (event.target instanceof EntityCow || event.target instanceof EntitySheep) {
             ItemStack equipped = event.entityPlayer.getCurrentEquippedItem();
             EntityAnimal creature = (EntityAnimal) event.target;
-            if (equipped != null && equipped.getItem() == NContent.plantItem && equipped.getItemDamage() == 0 && creature.getGrowingAge() == 0 && !creature.isInLove()) {
+            if (equipped != null
+                    && equipped.getItem() == NContent.plantItem
+                    && equipped.getItemDamage() == 0
+                    && creature.getGrowingAge() == 0
+                    && !creature.isInLove()) {
                 EntityPlayer player = event.entityPlayer;
                 if (!player.capabilities.isCreativeMode) {
                     --equipped.stackSize;
@@ -161,20 +174,22 @@ public class Natura {
     @SubscribeEvent
     public void spawnEvent(EntityJoinWorldEvent event) {
         if (event.entity instanceof EntityCow || event.entity instanceof EntitySheep) {
-            ((EntityLiving) event.entity).tasks.addTask(3, new EntityAITempt((EntityCreature) event.entity, 0.25F, NContent.plantItem, false));
+            ((EntityLiving) event.entity)
+                    .tasks.addTask(
+                            3, new EntityAITempt((EntityCreature) event.entity, 0.25F, NContent.plantItem, false));
         } else if (event.entity instanceof EntityChicken) {
-            ((EntityLiving) event.entity).tasks.addTask(3, new EntityAITempt((EntityCreature) event.entity, 0.25F, NContent.seeds, false));
+            ((EntityLiving) event.entity)
+                    .tasks.addTask(3, new EntityAITempt((EntityCreature) event.entity, 0.25F, NContent.seeds, false));
         }
     }
 
     public static boolean retrogen;
 
     @SubscribeEvent
-    public void chunkDataSave (ChunkDataEvent.Save event) {
+    public void chunkDataSave(ChunkDataEvent.Save event) {
         event.getData().setBoolean("Natura.Retrogen", true);
     }
 
     NContent content;
     public static Random random = new Random();
-
 }

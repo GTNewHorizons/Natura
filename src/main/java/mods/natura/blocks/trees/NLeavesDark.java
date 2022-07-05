@@ -1,10 +1,9 @@
 package mods.natura.blocks.trees;
 
-import java.util.List;
-import java.util.Random;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.List;
+import java.util.Random;
 import mods.natura.common.NContent;
 import mods.natura.common.NaturaTab;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -17,46 +16,39 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class NLeavesDark extends NLeaves
-{
-    public NLeavesDark()
-    {
+public class NLeavesDark extends NLeaves {
+    public NLeavesDark() {
         super();
         this.setCreativeTab(NaturaTab.tab);
     }
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void registerBlockIcons (IIconRegister iconRegister)
-    {
-        String[] textureNames = new String[] { "darkwood", "darkwood_flowering", "darkwood_fruit", "fusewood" };
+    public void registerBlockIcons(IIconRegister iconRegister) {
+        String[] textureNames = new String[] {"darkwood", "darkwood_flowering", "darkwood_fruit", "fusewood"};
         this.fastIcons = new IIcon[textureNames.length];
         this.fancyIcons = new IIcon[textureNames.length];
 
-        for (int i = 0; i < this.fastIcons.length; i++)
-        {
+        for (int i = 0; i < this.fastIcons.length; i++) {
             this.fastIcons[i] = iconRegister.registerIcon("natura:" + textureNames[i] + "_leaves_fast");
             this.fancyIcons[i] = iconRegister.registerIcon("natura:" + textureNames[i] + "_leaves_fancy");
         }
     }
 
     @Override
-    public boolean isOpaqueCube ()
-    {
+    public boolean isOpaqueCube() {
         return Blocks.leaves.isOpaqueCube();
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIcon (int side, int metadata)
-    {
+    public IIcon getIcon(int side, int metadata) {
         return (Blocks.leaves.isOpaqueCube() ? fastIcons : fancyIcons)[metadata % 4];
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public int getBlockColor ()
-    {
+    public int getBlockColor() {
         return 16777215;
     }
 
@@ -65,8 +57,7 @@ public class NLeavesDark extends NLeaves
     /**
      * Returns the color this block should be rendered. Used by leaves.
      */
-    public int getRenderColor (int par1)
-    {
+    public int getRenderColor(int par1) {
         return 16777215;
     }
 
@@ -76,50 +67,39 @@ public class NLeavesDark extends NLeaves
      * Returns a integer with hex for 0xrrggbb with this color multiplied against the blocks color. Note only called
      * when first determining what to render.
      */
-    public int colorMultiplier (IBlockAccess par1IBlockAccess, int par2, int par3, int par4)
-    {
+    public int colorMultiplier(IBlockAccess par1IBlockAccess, int par2, int par3, int par4) {
         return 16777215;
     }
 
-    public int getFlammability (IBlockAccess world, int x, int y, int z, int metadata, ForgeDirection face)
-    {
+    public int getFlammability(IBlockAccess world, int x, int y, int z, int metadata, ForgeDirection face) {
         return 0;
     }
 
-    public int getFireSpreadSpeed (World world, int x, int y, int z, int metadata, ForgeDirection face)
-    {
+    public int getFireSpreadSpeed(World world, int x, int y, int z, int metadata, ForgeDirection face) {
         return 0;
     }
 
     @Override
-    public Item getItemDropped (int metadata, Random random, int fortune)
-    {
-        if (metadata % 4 == 2)
-            return NContent.potashApple;
+    public Item getItemDropped(int metadata, Random random, int fortune) {
+        if (metadata % 4 == 2) return NContent.potashApple;
         return Item.getItemFromBlock(NContent.floraSapling);
     }
 
     @Override
-    public int damageDropped (int par1)
-    {
-        if (par1 % 4 == 2)
-            return 0;
-        if (par1 % 4 == 3)
-            return 7;
+    public int damageDropped(int par1) {
+        if (par1 % 4 == 2) return 0;
+        if (par1 % 4 == 3) return 7;
         return 6;
     }
 
     @Override
-    public int quantityDropped (int meta, int fortune, Random random)
-    {
-        if (meta % 4 == 2)
-            return 1;
+    public int quantityDropped(int meta, int fortune, Random random) {
+        if (meta % 4 == 2) return 1;
         return quantityDroppedWithBonus(fortune, random);
     }
 
     @Override
-    public void getSubBlocks (Item par1, CreativeTabs par2CreativeTabs, List par3List)
-    {
+    public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
         par3List.add(new ItemStack(par1, 1, 0));
         par3List.add(new ItemStack(par1, 1, 1));
         par3List.add(new ItemStack(par1, 1, 2));
@@ -127,8 +107,7 @@ public class NLeavesDark extends NLeaves
     }
 
     @Override
-    public int getLightOpacity (IBlockAccess world, int x, int y, int z)
-    {
+    public int getLightOpacity(IBlockAccess world, int x, int y, int z) {
         return this.getLightOpacity();
     }
 }

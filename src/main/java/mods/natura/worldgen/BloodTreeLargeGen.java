@@ -1,7 +1,6 @@
 package mods.natura.worldgen;
 
 import java.util.Random;
-
 import mods.natura.common.NContent;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -19,8 +18,7 @@ public class BloodTreeLargeGen extends WorldGenerator {
 
     public boolean generate(World world, Random random, int x, int y, int z) {
         int height = findCeiling(world, x, y, z);
-        if (height == -1)
-            return false;
+        if (height == -1) return false;
 
         return generateRandomTree(world, random, x, height, z);
     }
@@ -30,7 +28,9 @@ public class BloodTreeLargeGen extends WorldGenerator {
         int height = y;
         do {
             Block blockAtHeight = world.getBlock(x, height, z);
-            if ((blockAtHeight == Blocks.netherrack || blockAtHeight == Blocks.soul_sand || blockAtHeight == NContent.taintedSoil)
+            if ((blockAtHeight == Blocks.netherrack
+                            || blockAtHeight == Blocks.soul_sand
+                            || blockAtHeight == NContent.taintedSoil)
                     && !world.getBlock(x, height - 1, z).func_149730_j()) {
                 ret = height - 1;
                 break;
@@ -91,22 +91,22 @@ public class BloodTreeLargeGen extends WorldGenerator {
         byte offsetX = 0;
         byte offsetZ = 0;
         switch (direction) {
-        case 1:
-            offsetX = 1;
-            offsetZ = 1;
-            break;
-        case 2:
-            offsetX = -1;
-            offsetZ = 1;
-            break;
-        case 3:
-            offsetX = 1;
-            offsetZ = -1;
-            break;
-        case 4:
-            offsetX = -1;
-            offsetZ = -1;
-            break;
+            case 1:
+                offsetX = 1;
+                offsetZ = 1;
+                break;
+            case 2:
+                offsetX = -1;
+                offsetZ = 1;
+                break;
+            case 3:
+                offsetX = 1;
+                offsetZ = -1;
+                break;
+            case 4:
+                offsetX = -1;
+                offsetZ = -1;
+                break;
         }
         int i2 = random.nextInt(15);
         for (int j2 = 4; j2 > 0; j2--) {
@@ -129,25 +129,25 @@ public class BloodTreeLargeGen extends WorldGenerator {
         byte offsetX = 0;
         byte offsetZ = 0;
         switch (direction) {
-        case 1:
-            offsetX = 1;
-            offsetZ = 0;
-            break;
+            case 1:
+                offsetX = 1;
+                offsetZ = 0;
+                break;
 
-        case 2:
-            offsetX = 0;
-            offsetZ = 1;
-            break;
+            case 2:
+                offsetX = 0;
+                offsetZ = 1;
+                break;
 
-        case 3:
-            offsetX = -1;
-            offsetZ = 0;
-            break;
+            case 3:
+                offsetX = -1;
+                offsetZ = 0;
+                break;
 
-        case 4:
-            offsetX = 0;
-            offsetZ = -1;
-            break;
+            case 4:
+                offsetX = 0;
+                offsetZ = -1;
+                break;
         }
         int i2 = random.nextInt(5);
         for (int j2 = 4; j2 > 0; j2--) {
@@ -198,5 +198,4 @@ public class BloodTreeLargeGen extends WorldGenerator {
 
         return true;
     }
-
 }

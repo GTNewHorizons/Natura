@@ -1,9 +1,8 @@
 package mods.natura.blocks;
 
-import java.util.List;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.List;
 import mods.natura.client.GrassColorizerAlternate;
 import mods.natura.common.NaturaTab;
 import net.minecraft.block.Block;
@@ -27,13 +26,13 @@ public class GrassBlock extends Block {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerBlockIcons (IIconRegister iconRegister) {
+    public void registerBlockIcons(IIconRegister iconRegister) {
         this.blockIcon = iconRegister.registerIcon("natura:grass_top");
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIcon (int side, int meta) {
+    public IIcon getIcon(int side, int meta) {
         return this.blockIcon;
     }
 
@@ -62,12 +61,12 @@ public class GrassBlock extends Block {
         double d0 = 0.5D;
         double d1 = 1.0D;
         switch (meta) {
-        case 1:
-            return GrassColorizerAlternate.getBlueGrassColor(d0, 0.5D);
-        case 2:
-            return GrassColorizerAlternate.getOrangeGrassColor(1.0D, 1.0D);
-        default:
-            return ColorizerGrass.getGrassColor(d0, d1);
+            case 1:
+                return GrassColorizerAlternate.getBlueGrassColor(d0, 0.5D);
+            case 2:
+                return GrassColorizerAlternate.getOrangeGrassColor(1.0D, 1.0D);
+            default:
+                return ColorizerGrass.getGrassColor(d0, d1);
         }
     }
 
@@ -86,18 +85,18 @@ public class GrassBlock extends Block {
                 double temp = 0d;
                 double rainfall = 0d;
                 switch (meta) {
-                case 1:
-                	temp = MathHelper.clamp_float(biome.getFloatTemperature(x, y, z), 0.0F, 1.0F);
-                    rainfall = MathHelper.clamp_float(biome.getFloatRainfall(), 0.0F, 1.0F);
-                    grassColor = GrassColorizerAlternate.getBlueGrassColor(temp, rainfall);
-                    break;
-                case 2:
-                	temp = MathHelper.clamp_float(biome.getFloatTemperature(x, y, z), 0.0F, 1.0F);
-                    rainfall = MathHelper.clamp_float(biome.getFloatRainfall(), 0.0F, 1.0F);
-                    grassColor = GrassColorizerAlternate.getOrangeGrassColor(temp, rainfall);
-                    break;
-                default:
-                	grassColor = biome.getBiomeGrassColor(x, y, z); 	
+                    case 1:
+                        temp = MathHelper.clamp_float(biome.getFloatTemperature(x, y, z), 0.0F, 1.0F);
+                        rainfall = MathHelper.clamp_float(biome.getFloatRainfall(), 0.0F, 1.0F);
+                        grassColor = GrassColorizerAlternate.getBlueGrassColor(temp, rainfall);
+                        break;
+                    case 2:
+                        temp = MathHelper.clamp_float(biome.getFloatTemperature(x, y, z), 0.0F, 1.0F);
+                        rainfall = MathHelper.clamp_float(biome.getFloatRainfall(), 0.0F, 1.0F);
+                        grassColor = GrassColorizerAlternate.getOrangeGrassColor(temp, rainfall);
+                        break;
+                    default:
+                        grassColor = biome.getBiomeGrassColor(x, y, z);
                 }
                 l += (grassColor & 16711680) >> 16;
                 i1 += (grassColor & 65280) >> 8;
@@ -106,5 +105,4 @@ public class GrassBlock extends Block {
         }
         return (l / 9 & 255) << 16 | (i1 / 9 & 255) << 8 | j1 / 9 & 255;
     }
-
 }

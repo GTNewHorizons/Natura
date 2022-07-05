@@ -20,5 +20,4 @@ public class NaturaShovel extends ItemSpade {
     public void registerIcons(IIconRegister par1IconRegister) {
         this.itemIcon = par1IconRegister.registerIcon("natura:" + texture + "_shovel");
     }
-
 }

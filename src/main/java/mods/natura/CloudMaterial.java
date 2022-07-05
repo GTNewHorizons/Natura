@@ -6,13 +6,13 @@ import net.minecraft.block.material.Material;
 public class CloudMaterial extends Material {
     public CloudMaterial() {
         super(MapColor.snowColor);
-        //this.setReplaceable();
+        // this.setReplaceable();
         this.setNoPushMobility();
     }
 
     /* Returns if blocks of these materials are liquids. */
     @Override
-    public boolean isLiquid () {
+    public boolean isLiquid() {
         return false;
     }
 
@@ -31,5 +31,4 @@ public class CloudMaterial extends Material {
     public boolean getCanBlockGrass() {
         return false;
     }
-
 }

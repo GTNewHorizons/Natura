@@ -1,9 +1,8 @@
 package mods.natura.blocks;
 
-import java.util.List;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.List;
 import mods.natura.common.NaturaTab;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -36,7 +35,8 @@ public class NSlabBase extends Block {
     }
 
     @Override
-    public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB axisalignedbb, List arraylist, Entity entity) {
+    public void addCollisionBoxesToList(
+            World world, int x, int y, int z, AxisAlignedBB axisalignedbb, List arraylist, Entity entity) {
         setBlockBoundsBasedOnState(world, x, y, z);
         super.addCollisionBoxesToList(world, x, y, z, axisalignedbb, arraylist, entity);
     }
@@ -55,11 +55,18 @@ public class NSlabBase extends Block {
     }
 
     @Override
-    public int onBlockPlaced(World par1World, int blockX, int blockY, int blockZ, int side, float clickX, float clickY, float clickZ, int metadata) {
-        if (side == 1)
-            return metadata;
-        if (side == 0 || clickY >= 0.5F)
-            return metadata | 8;
+    public int onBlockPlaced(
+            World par1World,
+            int blockX,
+            int blockY,
+            int blockZ,
+            int side,
+            float clickX,
+            float clickY,
+            float clickZ,
+            int metadata) {
+        if (side == 1) return metadata;
+        if (side == 0 || clickY >= 0.5F) return metadata | 8;
 
         return metadata;
     }
@@ -76,12 +83,11 @@ public class NSlabBase extends Block {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerBlockIcons(IIconRegister iconRegister) {
-    }
+    public void registerBlockIcons(IIconRegister iconRegister) {}
 
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIcon (int side, int meta) {
+    public IIcon getIcon(int side, int meta) {
         meta = meta % 8 + startingMeta;
         return modelBlock.getIcon(side, meta);
     }
@@ -95,8 +101,7 @@ public class NSlabBase extends Block {
     }
 
     @Override
-    public int damageDropped (int meta) {
+    public int damageDropped(int meta) {
         return meta % 8;
     }
-
 }

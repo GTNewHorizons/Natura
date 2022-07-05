@@ -1,7 +1,6 @@
 package mods.natura.dimension;
 
 import java.util.Random;
-
 import mods.natura.common.NContent;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -25,5 +24,4 @@ public class FireGen extends WorldGenerator {
 
         return true;
     }
-
 }

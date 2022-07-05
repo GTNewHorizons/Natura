@@ -1,10 +1,9 @@
 package mods.natura.blocks.crops;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.ArrayList;
+import java.util.Random;
 import mods.natura.client.CropRender;
 import mods.natura.common.NContent;
 import net.minecraft.block.Block;
@@ -27,16 +26,16 @@ public class CropBlock extends BlockBush implements IGrowable {
         this.setTickRandomly(true);
         float var3 = 0.5F;
         this.setBlockBounds(0.5F - var3, 0.0F, 0.5F - var3, 0.5F + var3, 0.25F, 0.5F + var3);
-        //this.setCreativeTab((CreativeTabs) null);
+        // this.setCreativeTab((CreativeTabs) null);
         this.setHardness(0.0F);
         this.setStepSound(soundTypeGrass);
         this.disableStats();
     }
-    
+
     public int getMaxGrowth(int meta) {
         return (meta < 4) ? 3 : 8;
     }
-    
+
     public int getStartGrowth(int meta) {
         return (meta < 4) ? 0 : 4;
     }
@@ -65,11 +64,9 @@ public class CropBlock extends BlockBush implements IGrowable {
         float growth = 0.25f * (light - 7);
         Block soil = world.getBlock(x, y - 1, z);
 
-        if (world.canBlockSeeTheSky(x, y, z) || !requiresSun(meta))
-            growth += 2f;
+        if (world.canBlockSeeTheSky(x, y, z) || !requiresSun(meta)) growth += 2f;
 
-        if (soil != null && soil.isFertile(world, x, y - 1, z))
-            growth *= 2f;
+        if (soil != null && soil.isFertile(world, x, y - 1, z)) growth *= 2f;
 
         return 1f + growth;
     }
@@ -85,7 +82,8 @@ public class CropBlock extends BlockBush implements IGrowable {
             int meta = world.getBlockMetadata(x, y, z);
             if (meta == 8) {
                 world.setBlock(x, y, z, this, 6, 3);
-                EntityItem entityitem = new EntityItem(world, player.posX, player.posY - 1.0D, player.posZ, new ItemStack(NContent.plantItem, 1, 3));
+                EntityItem entityitem = new EntityItem(
+                        world, player.posX, player.posY - 1.0D, player.posZ, new ItemStack(NContent.plantItem, 1, 3));
                 world.spawnEntityInWorld(entityitem);
                 entityitem.onCollideWithPlayer(player);
             }
@@ -94,17 +92,18 @@ public class CropBlock extends BlockBush implements IGrowable {
 
     /* Right-click harvests crops */
     @Override
-    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
+    public boolean onBlockActivated(
+            World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
         /*if (world.isRemote)
-            return false;*/
+        return false;*/
 
         int meta = world.getBlockMetadata(x, y, z);
         if (meta == 8) {
-            if (world.isRemote)
-                return true;
+            if (world.isRemote) return true;
 
             world.setBlock(x, y, z, this, 6, 3);
-            EntityItem entityitem = new EntityItem(world, player.posX, player.posY - 1.0D, player.posZ, new ItemStack(NContent.plantItem, 1, 3));
+            EntityItem entityitem = new EntityItem(
+                    world, player.posX, player.posY - 1.0D, player.posZ, new ItemStack(NContent.plantItem, 1, 3));
             world.spawnEntityInWorld(entityitem);
             entityitem.onCollideWithPlayer(player);
             return true;
@@ -114,17 +113,18 @@ public class CropBlock extends BlockBush implements IGrowable {
 
     @Override
     public float getBlockHardness(World world, int x, int y, int z) {
-        if (world.getBlockMetadata(x, y, z) > 3)
-            return 0.5f;
+        if (world.getBlockMetadata(x, y, z) > 3) return 0.5f;
         return this.blockHardness;
     }
 
     public IIcon[] icons;
-    public String[] textureNames = new String[] { "barley_1", "barley_2", "barley_3", "barley_4", "cotton_1", "cotton_2", "cotton_3", "cotton_4", "cotton_5" };
+    public String[] textureNames = new String[] {
+        "barley_1", "barley_2", "barley_3", "barley_4", "cotton_1", "cotton_2", "cotton_3", "cotton_4", "cotton_5"
+    };
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerBlockIcons (IIconRegister iconRegister) {
+    public void registerBlockIcons(IIconRegister iconRegister) {
         this.icons = new IIcon[textureNames.length];
 
         for (int i = 0; i < this.icons.length; ++i) {
@@ -146,8 +146,7 @@ public class CropBlock extends BlockBush implements IGrowable {
 
     @Override
     public Item getItemDropped(int meta, Random random, int fortune) {
-        if (meta == 3 || meta == 8)
-            return this.getCropItem(meta);
+        if (meta == 3 || meta == 8) return this.getCropItem(meta);
         return this.getSeedItem(meta);
     }
 
@@ -161,14 +160,12 @@ public class CropBlock extends BlockBush implements IGrowable {
 
     @Override
     public int damageDropped(int meta) {
-        if (meta < 4)
-            return 0;
+        if (meta < 4) return 0;
         return 3;
     }
 
     public int seedDamageDropped(int meta) {
-        if (meta < 4)
-            return 0;
+        if (meta < 4) return 0;
         return 1;
     }
 
@@ -215,7 +212,6 @@ public class CropBlock extends BlockBush implements IGrowable {
         return random.nextInt(meta/4);
     }*/
 
-    
     /* only called by clickMiddleMouseButton , and passed to inventory.setCurrentItem (along with isCreative) */
     @SideOnly(Side.CLIENT)
     @Override
@@ -236,9 +232,8 @@ public class CropBlock extends BlockBush implements IGrowable {
     /* Can this block stay at this position.  Similar to canPlaceBlockAt except gets checked often with plants. */
     @Override
     public boolean canBlockStay(World world, int x, int y, int z) {
-        int meta = world.getBlockMetadata(x, y, z); //Wild crops can stay
-        if (meta == 3 || meta == 8)
-            return world.getBlock(x, y - 1, z) != Blocks.air;
+        int meta = world.getBlockMetadata(x, y, z); // Wild crops can stay
+        if (meta == 3 || meta == 8) return world.getBlock(x, y - 1, z) != Blocks.air;
 
         return super.canBlockStay(world, x, y, z);
     }
@@ -246,10 +241,8 @@ public class CropBlock extends BlockBush implements IGrowable {
     @Override
     public int getPlantMetadata(IBlockAccess world, int x, int y, int z) {
         int meta = world.getBlockMetadata(x, y, z);
-        if (meta < 4)
-            return 0;
-        else
-            return 4;
+        if (meta < 4) return 0;
+        else return 4;
     }
 
     // isNotFullyGrown
@@ -274,13 +267,10 @@ public class CropBlock extends BlockBush implements IGrowable {
             int maxGrowth = this.getMaxGrowth(meta);
             int growthSpan = maxGrowth - this.getStartGrowth(meta);
             int output = random.nextInt(growthSpan) + 1 + meta;
-            
-            if (output > maxGrowth)
-                output = maxGrowth;
-            
-            if (output != meta)
-                world.setBlockMetadataWithNotify(x, y, z, output, 3);
+
+            if (output > maxGrowth) output = maxGrowth;
+
+            if (output != meta) world.setBlockMetadataWithNotify(x, y, z, output, 3);
         }
     }
-
 }

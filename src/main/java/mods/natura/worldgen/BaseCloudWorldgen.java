@@ -1,8 +1,7 @@
 package mods.natura.worldgen;
 
-import java.util.Random;
-
 import cpw.mods.fml.common.IWorldGenerator;
+import java.util.Random;
 import mods.natura.common.NContent;
 import mods.natura.common.PHNatura;
 import net.minecraft.world.World;
@@ -59,13 +58,23 @@ public class BaseCloudWorldgen implements IWorldGenerator {
     }
 
     @Override
-    public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
+    public void generate(
+            Random random,
+            int chunkX,
+            int chunkZ,
+            World world,
+            IChunkProvider chunkGenerator,
+            IChunkProvider chunkProvider) {
         // Overworld
         int xCh, yCh, zCh;
         int xChunk = chunkX * 16 + 8, zChunk = chunkZ * 16 + 8;
         BiomeGenBase biome = world.getWorldChunkManager().getBiomeGenAt(xChunk + 16, zChunk + 16);
 
-        if (PHNatura.generateOverworldClouds && biome.rainfall > 0.15f && random.nextInt(PHNatura.cloudSpawnRarity) == 0 && world.provider.dimensionId != 1 && shouldGenerateInDim(world.provider.dimensionId)) {
+        if (PHNatura.generateOverworldClouds
+                && biome.rainfall > 0.15f
+                && random.nextInt(PHNatura.cloudSpawnRarity) == 0
+                && world.provider.dimensionId != 1
+                && shouldGenerateInDim(world.provider.dimensionId)) {
             xCh = xChunk + random.nextInt(16);
             zCh = zChunk + random.nextInt(16);
             yCh = random.nextInt(PHNatura.cloudSpawnRange) + PHNatura.cloudSpawnHeight;
@@ -82,7 +91,11 @@ public class BaseCloudWorldgen implements IWorldGenerator {
         }
 
         // End Generation
-        if (PHNatura.generateDarkClouds && biome == BiomeGenBase.sky && world.provider.dimensionId == 1 && random.nextInt(4) == 0 && shouldGenerateDarkInDim(world.provider.dimensionId)) {
+        if (PHNatura.generateDarkClouds
+                && biome == BiomeGenBase.sky
+                && world.provider.dimensionId == 1
+                && random.nextInt(4) == 0
+                && shouldGenerateDarkInDim(world.provider.dimensionId)) {
             xCh = xChunk + random.nextInt(16);
             zCh = zChunk + random.nextInt(16);
             for (int iter = 0; iter < PHNatura.darkCloudSpawnRarity; iter++) {
@@ -118,7 +131,9 @@ public class BaseCloudWorldgen implements IWorldGenerator {
                 }
             }
 
-            if (PHNatura.generateSulfurClouds && random.nextInt(PHNatura.sulfurSpawnRarity) == 0 && shouldGenerateSulfurInDim(world.provider.dimensionId)) {
+            if (PHNatura.generateSulfurClouds
+                    && random.nextInt(PHNatura.sulfurSpawnRarity) == 0
+                    && shouldGenerateSulfurInDim(world.provider.dimensionId)) {
                 xCh = xChunk + random.nextInt(16);
                 yCh = random.nextInt(PHNatura.sulfurSpawnRange) + PHNatura.sulfurSpawnHeight;
                 zCh = zChunk + random.nextInt(16);
@@ -162,5 +177,4 @@ public class BaseCloudWorldgen implements IWorldGenerator {
         }
         return true;
     }
-
 }

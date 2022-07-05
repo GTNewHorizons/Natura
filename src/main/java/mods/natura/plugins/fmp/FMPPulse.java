@@ -7,9 +7,9 @@ import mods.natura.Natura;
 
 @Pulse(id = "Natura FMP Compatibility", modsRequired = ForgeMultiPart.modId)
 public class FMPPulse {
-    
+
     @Handler
-    public void init (FMLInitializationEvent evt) {
+    public void init(FMLInitializationEvent evt) {
         try {
             Natura.logger.debug("[FMP] Registering Natura decorative blocks with FMP.");
             ForgeMultiPart.registerBlocks();
@@ -17,5 +17,4 @@ public class FMPPulse {
             Natura.logger.catching(e);
         }
     }
-
 }

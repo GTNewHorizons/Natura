@@ -1,9 +1,8 @@
 package mods.natura.blocks.tech;
 
-import java.util.Random;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.Random;
 import mods.natura.Natura;
 import mods.natura.gui.NGuiHandler;
 import net.minecraft.block.Block;
@@ -27,47 +26,37 @@ import net.minecraft.world.World;
  *
  * @author mDiyo
  */
-public class NetherrackFurnaceBlock extends BlockContainer
-{
+public class NetherrackFurnaceBlock extends BlockContainer {
     protected Random rand = new Random();
 
-    public NetherrackFurnaceBlock()
-    {
+    public NetherrackFurnaceBlock() {
         super(Material.rock);
     }
 
     /* Logic backend */
     @Override
-    public TileEntity createNewTileEntity (World world, int metadata)
-    {
+    public TileEntity createNewTileEntity(World world, int metadata) {
         return new NetherrackFurnaceLogic();
     }
 
-    public Integer getGui (World world, int x, int y, int z, EntityPlayer entityplayer)
-    {
+    public Integer getGui(World world, int x, int y, int z, EntityPlayer entityplayer) {
         return NGuiHandler.furnaceGui;
     }
 
-    public Object getModInstance ()
-    {
+    public Object getModInstance() {
         return Natura.instance;
     }
 
     @Override
-    public boolean onBlockActivated (World world, int x, int y, int z, EntityPlayer player, int side, float clickX, float clickY, float clickZ)
-    {
-        if (player.isSneaking())
-            return false;
+    public boolean onBlockActivated(
+            World world, int x, int y, int z, EntityPlayer player, int side, float clickX, float clickY, float clickZ) {
+        if (player.isSneaking()) return false;
 
         Integer integer = getGui(world, x, y, z, player);
-        if (integer == null || integer == -1)
-        {
+        if (integer == null || integer == -1) {
             return false;
-        }
-        else
-        {
-            if (!world.isRemote)
-                player.openGui(getModInstance(), integer, world, x, y, z);
+        } else {
+            if (!world.isRemote) player.openGui(getModInstance(), integer, world, x, y, z);
             return true;
         }
     }
@@ -75,38 +64,37 @@ public class NetherrackFurnaceBlock extends BlockContainer
     /* Inventory */
 
     @Override
-    public void breakBlock (World par1World, int x, int y, int z, Block blockID, int meta)
-    {
+    public void breakBlock(World par1World, int x, int y, int z, Block blockID, int meta) {
         TileEntity te = par1World.getTileEntity(x, y, z);
 
-        if (te != null && te instanceof NetherrackFurnaceLogic)
-        {
+        if (te != null && te instanceof NetherrackFurnaceLogic) {
             NetherrackFurnaceLogic logic = (NetherrackFurnaceLogic) te;
-            for (int iter = 0; iter < logic.getSizeInventory(); ++iter)
-            {
+            for (int iter = 0; iter < logic.getSizeInventory(); ++iter) {
                 ItemStack stack = logic.getStackInSlot(iter);
 
-                if (stack != null)
-                {
+                if (stack != null) {
                     float jumpX = rand.nextFloat() * 0.8F + 0.1F;
                     float jumpY = rand.nextFloat() * 0.8F + 0.1F;
                     float jumpZ = rand.nextFloat() * 0.8F + 0.1F;
 
-                    while (stack.stackSize > 0)
-                    {
+                    while (stack.stackSize > 0) {
                         int itemSize = rand.nextInt(21) + 10;
 
-                        if (itemSize > stack.stackSize)
-                        {
+                        if (itemSize > stack.stackSize) {
                             itemSize = stack.stackSize;
                         }
 
                         stack.stackSize -= itemSize;
-                        EntityItem entityitem = new EntityItem(par1World, x + jumpX, y + jumpY, z + jumpZ, new ItemStack(stack.getItem(), itemSize, stack.getItemDamage()));
+                        EntityItem entityitem = new EntityItem(
+                                par1World,
+                                x + jumpX,
+                                y + jumpY,
+                                z + jumpZ,
+                                new ItemStack(stack.getItem(), itemSize, stack.getItemDamage()));
 
-                        if (stack.hasTagCompound())
-                        {
-                            entityitem.getEntityItem().setTagCompound((NBTTagCompound) stack.getTagCompound().copy());
+                        if (stack.hasTagCompound()) {
+                            entityitem.getEntityItem().setTagCompound((NBTTagCompound)
+                                    stack.getTagCompound().copy());
                         }
 
                         float offset = 0.05F;
@@ -126,64 +114,51 @@ public class NetherrackFurnaceBlock extends BlockContainer
 
     int side = -1;
 
-    //This class does not have an actual block placed in the world
+    // This class does not have an actual block placed in the world
     @Override
-    public int onBlockPlaced (World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int meta)
-    {
+    public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int meta) {
         this.side = side;
         return meta;
     }
 
     @Override
-    public void onBlockPlacedBy (World world, int x, int y, int z, EntityLivingBase entityliving, ItemStack stack)
-    {
+    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entityliving, ItemStack stack) {
         TileEntity logic = world.getTileEntity(x, y, z);
-        if (logic instanceof NetherrackFurnaceLogic)
-        {
+        if (logic instanceof NetherrackFurnaceLogic) {
             NetherrackFurnaceLogic direction = (NetherrackFurnaceLogic) logic;
-            if (entityliving == null)
-            {
+            if (entityliving == null) {
                 direction.setDirection(0F, 0F, null);
-            }
-            else
-            {
+            } else {
                 direction.setDirection(entityliving.rotationYaw * 4F, entityliving.rotationPitch, entityliving);
             }
         }
 
-        if (logic instanceof NetherrackFurnaceLogic)
-        {
+        if (logic instanceof NetherrackFurnaceLogic) {
             NetherrackFurnaceLogic inv = (NetherrackFurnaceLogic) logic;
-            if (stack.hasDisplayName())
-            {
+            if (stack.hasDisplayName()) {
                 inv.setGuiDisplayName(stack.getDisplayName());
             }
         }
     }
 
-    public static boolean isActive (IBlockAccess world, int x, int y, int z)
-    {
+    public static boolean isActive(IBlockAccess world, int x, int y, int z) {
         TileEntity logic = world.getTileEntity(x, y, z);
-        if (logic instanceof NetherrackFurnaceLogic)
-        {
+        if (logic instanceof NetherrackFurnaceLogic) {
             return ((NetherrackFurnaceLogic) logic).getActive();
         }
         return false;
     }
 
     @Override
-    public int damageDropped (int meta)
-    {
+    public int damageDropped(int meta) {
         return meta;
     }
 
     /* Light */
     @Override
-    public int getLightValue (IBlockAccess world, int x, int y, int z)
-    {
+    public int getLightValue(IBlockAccess world, int x, int y, int z) {
         TileEntity te = world.getTileEntity(x, y, z);
-        if (te instanceof NetherrackFurnaceLogic)
-        {
+        if (te instanceof NetherrackFurnaceLogic) {
             return ((NetherrackFurnaceLogic) te).getActive() ? 15 : 0;
         }
         return this.getLightValue();
@@ -191,24 +166,20 @@ public class NetherrackFurnaceBlock extends BlockContainer
 
     /* Comparator */
     @Override
-    public boolean hasComparatorInputOverride ()
-    {
+    public boolean hasComparatorInputOverride() {
         return true;
     }
 
     @Override
-    public int getComparatorInputOverride (World par1World, int par2, int par3, int par4, int par5)
-    {
+    public int getComparatorInputOverride(World par1World, int par2, int par3, int par4, int par5) {
         return Container.calcRedstoneFromInventory((IInventory) par1World.getTileEntity(par2, par3, par4));
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void randomDisplayTick (World world, int x, int y, int z, Random par5Random)
-    {
+    public void randomDisplayTick(World world, int x, int y, int z, Random par5Random) {
         NetherrackFurnaceLogic logic = (NetherrackFurnaceLogic) world.getTileEntity(x, y, z);
-        if (logic.getActive())
-        {
+        if (logic.getActive()) {
             int direction = logic.getRenderDirection();
             float f = x + 0.5F;
             float f1 = y + 0.0F + par5Random.nextFloat() * 6.0F / 16.0F;
@@ -216,23 +187,16 @@ public class NetherrackFurnaceBlock extends BlockContainer
             float f3 = 0.52F;
             float f4 = par5Random.nextFloat() * 0.6F - 0.3F;
 
-            if (direction == 4)
-            {
+            if (direction == 4) {
                 world.spawnParticle("smoke", f - f3, f1, f2 + f4, 0.0D, 0.0D, 0.0D);
                 world.spawnParticle("flame", f - f3, f1, f2 + f4, 0.0D, 0.0D, 0.0D);
-            }
-            else if (direction == 5)
-            {
+            } else if (direction == 5) {
                 world.spawnParticle("smoke", f + f3, f1, f2 + f4, 0.0D, 0.0D, 0.0D);
                 world.spawnParticle("flame", f + f3, f1, f2 + f4, 0.0D, 0.0D, 0.0D);
-            }
-            else if (direction == 2)
-            {
+            } else if (direction == 2) {
                 world.spawnParticle("smoke", f + f4, f1, f2 - f3, 0.0D, 0.0D, 0.0D);
                 world.spawnParticle("flame", f + f4, f1, f2 - f3, 0.0D, 0.0D, 0.0D);
-            }
-            else if (direction == 3)
-            {
+            } else if (direction == 3) {
                 world.spawnParticle("smoke", f + f4, f1, f2 + f3, 0.0D, 0.0D, 0.0D);
                 world.spawnParticle("flame", f + f4, f1, f2 + f3, 0.0D, 0.0D, 0.0D);
             }
@@ -242,41 +206,31 @@ public class NetherrackFurnaceBlock extends BlockContainer
     /* Textures */
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIcon (int side, int meta)
-    {
+    public IIcon getIcon(int side, int meta) {
         return icons[(meta % 8) * 3 + getTextureIndex(side)];
     }
 
     @SideOnly(Side.CLIENT)
-    public int getTextureIndex (int side)
-    {
-        if (side == 0 || side == 1)
-            return 3;
-        if (side == 3)
-            return 0;
+    public int getTextureIndex(int side) {
+        if (side == 0 || side == 1) return 3;
+        if (side == 3) return 0;
 
         return 2;
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIcon (IBlockAccess world, int x, int y, int z, int side)
-    {
+    public IIcon getIcon(IBlockAccess world, int x, int y, int z, int side) {
         TileEntity logic = world.getTileEntity(x, y, z);
-        int direction = (logic instanceof NetherrackFurnaceLogic) ? ((NetherrackFurnaceLogic) logic).getRenderDirection() : 0;
+        int direction =
+                (logic instanceof NetherrackFurnaceLogic) ? ((NetherrackFurnaceLogic) logic).getRenderDirection() : 0;
         int meta = world.getBlockMetadata(x, y, z) % 8;
 
-        if (meta == 0)
-        {
-            if (side == direction)
-            {
-                if (((NetherrackFurnaceLogic) logic).getActive())
-                    return icons[1];
-                else
-                    return icons[0];
-            }
-            else if (side > 1)
-            {
+        if (meta == 0) {
+            if (side == direction) {
+                if (((NetherrackFurnaceLogic) logic).getActive()) return icons[1];
+                else return icons[0];
+            } else if (side > 1) {
                 return icons[2];
             }
             return icons[3];
@@ -288,22 +242,19 @@ public class NetherrackFurnaceBlock extends BlockContainer
     public IIcon[] icons;
 
     @SideOnly(Side.CLIENT)
-    public String[] getTextureNames ()
-    {
-        String[] textureNames = { "nfurnace_off", "nfurnace_on", "nfurnace_side", "nfurnace_top" };
+    public String[] getTextureNames() {
+        String[] textureNames = {"nfurnace_off", "nfurnace_on", "nfurnace_side", "nfurnace_top"};
 
         return textureNames;
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerBlockIcons (IIconRegister iconRegister)
-    {
+    public void registerBlockIcons(IIconRegister iconRegister) {
         String[] textureNames = getTextureNames();
         this.icons = new IIcon[textureNames.length];
 
-        for (int i = 0; i < this.icons.length; ++i)
-        {
+        for (int i = 0; i < this.icons.length; ++i) {
             this.icons[i] = iconRegister.registerIcon("natura:" + textureNames[i]);
         }
     }
