@@ -1110,6 +1110,9 @@ public class NContent implements IFuelHandler {
         // Clouds
         GameRegistry.addRecipe(stackSingleCharcoal, "ccc", "ccc", "ccc", 'c', new ItemStack(cloud, 1, 2));
         GameRegistry.addRecipe(new ItemStack(plantItem, 1, 4), "cc", "cc", 'c', new ItemStack(cloud, 1, 3));
+        GameRegistry.addRecipe(
+                new ShapedOreRecipe(new ItemStack(Items.gunpowder, 1, 0), "cc", "cc", 'c', "dustSulfur"));
+
         // Logs
         FurnaceRecipes.smelting().func_151394_a(new ItemStack(tree, 1, 0), stackSingleCharcoal, 0.15f);
         FurnaceRecipes.smelting().func_151394_a(new ItemStack(tree, 1, 1), stackSingleCharcoal, 0.15f);
