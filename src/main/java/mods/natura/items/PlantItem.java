@@ -67,7 +67,8 @@ public class PlantItem extends NCraftingItem {
                 break;
             case 4:
                 if (!Loader.isModLoaded("dreamcraft")) {
-                list.add(StatCollector.translateToLocal("tooltip.sulfur"));}
+                    list.add(StatCollector.translateToLocal("tooltip.sulfur"));
+                }
                 break;
             case 5:
                 list.add(StatCollector.translateToLocal("tooltip.fletching"));
