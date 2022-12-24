@@ -1,5 +1,6 @@
 package mods.natura.items;
 
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import java.util.List;
@@ -65,7 +66,8 @@ public class PlantItem extends NCraftingItem {
                 list.add(StatCollector.translateToLocal("tooltip.cotton"));
                 break;
             case 4:
-                list.add(StatCollector.translateToLocal("tooltip.sulfur"));
+                if (!Loader.isModLoaded("dreamcraft")) {
+                list.add(StatCollector.translateToLocal("tooltip.sulfur"));}
                 break;
             case 5:
                 list.add(StatCollector.translateToLocal("tooltip.fletching"));
