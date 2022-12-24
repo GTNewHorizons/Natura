@@ -65,15 +65,12 @@ public class PlantItem extends NCraftingItem {
                 list.add(StatCollector.translateToLocal("tooltip.cotton"));
                 break;
             case 4:
-                list.add(StatCollector.translateToLocal("tooltip.sulfur"));
-                break;
-            case 5:
                 list.add(StatCollector.translateToLocal("tooltip.fletching"));
                 break;
-            case 6:
+            case 5:
                 list.add(StatCollector.translateToLocal("tooltip.imp"));
                 break;
-            case 7:
+            case 6:
                 list.add(StatCollector.translateToLocal("tooltip.string"));
                 break;
         }
