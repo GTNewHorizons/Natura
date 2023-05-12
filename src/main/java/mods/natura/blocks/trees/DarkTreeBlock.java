@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import mods.natura.common.NaturaTab;
+import mods.natura.util.Util;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -44,17 +45,23 @@ public class DarkTreeBlock extends Block {
         // Ends of logs
         {
             case 0:
-                if (side == 0 || side == 1) return icons[tex + 1];
+                if (side == 0 || side == 1) {
+                    return Util.getWithFallback(icons, tex + 1);
+                }
                 break;
             case 1:
-                if (side == 4 || side == 5) return icons[tex + 1];
+                if (side == 4 || side == 5) {
+                    return Util.getWithFallback(icons, tex + 1);
+                }
                 break;
             case 2:
-                if (side == 2 || side == 3) return icons[tex + 1];
+                if (side == 2 || side == 3) {
+                    return Util.getWithFallback(icons, tex + 1);
+                }
                 break;
         }
 
-        return icons[tex];
+        return Util.getWithFallback(icons, tex);
     }
 
     @Override
