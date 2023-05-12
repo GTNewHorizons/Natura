@@ -1,8 +1,8 @@
 package mods.natura.plugins.imc;
 
+import cpw.mods.fml.common.event.FMLInitializationEvent;
 import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
 
 @Pulse(id = "Natura Forestry Compatibility", modsRequired = ForestryPulse.modId)
 public class ForestryPulse {

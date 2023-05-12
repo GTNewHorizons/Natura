@@ -2,8 +2,6 @@ package mods.natura.blocks.tech;
 
 import java.util.Random;
 
-import mods.natura.Natura;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -16,6 +14,7 @@ import net.minecraft.world.World;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import mods.natura.Natura;
 
 public class RespawnObelisk extends Block {
 

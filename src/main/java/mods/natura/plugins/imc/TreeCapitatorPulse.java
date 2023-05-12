@@ -1,9 +1,5 @@
 package mods.natura.plugins.imc;
 
-import mantle.pulsar.pulse.Handler;
-import mantle.pulsar.pulse.Pulse;
-import mods.natura.common.NContent;
-
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
@@ -12,6 +8,9 @@ import net.minecraft.nbt.NBTTagList;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.registry.GameData;
+import mantle.pulsar.pulse.Handler;
+import mantle.pulsar.pulse.Pulse;
+import mods.natura.common.NContent;
 
 @Pulse(id = "Natura TreeCapitator Compatibility", modsRequired = TreeCapitatorPulse.modId)
 public class TreeCapitatorPulse {

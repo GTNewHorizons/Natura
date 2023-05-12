@@ -2,11 +2,10 @@ package mods.natura.common;
 
 import java.io.File;
 
-import mods.natura.Natura;
-
 import net.minecraftforge.common.config.Configuration;
 
 import cpw.mods.fml.common.Loader;
+import mods.natura.Natura;
 
 public class PHNatura {
 

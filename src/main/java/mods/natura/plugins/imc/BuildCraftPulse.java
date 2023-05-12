@@ -1,15 +1,14 @@
 package mods.natura.plugins.imc;
 
-import mantle.pulsar.pulse.Handler;
-import mantle.pulsar.pulse.Pulse;
-import mods.natura.common.NContent;
-import mods.natura.common.PHNatura;
-
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLInterModComms;
+import mantle.pulsar.pulse.Handler;
+import mantle.pulsar.pulse.Pulse;
+import mods.natura.common.NContent;
+import mods.natura.common.PHNatura;
 
 @Pulse(id = "Natura BuildCraft Compatibility", modsRequired = BuildCraftPulse.modId)
 public class BuildCraftPulse {

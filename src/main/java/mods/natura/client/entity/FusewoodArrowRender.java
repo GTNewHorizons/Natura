@@ -1,7 +1,5 @@
 package mods.natura.client.entity;
 
-import mods.natura.entity.FusewoodArrow;
-
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
@@ -13,6 +11,7 @@ import org.lwjgl.opengl.GL12;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import mods.natura.entity.FusewoodArrow;
 
 @SideOnly(Side.CLIENT)
 public class FusewoodArrowRender extends Render {

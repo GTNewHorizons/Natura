@@ -1,7 +1,5 @@
 package mods.natura.entity;
 
-import mods.natura.common.NContent;
-
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAvoidEntity;
@@ -19,6 +17,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProviderHell;
+
+import mods.natura.common.NContent;
 
 public class ImpEntity extends EntityAnimal {
 

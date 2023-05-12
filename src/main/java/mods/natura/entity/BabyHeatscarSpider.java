@@ -1,7 +1,5 @@
 package mods.natura.entity;
 
-import mods.natura.common.NContent;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.Block.SoundType;
 import net.minecraft.entity.Entity;
@@ -16,6 +14,8 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
+
+import mods.natura.common.NContent;
 
 public class BabyHeatscarSpider extends EntitySpider {
 

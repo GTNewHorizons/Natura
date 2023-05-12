@@ -1,11 +1,10 @@
 package mods.natura.plugins.fmp;
 
-import mods.natura.common.NContent;
-
 import net.minecraft.block.Block;
 
 import codechicken.microblock.BlockMicroMaterial;
 import codechicken.microblock.MicroMaterialRegistry;
+import mods.natura.common.NContent;
 
 public class ForgeMultiPart {
 

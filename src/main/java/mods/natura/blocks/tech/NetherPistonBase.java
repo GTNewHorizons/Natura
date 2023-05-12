@@ -2,8 +2,6 @@ package mods.natura.blocks.tech;
 
 import java.util.List;
 
-import mods.natura.common.NContent;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.BlockPistonMoving;
@@ -25,6 +23,7 @@ import net.minecraft.world.World;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import mods.natura.common.NContent;
 
 // TODO 1.7 make sure this class still works (extending behavior)
 public class NetherPistonBase extends BlockPistonBase {

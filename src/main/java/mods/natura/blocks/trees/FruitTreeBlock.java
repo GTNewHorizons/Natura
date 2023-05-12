@@ -2,11 +2,11 @@ package mods.natura.blocks.trees;
 
 import java.util.Random;
 
-import mods.natura.common.NaturaTab;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLog;
 import net.minecraft.item.Item;
+
+import mods.natura.common.NaturaTab;
 
 public class FruitTreeBlock extends BlockLog {
 

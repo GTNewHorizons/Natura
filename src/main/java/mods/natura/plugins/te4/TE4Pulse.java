@@ -3,13 +3,6 @@ package mods.natura.plugins.te4;
 import java.util.Arrays;
 import java.util.List;
 
-import mantle.pulsar.pulse.Handler;
-import mantle.pulsar.pulse.Pulse;
-import mods.natura.blocks.trees.Planks;
-import mods.natura.common.NContent;
-import mods.natura.common.PHNatura;
-import mods.natura.items.blocks.NDoorItem;
-
 import net.minecraft.block.Block;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -18,6 +11,12 @@ import net.minecraft.nbt.NBTTagCompound;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.registry.GameRegistry;
+import mantle.pulsar.pulse.Handler;
+import mantle.pulsar.pulse.Pulse;
+import mods.natura.blocks.trees.Planks;
+import mods.natura.common.NContent;
+import mods.natura.common.PHNatura;
+import mods.natura.items.blocks.NDoorItem;
 
 @Pulse(id = "Natura TE4 Compatibility", modsRequired = TE4Pulse.modId)
 public class TE4Pulse {

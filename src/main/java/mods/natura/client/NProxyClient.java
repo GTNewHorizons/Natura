@@ -1,5 +1,15 @@
 package mods.natura.client;
 
+import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.texture.TextureUtil;
+import net.minecraft.util.ResourceLocation;
+
+import org.lwjgl.opengl.GL11;
+
+import cpw.mods.fml.client.registry.RenderingRegistry;
 import mods.natura.client.entity.FlameSpiderBabyRender;
 import mods.natura.client.entity.FlameSpiderRender;
 import mods.natura.client.entity.FusewoodArrowRender;
@@ -12,17 +22,6 @@ import mods.natura.entity.FusewoodArrow;
 import mods.natura.entity.HeatscarSpider;
 import mods.natura.entity.ImpEntity;
 import mods.natura.entity.NitroCreeper;
-
-import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.texture.TextureUtil;
-import net.minecraft.util.ResourceLocation;
-
-import org.lwjgl.opengl.GL11;
-
-import cpw.mods.fml.client.registry.RenderingRegistry;
 
 public class NProxyClient extends NProxyCommon {
 

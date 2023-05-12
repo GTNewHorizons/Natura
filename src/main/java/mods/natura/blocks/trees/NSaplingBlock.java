@@ -3,17 +3,6 @@ package mods.natura.blocks.trees;
 import java.util.List;
 import java.util.Random;
 
-import mods.natura.common.NContent;
-import mods.natura.common.NaturaTab;
-import mods.natura.worldgen.BloodTreeLargeGen;
-import mods.natura.worldgen.BushTreeGen;
-import mods.natura.worldgen.DarkwoodGen;
-import mods.natura.worldgen.EucalyptusTreeGenShort;
-import mods.natura.worldgen.FusewoodGen;
-import mods.natura.worldgen.RedwoodTreeGen;
-import mods.natura.worldgen.SakuraTreeGen;
-import mods.natura.worldgen.WhiteTreeGen;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSapling;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -30,6 +19,16 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import mods.natura.common.NContent;
+import mods.natura.common.NaturaTab;
+import mods.natura.worldgen.BloodTreeLargeGen;
+import mods.natura.worldgen.BushTreeGen;
+import mods.natura.worldgen.DarkwoodGen;
+import mods.natura.worldgen.EucalyptusTreeGenShort;
+import mods.natura.worldgen.FusewoodGen;
+import mods.natura.worldgen.RedwoodTreeGen;
+import mods.natura.worldgen.SakuraTreeGen;
+import mods.natura.worldgen.WhiteTreeGen;
 
 public class NSaplingBlock extends BlockSapling {
 

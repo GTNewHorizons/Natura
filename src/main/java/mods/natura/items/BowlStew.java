@@ -2,8 +2,6 @@ package mods.natura.items;
 
 import java.util.List;
 
-import mods.natura.common.NContent;
-
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -19,6 +17,7 @@ import net.minecraft.world.World;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import mods.natura.common.NContent;
 
 public class BowlStew extends ItemFood {
 

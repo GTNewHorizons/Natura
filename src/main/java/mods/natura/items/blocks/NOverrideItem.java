@@ -1,10 +1,10 @@
 package mods.natura.items.blocks;
 
-import mods.natura.common.NaturaTab;
-
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemBlock;
+
+import mods.natura.common.NaturaTab;
 
 public class NOverrideItem extends ItemBlock {
 

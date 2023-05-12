@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import mods.natura.common.NaturaTab;
-
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.enchantment.Enchantment;
@@ -24,6 +22,7 @@ import net.minecraftforge.common.IShearable;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import mods.natura.common.NaturaTab;
 
 public class NaturaKama extends ItemSword {
 

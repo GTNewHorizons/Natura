@@ -3,10 +3,6 @@ package mods.natura.blocks.crops;
 import java.util.List;
 import java.util.Random;
 
-import mods.natura.common.NaturaTab;
-import mods.natura.worldgen.GlowshroomGenBlueGreen;
-import mods.natura.worldgen.GlowshroomGenPurple;
-
 import net.minecraft.block.BlockMushroom;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -18,6 +14,9 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import mods.natura.common.NaturaTab;
+import mods.natura.worldgen.GlowshroomGenBlueGreen;
+import mods.natura.worldgen.GlowshroomGenPurple;
 
 public class Glowshroom extends BlockMushroom {
 

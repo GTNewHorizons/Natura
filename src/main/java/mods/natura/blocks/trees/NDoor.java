@@ -2,8 +2,6 @@ package mods.natura.blocks.trees;
 
 import java.util.Random;
 
-import mods.natura.common.NContent;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDoor;
 import net.minecraft.block.material.Material;
@@ -19,6 +17,7 @@ import net.minecraft.world.World;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import mods.natura.common.NContent;
 
 public class NDoor extends BlockDoor {
 

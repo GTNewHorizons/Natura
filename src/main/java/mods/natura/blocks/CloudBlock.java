@@ -1,9 +1,5 @@
 package mods.natura.blocks;
 
-import mods.natura.Natura;
-import mods.natura.common.NContent;
-import mods.natura.common.NaturaTab;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -15,6 +11,10 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+
+import mods.natura.Natura;
+import mods.natura.common.NContent;
+import mods.natura.common.NaturaTab;
 
 public class CloudBlock extends NBlock {
 

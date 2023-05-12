@@ -1,7 +1,5 @@
 package mods.natura.client;
 
-import mods.natura.blocks.trees.SaguaroBlock;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -12,6 +10,7 @@ import net.minecraft.world.IBlockAccess;
 
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
+import mods.natura.blocks.trees.SaguaroBlock;
 
 public class SaguaroRenderer implements ISimpleBlockRenderingHandler {
 

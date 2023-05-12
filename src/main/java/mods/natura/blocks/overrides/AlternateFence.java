@@ -2,9 +2,6 @@ package mods.natura.blocks.overrides;
 
 import java.util.List;
 
-import mods.natura.client.FenceRender;
-import mods.natura.common.NContent;
-
 import net.minecraft.block.BlockFence;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -16,6 +13,8 @@ import net.minecraft.world.World;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import mods.natura.client.FenceRender;
+import mods.natura.common.NContent;
 
 public class AlternateFence extends BlockFence {
 

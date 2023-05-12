@@ -1,7 +1,5 @@
 package mods.natura.gui;
 
-import mods.natura.blocks.tech.NetherrackFurnaceLogic;
-
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -12,6 +10,7 @@ import org.lwjgl.opengl.GL11;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import mods.natura.blocks.tech.NetherrackFurnaceLogic;
 
 @SideOnly(Side.CLIENT)
 public class FurnaceGui extends GuiContainer {

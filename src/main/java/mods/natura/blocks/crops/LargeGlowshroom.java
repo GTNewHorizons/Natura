@@ -2,8 +2,6 @@ package mods.natura.blocks.crops;
 
 import java.util.Random;
 
-import mods.natura.common.NContent;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -19,6 +17,7 @@ import net.minecraft.world.World;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import mods.natura.common.NContent;
 
 public class LargeGlowshroom extends Block {
 

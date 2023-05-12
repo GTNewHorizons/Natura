@@ -2,8 +2,6 @@ package mods.natura.blocks.trees;
 
 import java.util.List;
 
-import mods.natura.common.NaturaTab;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -18,6 +16,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import mods.natura.common.NaturaTab;
 
 public class Planks extends Block {
 

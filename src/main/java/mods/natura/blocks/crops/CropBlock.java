@@ -3,9 +3,6 @@ package mods.natura.blocks.crops;
 import java.util.ArrayList;
 import java.util.Random;
 
-import mods.natura.client.CropRender;
-import mods.natura.common.NContent;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.IGrowable;
@@ -22,6 +19,8 @@ import net.minecraftforge.common.EnumPlantType;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import mods.natura.client.CropRender;
+import mods.natura.common.NContent;
 
 public class CropBlock extends BlockBush implements IGrowable {
 

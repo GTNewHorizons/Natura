@@ -2,14 +2,14 @@ package mods.natura.worldgen;
 
 import java.util.Random;
 
-import mods.natura.blocks.trees.NSaplingBlock;
-import mods.natura.common.NContent;
-
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import mods.natura.blocks.trees.NSaplingBlock;
+import mods.natura.common.NContent;
 
 public class DarkwoodGen extends WorldGenerator {
 

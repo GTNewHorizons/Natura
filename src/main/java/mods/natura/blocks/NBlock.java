@@ -2,8 +2,6 @@ package mods.natura.blocks;
 
 import java.util.List;
 
-import mods.natura.common.NaturaTab;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -14,6 +12,7 @@ import net.minecraft.util.IIcon;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import mods.natura.common.NaturaTab;
 
 public class NBlock extends Block {
 

@@ -5,21 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import mantle.lib.TabTools;
-import mantle.pulsar.control.PulseManager;
-import mods.natura.common.NContent;
-import mods.natura.common.NProxyCommon;
-import mods.natura.common.NaturaTab;
-import mods.natura.common.PHNatura;
-import mods.natura.dimension.NetheriteWorldProvider;
-import mods.natura.gui.NGuiHandler;
-import mods.natura.plugins.PluginController;
-import mods.natura.worldgen.BaseCloudWorldgen;
-import mods.natura.worldgen.BaseCropWorldgen;
-import mods.natura.worldgen.BaseTreeWorldgen;
-import mods.natura.worldgen.retro.TickHandlerWorld;
-import mods.natura.worldgen.retro.WorldHandler;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLiving;
@@ -57,6 +42,20 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
+import mantle.lib.TabTools;
+import mantle.pulsar.control.PulseManager;
+import mods.natura.common.NContent;
+import mods.natura.common.NProxyCommon;
+import mods.natura.common.NaturaTab;
+import mods.natura.common.PHNatura;
+import mods.natura.dimension.NetheriteWorldProvider;
+import mods.natura.gui.NGuiHandler;
+import mods.natura.plugins.PluginController;
+import mods.natura.worldgen.BaseCloudWorldgen;
+import mods.natura.worldgen.BaseCropWorldgen;
+import mods.natura.worldgen.BaseTreeWorldgen;
+import mods.natura.worldgen.retro.TickHandlerWorld;
+import mods.natura.worldgen.retro.WorldHandler;
 
 @Mod(
         modid = "Natura",

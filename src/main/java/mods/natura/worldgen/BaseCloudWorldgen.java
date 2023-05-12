@@ -2,15 +2,14 @@ package mods.natura.worldgen;
 
 import java.util.Random;
 
-import mods.natura.Natura;
-import mods.natura.common.NContent;
-import mods.natura.common.PHNatura;
-
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.IChunkProvider;
 
 import cpw.mods.fml.common.IWorldGenerator;
+import mods.natura.Natura;
+import mods.natura.common.NContent;
+import mods.natura.common.PHNatura;
 
 /*
  * Generates clouds in every dimension Current clouds: Normal, Dark, Sulfur, Ash Overworld: Normal Nether: Sulfur, Ash

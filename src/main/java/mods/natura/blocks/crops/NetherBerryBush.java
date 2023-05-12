@@ -3,10 +3,6 @@ package mods.natura.blocks.crops;
 import java.util.List;
 import java.util.Random;
 
-import mods.natura.client.BerryRender;
-import mods.natura.common.NContent;
-import mods.natura.common.NaturaTab;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLeavesBase;
 import net.minecraft.block.material.Material;
@@ -27,6 +23,9 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import mods.natura.client.BerryRender;
+import mods.natura.common.NContent;
+import mods.natura.common.NaturaTab;
 
 public class NetherBerryBush extends BlockLeavesBase implements IPlantable {
 

@@ -2,9 +2,6 @@ package mods.natura.worldgen;
 
 import java.util.Random;
 
-import mods.natura.common.NContent;
-import mods.natura.common.PHNatura;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSapling;
 import net.minecraft.init.Blocks;
@@ -12,6 +9,9 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import mods.natura.common.NContent;
+import mods.natura.common.PHNatura;
 
 public class SakuraTreeGen extends WorldGenAbstractTree {
 

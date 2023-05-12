@@ -2,8 +2,6 @@ package mods.natura.blocks.trees;
 
 import java.util.List;
 
-import mods.natura.common.NaturaTab;
-
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -15,6 +13,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import mods.natura.common.NaturaTab;
 
 public class SimpleLog extends Planks {
 

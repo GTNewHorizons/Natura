@@ -1,13 +1,13 @@
 package mods.natura.client.entity;
 
-import mods.natura.entity.BabyHeatscarSpider;
-
 import net.minecraft.client.renderer.entity.RenderSpider;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
+
+import mods.natura.entity.BabyHeatscarSpider;
 
 public class FlameSpiderBabyRender extends RenderSpider {
 

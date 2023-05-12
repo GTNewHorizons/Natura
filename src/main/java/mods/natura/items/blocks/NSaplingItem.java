@@ -2,9 +2,6 @@ package mods.natura.items.blocks;
 
 import java.util.List;
 
-import mantle.blocks.abstracts.MultiItemBlock;
-import mods.natura.common.NContent;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -15,6 +12,8 @@ import net.minecraft.world.World;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import mantle.blocks.abstracts.MultiItemBlock;
+import mods.natura.common.NContent;
 
 public class NSaplingItem extends MultiItemBlock {
 

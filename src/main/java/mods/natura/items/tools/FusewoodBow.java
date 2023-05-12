@@ -1,7 +1,5 @@
 package mods.natura.items.tools;
 
-import mods.natura.entity.FusewoodArrow;
-
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
@@ -10,6 +8,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.ArrowLooseEvent;
+
+import mods.natura.entity.FusewoodArrow;
 
 public class FusewoodBow extends NaturaBow {
 

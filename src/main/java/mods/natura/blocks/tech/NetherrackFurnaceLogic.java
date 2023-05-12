@@ -1,7 +1,5 @@
 package mods.natura.blocks.tech;
 
-import mantle.blocks.BlockUtils;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.material.Material;
@@ -26,6 +24,7 @@ import net.minecraft.util.MathHelper;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import mantle.blocks.BlockUtils;
 
 public class NetherrackFurnaceLogic extends TileEntityFurnace {
 

@@ -1,15 +1,14 @@
 package mods.natura.plugins.nei;
 
-import mods.natura.common.NContent;
-import mods.natura.common.PHNatura;
-import mods.natura.gui.WorkbenchGui;
-
 import net.minecraft.item.ItemStack;
 
 import codechicken.nei.api.API;
 import codechicken.nei.recipe.DefaultOverlayHandler;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
+import mods.natura.common.NContent;
+import mods.natura.common.PHNatura;
+import mods.natura.gui.WorkbenchGui;
 
 public class NotEnoughItems {
 

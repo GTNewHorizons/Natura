@@ -4,6 +4,36 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockDispenser;
+import net.minecraft.block.BlockPressurePlate.Sensitivity;
+import net.minecraft.block.material.Material;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.Item.ToolMaterial;
+import net.minecraft.item.ItemArmor.ArmorMaterial;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.CraftingManager;
+import net.minecraft.item.crafting.FurnaceRecipes;
+import net.minecraft.item.crafting.ShapedRecipes;
+import net.minecraft.item.crafting.ShapelessRecipes;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.EnumHelper;
+import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
+
+import cpw.mods.fml.common.IFuelHandler;
+import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.registry.EntityRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
 import mods.natura.Natura;
 import mods.natura.blocks.CloudBlock;
 import mods.natura.blocks.GrassBlock;
@@ -109,38 +139,7 @@ import mods.natura.items.tools.NaturaPickaxe;
 import mods.natura.items.tools.NaturaShovel;
 import mods.natura.items.tools.NaturaSword;
 import mods.natura.util.DispenserBehaviorSpawnEgg;
-
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockDispenser;
-import net.minecraft.block.BlockPressurePlate.Sensitivity;
-import net.minecraft.block.material.Material;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.entity.EnumCreatureType;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.Item.ToolMaterial;
-import net.minecraft.item.ItemArmor.ArmorMaterial;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.CraftingManager;
-import net.minecraft.item.crafting.FurnaceRecipes;
-import net.minecraft.item.crafting.ShapedRecipes;
-import net.minecraft.item.crafting.ShapelessRecipes;
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.util.EnumHelper;
-import net.minecraftforge.fluids.FluidContainerRegistry;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.oredict.ShapedOreRecipe;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
-
 import tconstruct.library.crafting.PatternBuilder;
-import cpw.mods.fml.common.IFuelHandler;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.registry.EntityRegistry;
-import cpw.mods.fml.common.registry.GameRegistry;
 
 public class NContent implements IFuelHandler {
 

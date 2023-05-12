@@ -1,13 +1,12 @@
 package mods.natura.items.blocks;
 
-import mantle.blocks.abstracts.MultiItemBlock;
-import mods.natura.common.NContent;
-
 import net.minecraft.block.Block;
 import net.minecraft.util.IIcon;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import mantle.blocks.abstracts.MultiItemBlock;
+import mods.natura.common.NContent;
 
 public class FenceItem extends MultiItemBlock {
 

@@ -2,8 +2,6 @@ package mods.natura.items;
 
 import java.util.List;
 
-import mods.natura.common.NaturaTab;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCocoa;
 import net.minecraft.block.BlockCrops;
@@ -24,6 +22,7 @@ import net.minecraftforge.event.entity.player.BonemealEvent;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import mods.natura.common.NaturaTab;
 
 public class BoneBag extends Item {
 

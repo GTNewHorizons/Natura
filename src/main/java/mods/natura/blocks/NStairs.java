@@ -1,9 +1,9 @@
 package mods.natura.blocks;
 
-import mods.natura.common.NaturaTab;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockStairs;
+
+import mods.natura.common.NaturaTab;
 
 public class NStairs extends BlockStairs {
 

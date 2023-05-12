@@ -3,9 +3,6 @@ package mods.natura.blocks.trees;
 import java.util.List;
 import java.util.Random;
 
-import mods.natura.common.NContent;
-import mods.natura.common.NaturaTab;
-
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
@@ -18,6 +15,8 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import mods.natura.common.NContent;
+import mods.natura.common.NaturaTab;
 
 public class NLeavesDark extends NLeaves {
 

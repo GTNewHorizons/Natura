@@ -1,13 +1,13 @@
 package mods.natura.plugins.minefactoryreloaded.plantables;
 
-import mods.natura.common.NContent;
-
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import mods.natura.common.NContent;
 
 public class PlantableNaturaBerry extends PlantableStandard {
 

@@ -1,5 +1,9 @@
 package mods.natura.plugins.minefactoryreloaded;
 
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+
 import mods.natura.common.NContent;
 import mods.natura.common.PHNatura;
 import mods.natura.plugins.minefactoryreloaded.fertilizables.FertilizableNaturaCrop;
@@ -12,11 +16,6 @@ import mods.natura.plugins.minefactoryreloaded.plantables.PlantableNaturaBerry;
 import mods.natura.plugins.minefactoryreloaded.plantables.PlantableNaturaCrop;
 import mods.natura.plugins.minefactoryreloaded.plantables.PlantableNaturaNetherBerry;
 import mods.natura.plugins.minefactoryreloaded.plantables.PlantableStandard;
-
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-
 import powercrystals.minefactoryreloaded.api.FactoryRegistry;
 import powercrystals.minefactoryreloaded.api.HarvestType;
 

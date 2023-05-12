@@ -1,8 +1,5 @@
 package mods.natura.entity;
 
-import mods.natura.common.NContent;
-import mods.natura.common.PHNatura;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.Block.SoundType;
 import net.minecraft.entity.Entity;
@@ -21,6 +18,8 @@ import net.minecraftforge.common.ForgeHooks;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import mods.natura.common.NContent;
+import mods.natura.common.PHNatura;
 
 public class HeatscarSpider extends EntitySpider {
 

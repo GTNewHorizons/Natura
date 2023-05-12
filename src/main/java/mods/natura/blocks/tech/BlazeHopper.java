@@ -1,14 +1,13 @@
 package mods.natura.blocks.tech;
 
-import mods.natura.client.HopperRender;
-import mods.natura.common.NContent;
-
 import net.minecraft.block.BlockHopper;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import mods.natura.client.HopperRender;
+import mods.natura.common.NContent;
 
 public class BlazeHopper extends BlockHopper {
 

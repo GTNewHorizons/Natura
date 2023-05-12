@@ -2,8 +2,6 @@ package mods.natura.blocks.nether;
 
 import static net.minecraftforge.common.util.ForgeDirection.UP;
 
-import mods.natura.blocks.NBlock;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
@@ -11,6 +9,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import mods.natura.blocks.NBlock;
 
 public class TaintedSoil extends NBlock {
 

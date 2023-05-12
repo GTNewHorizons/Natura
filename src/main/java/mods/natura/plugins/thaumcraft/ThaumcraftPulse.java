@@ -1,19 +1,18 @@
 package mods.natura.plugins.thaumcraft;
 
+import net.minecraft.item.ItemStack;
+
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLInterModComms;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
 import mods.natura.Natura;
 import mods.natura.common.NContent;
 import mods.natura.common.PHNatura;
-
-import net.minecraft.item.ItemStack;
-
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLInterModComms;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 
 @Pulse(id = "Natura Thaumcraft Compatibility", modsRequired = ThaumcraftPulse.modId)
 public class ThaumcraftPulse {

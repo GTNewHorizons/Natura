@@ -1,7 +1,5 @@
 package mods.natura.blocks;
 
-import mods.natura.common.NaturaTab;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPressurePlate;
 import net.minecraft.block.material.Material;
@@ -10,6 +8,7 @@ import net.minecraft.util.IIcon;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import mods.natura.common.NaturaTab;
 
 public class NPressurePlate extends BlockPressurePlate {
 

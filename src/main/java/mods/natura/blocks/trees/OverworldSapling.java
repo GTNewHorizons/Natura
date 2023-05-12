@@ -3,11 +3,6 @@ package mods.natura.blocks.trees;
 import java.util.List;
 import java.util.Random;
 
-import mods.natura.common.NContent;
-import mods.natura.common.NaturaTab;
-import mods.natura.worldgen.RareTreeGen;
-import mods.natura.worldgen.WillowGen;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSapling;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -24,6 +19,10 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import mods.natura.common.NContent;
+import mods.natura.common.NaturaTab;
+import mods.natura.worldgen.RareTreeGen;
+import mods.natura.worldgen.WillowGen;
 
 public class OverworldSapling extends BlockSapling {
 

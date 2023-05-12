@@ -1,9 +1,9 @@
 package mods.natura.plugins.minefactoryreloaded;
 
+import cpw.mods.fml.common.event.FMLInitializationEvent;
 import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
 import mods.natura.Natura;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
 
 @Pulse(id = "Natura MFR Compatibility", modsRequired = MFRPulse.modId)
 public class MFRPulse {

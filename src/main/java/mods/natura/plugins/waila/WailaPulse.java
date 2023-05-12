@@ -1,10 +1,10 @@
 package mods.natura.plugins.waila;
 
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLInterModComms;
 import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
 import mods.natura.Natura;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLInterModComms;
 
 @Pulse(id = "Natura Waila Compatibility", modsRequired = WailaPulse.modId)
 public class WailaPulse {

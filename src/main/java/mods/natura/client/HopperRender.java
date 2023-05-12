@@ -1,7 +1,5 @@
 package mods.natura.client;
 
-import mods.natura.blocks.tech.BlazeHopper;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockHopper;
 import net.minecraft.client.renderer.EntityRenderer;
@@ -12,6 +10,7 @@ import net.minecraft.world.IBlockAccess;
 
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
+import mods.natura.blocks.tech.BlazeHopper;
 
 public class HopperRender implements ISimpleBlockRenderingHandler {
 

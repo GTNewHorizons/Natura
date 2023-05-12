@@ -2,8 +2,6 @@ package mods.natura.items;
 
 import java.util.List;
 
-import mods.natura.common.NaturaTab;
-
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -14,6 +12,7 @@ import net.minecraft.world.World;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import mods.natura.common.NaturaTab;
 
 public class BerryMedley extends ItemFood {
 

@@ -1,7 +1,5 @@
 package mods.natura.blocks.nether;
 
-import mods.natura.common.NaturaTab;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -16,6 +14,7 @@ import net.minecraft.world.World;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import mods.natura.common.NaturaTab;
 
 public class HeatSand extends BlockFalling {
 
