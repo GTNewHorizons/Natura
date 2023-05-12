@@ -9,9 +9,7 @@ dependencies {
 	compileOnly("com.github.GTNewHorizons:ForgeMultipart:1.3.3:dev") {
 		transitive = false
 	}
-	compileOnly("com.github.GTNewHorizons:NotEnoughItems:2.3.52-GTNH:dev") {
-		transitive = false
-	}
+	devOnlyNonPublishable("com.github.GTNewHorizons:NotEnoughItems:2.3.52-GTNH:dev")
 	compileOnly("com.github.GTNewHorizons:TinkersConstruct:1.9.31-GTNH:dev") {
 		transitive = false
 	}
