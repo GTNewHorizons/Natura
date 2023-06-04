@@ -7,25 +7,26 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.api.IWailaDataProvider;
-import mods.natura.blocks.crops.CropBlock;
+import mods.natura.common.NContent;
 
-public class NaturaCropDataProvider implements IWailaDataProvider {
+public class NaturaLeavesDataProvider implements IWailaDataProvider {
 
     @Override
     public ItemStack getWailaStack(IWailaDataAccessor accessor, IWailaConfigHandler config) {
         Block block = accessor.getBlock();
-        if (block instanceof CropBlock) {
-            int meta = accessor.getMetadata();
-            CropBlock cropBlock = (CropBlock) block;
+        int metadata = accessor.getMetadata();
 
-            return new ItemStack(cropBlock.getCropItem(meta), 1, cropBlock.damageDropped(meta));
+        if ((block == NContent.floraLeaves || block == NContent.floraLeavesNoColor
+                || block == NContent.rareLeaves
+                || block == NContent.darkLeaves) && metadata > 3) {
+            return new ItemStack(block, 1, metadata % 4);
         }
+
         return null;
     }
 
@@ -38,26 +39,6 @@ public class NaturaCropDataProvider implements IWailaDataProvider {
     @Override
     public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor,
             IWailaConfigHandler config) {
-        if (config.getConfig("general.showcrop")) {
-            Block block = accessor.getBlock();
-
-            if (block instanceof CropBlock) {
-                int meta = accessor.getMetadata();
-                float startGrowth = ((CropBlock) block).getStartGrowth(meta);
-                float maxGrowth = ((CropBlock) block).getMaxGrowth(meta) - startGrowth;
-                float growthValue;
-
-                growthValue = ((meta - startGrowth) / maxGrowth) * 100.0F;
-
-                if (growthValue < 100.0) {
-                    currenttip.add(
-                            StatCollector.translateToLocalFormatted("tooltip.waila.growth.percentage", growthValue));
-                } else {
-                    currenttip.add(StatCollector.translateToLocal("tooltip.waila.growth.mature"));
-                }
-                return currenttip;
-            }
-        }
         return currenttip;
     }
 
