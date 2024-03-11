@@ -1715,8 +1715,8 @@ public class NContent implements IFuelHandler {
         }
 
         // Saplings
-        OreDictionary.registerOre("treeSapling", new ItemStack(rareSapling, 1, OreDictionary.WILDCARD_VALUE));
-        OreDictionary.registerOre("treeSapling", new ItemStack(floraSapling, 1, OreDictionary.WILDCARD_VALUE));
+        for (int i = 0; i < 5; i++) OreDictionary.registerOre("treeSapling", new ItemStack(rareSapling, 1, i));
+        for (int i = 0; i < 8; i++) OreDictionary.registerOre("treeSapling", new ItemStack(floraSapling, 1, i));
 
         // Logs
         OreDictionary.registerOre("logWood", new ItemStack(tree, 1, OreDictionary.WILDCARD_VALUE));
