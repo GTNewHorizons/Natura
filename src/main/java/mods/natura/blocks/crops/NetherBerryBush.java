@@ -182,34 +182,19 @@ public class NetherBerryBush extends BlockLeavesBase implements IPlantable {
         return BerryRender.berryModel;
     }
 
-    @SideOnly(Side.CLIENT)
     @Override
+    @SideOnly(Side.CLIENT)
     public boolean shouldSideBeRendered(IBlockAccess blockAccess, int x, int y, int z, int side) {
         Block block = blockAccess.getBlock(x, y, z);
         // If the block touching the side is same type of bush and not fully grown then render side.
-        if (block == this & blockAccess.getBlockMetadata(x, y, z) < 8) {
+        if (block == this && blockAccess.getBlockMetadata(x, y, z) < 8) {
             return true;
-            // If this block is fully grown and is touching a bush (fast mode) or solid block then don't render (Would
-            // be way less complex if metadata was passed in)
-        } else if ((Blocks.leaves.isOpaqueCube() & block == this) | block.isOpaqueCube()) {
-            switch (side) {
-                case 0: // -y
-                    return false;
-                case 1: // +y
-                    if (blockAccess.getBlockMetadata(x, y - 1, z) > 7) return false;
-                    break;
-                case 2: // -z
-                    if (blockAccess.getBlockMetadata(x, y, z + 1) > 7) return false;
-                    break;
-                case 3: // +z
-                    if (blockAccess.getBlockMetadata(x, y, z - 1) > 7) return false;
-                    break;
-                case 4: // -x
-                    if (blockAccess.getBlockMetadata(x + 1, y, z) > 7) return false;
-                    break;
-                case 5: // +x
-                    if (blockAccess.getBlockMetadata(x - 1, y, z) > 7) return false;
+            // If this block is fully grown and is touching a bush (fast mode) or solid block then don't render side.
+        } else if ((Blocks.leaves.isOpaqueCube() && block == this) || block.isOpaqueCube()) {
+            if (side == 0) {
+                return false;
             }
+            return maxY < 1f;
         }
         // If none of the above then render side.
         return true;
