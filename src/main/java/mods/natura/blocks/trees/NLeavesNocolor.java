@@ -6,56 +6,47 @@ import java.util.Random;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.natura.Natura;
 import mods.natura.common.NContent;
-import mods.natura.common.NaturaTab;
 
 public class NLeavesNocolor extends NLeaves {
 
     public NLeavesNocolor() {
         super();
-        this.setCreativeTab(NaturaTab.tab);
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public int getBlockColor() {
         return 16777215;
     }
 
-    @SideOnly(Side.CLIENT)
     /**
      * Returns the color this block should be rendered. Used by leaves.
      */
+    @Override
+    @SideOnly(Side.CLIENT)
     public int getRenderColor(int par1) {
         return 16777215;
     }
 
-    @SideOnly(Side.CLIENT)
     /**
-     * Returns a integer with hex for 0xrrggbb with this color multiplied against the blocks color. Note only called
+     * Returns an integer with hex for 0xrrggbb with this color multiplied against the blocks color. Note only called
      * when first determining what to render.
      */
+    @Override
+    @SideOnly(Side.CLIENT)
     public int colorMultiplier(IBlockAccess par1IBlockAccess, int par2, int par3, int par4) {
         return 16777215;
-    }
-
-    public int getFlammability(IBlockAccess world, int x, int y, int z, int metadata, ForgeDirection face) {
-        return metadata % 4 == 0 ? getFlammability(world, x, y, z, face) : 0;
-    }
-
-    public int getFireSpreadSpeed(World world, int x, int y, int z, int metadata, ForgeDirection face) {
-        return metadata % 4 == 0 ? getFireSpreadSpeed(world, x, y, z, face) : 0;
     }
 
     public int damageDropped(int meta) {
@@ -82,28 +73,16 @@ public class NLeavesNocolor extends NLeaves {
         return ret;
     }
 
-    @SideOnly(Side.CLIENT)
     @Override
+    @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister) {
-        String[] textureNames = new String[] { "sakura", "ghostwood", "bloodwood", "willow" };
-        this.fastIcons = new IIcon[textureNames.length];
-        this.fancyIcons = new IIcon[textureNames.length];
-
-        for (int i = 0; i < this.fastIcons.length; i++) {
-            this.fastIcons[i] = iconRegister.registerIcon("natura:" + textureNames[i] + "_leaves_fast");
-            this.fancyIcons[i] = iconRegister.registerIcon("natura:" + textureNames[i] + "_leaves_fancy");
+        final String[] textureNames = new String[] { "sakura", "ghostwood", "bloodwood", "willow" };
+        field_150129_M[0] = new IIcon[textureNames.length];
+        field_150129_M[1] = new IIcon[textureNames.length];
+        for (int i = 0; i < textureNames.length; ++i) {
+            field_150129_M[0][i] = iconRegister.registerIcon("natura:" + textureNames[i] + "_leaves_fancy");
+            field_150129_M[1][i] = iconRegister.registerIcon("natura:" + textureNames[i] + "_leaves_fast");
         }
-    }
-
-    @Override
-    public boolean isOpaqueCube() {
-        return Blocks.leaves.isOpaqueCube();
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public IIcon getIcon(int side, int metadata) {
-        return (Blocks.leaves.isOpaqueCube() ? fastIcons : fancyIcons)[metadata % 4];
     }
 
     @Override
@@ -114,7 +93,4 @@ public class NLeavesNocolor extends NLeaves {
         par3List.add(new ItemStack(par1, 1, 3));
     }
 
-    public int getLightOpacity(World world, int x, int y, int z) {
-        return super.getLightOpacity(world, x, y, z); // lightOpacity[blockID];
-    }
 }
