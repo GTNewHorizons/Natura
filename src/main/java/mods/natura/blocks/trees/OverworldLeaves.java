@@ -5,7 +5,6 @@ import java.util.Random;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
@@ -21,21 +20,20 @@ public class OverworldLeaves extends NLeaves {
         super();
     }
 
-    @SideOnly(Side.CLIENT)
     @Override
+    @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister) {
         String[] textureNames = new String[] { "maple", "silverbell", "purpleheart", "tiger" };
-        this.fastIcons = new IIcon[textureNames.length];
-        this.fancyIcons = new IIcon[textureNames.length];
-
-        for (int i = 0; i < this.fastIcons.length; i++) {
-            this.fastIcons[i] = iconRegister.registerIcon("natura:" + textureNames[i] + "_leaves_fast");
-            this.fancyIcons[i] = iconRegister.registerIcon("natura:" + textureNames[i] + "_leaves_fancy");
+        field_150129_M[0] = new IIcon[textureNames.length];
+        field_150129_M[1] = new IIcon[textureNames.length];
+        for (int i = 0; i < textureNames.length; ++i) {
+            field_150129_M[0][i] = iconRegister.registerIcon("natura:" + textureNames[i] + "_leaves_fancy");
+            field_150129_M[1][i] = iconRegister.registerIcon("natura:" + textureNames[i] + "_leaves_fast");
         }
     }
 
-    @SideOnly(Side.CLIENT)
     @Override
+    @SideOnly(Side.CLIENT)
     public int colorMultiplier(IBlockAccess world, int x, int y, int z) {
         int meta = world.getBlockMetadata(x, y, z) % 4;
         if (meta == 0) {
@@ -64,17 +62,6 @@ public class OverworldLeaves extends NLeaves {
         }
 
         return 0xffffff;
-    }
-
-    @Override
-    public boolean isOpaqueCube() {
-        return Blocks.leaves.isOpaqueCube();
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public IIcon getIcon(int side, int metadata) {
-        return (Blocks.leaves.isOpaqueCube() ? fastIcons : fancyIcons)[metadata % 4];
     }
 
     @Override

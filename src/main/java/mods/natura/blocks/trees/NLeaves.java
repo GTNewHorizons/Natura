@@ -23,18 +23,11 @@ import mods.natura.common.NaturaTab;
 
 public class NLeaves extends BlockLeaves {
 
-    int[] adjacentTreeBlocks;
-
     public NLeaves() {
         super();
-        this.setTickRandomly(true);
-        this.setHardness(0.2F);
-        this.setLightOpacity(1);
-        this.setStepSound(Block.soundTypeGrass);
-        this.setBlockName("floraLeaves");
+        setBlockName("floraLeaves");
         setCreativeTab(NaturaTab.tab);
         // Blocks.fire.setFireInfo(this, 30, 60);
-        this.setCreativeTab(NaturaTab.tab);
     }
 
     @Override
@@ -103,14 +96,6 @@ public class NLeaves extends BlockLeaves {
     }
 
     /**
-     * Returns the quantity of items to drop on block destruction.
-     */
-    @Override
-    public int quantityDropped(Random var1) {
-        return var1.nextInt(20) == 0 ? 1 : 0;
-    }
-
-    /**
      * Returns the ID of the items to drop on destruction.
      */
     @Override
@@ -132,9 +117,6 @@ public class NLeaves extends BlockLeaves {
         }
     }
 
-    public IIcon[] fastIcons;
-    public IIcon[] fancyIcons;
-
     @Override
     public boolean isOpaqueCube() {
         return Blocks.leaves.isOpaqueCube();
@@ -142,20 +124,19 @@ public class NLeaves extends BlockLeaves {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIcon(int side, int metadata) {
-        return (Blocks.leaves.isOpaqueCube() ? fastIcons : fancyIcons)[metadata % 4];
+    public IIcon getIcon(int side, int meta) {
+        return field_150129_M[Blocks.leaves.isOpaqueCube() ? 1 : 0][(meta % 4) % field_150129_M[0].length];
     }
 
-    @SideOnly(Side.CLIENT)
     @Override
+    @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister) {
-        String[] textureNames = new String[] { "redwood", "eucalyptus", "hopseed" };
-        this.fastIcons = new IIcon[textureNames.length];
-        this.fancyIcons = new IIcon[textureNames.length];
-
-        for (int i = 0; i < this.fastIcons.length; i++) {
-            this.fastIcons[i] = iconRegister.registerIcon("natura:" + textureNames[i] + "_leaves_fast");
-            this.fancyIcons[i] = iconRegister.registerIcon("natura:" + textureNames[i] + "_leaves_fancy");
+        final String[] textureNames = new String[] { "redwood", "eucalyptus", "hopseed" };
+        field_150129_M[0] = new IIcon[textureNames.length];
+        field_150129_M[1] = new IIcon[textureNames.length];
+        for (int i = 0; i < textureNames.length; ++i) {
+            field_150129_M[0][i] = iconRegister.registerIcon("natura:" + textureNames[i] + "_leaves_fancy");
+            field_150129_M[1][i] = iconRegister.registerIcon("natura:" + textureNames[i] + "_leaves_fast");
         }
     }
 
@@ -164,14 +145,16 @@ public class NLeaves extends BlockLeaves {
      * coordinates. Args: blockAccess, x, y, z, side
      */
     @Override
-    public boolean shouldSideBeRendered(IBlockAccess var1, int var2, int var3, int var4, int var5) {
-        return this.field_150121_P ? super.shouldSideBeRendered(var1, var2, var3, var4, var5) : true;
+    @SideOnly(Side.CLIENT)
+    public boolean shouldSideBeRendered(IBlockAccess worldIn, int x, int y, int z, int side) {
+        return Blocks.leaves.shouldSideBeRendered(worldIn, x, y, z, side);
     }
 
-    @SideOnly(Side.CLIENT)
     /**
      * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
      */
+    @Override
+    @SideOnly(Side.CLIENT)
     public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
         par3List.add(new ItemStack(par1, 1, 0));
         par3List.add(new ItemStack(par1, 1, 1));
@@ -184,11 +167,10 @@ public class NLeaves extends BlockLeaves {
 
     @Override
     public int getLightOpacity(IBlockAccess world, int x, int y, int z) {
-        int meta = world.getBlockMetadata(x, y, z) % 4;
-        if (meta == 0) {
+        if (world.getBlockMetadata(x, y, z) % 4 == 0) {
             return 255;
         }
-        return super.getLightOpacity(world, x, y, z); // this.getLightOpacity(world, x, y, z);//lightOpacity[blockID];
+        return super.getLightOpacity(world, x, y, z);
     }
 
     @Override
