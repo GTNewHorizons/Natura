@@ -14,14 +14,14 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.ColorizerGrass;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraftforge.common.EnumPlantType;
+import net.minecraftforge.common.IPlantable;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.natura.client.GrassColorizerAlternate;
 import mods.natura.common.NaturaTab;
-import net.minecraftforge.common.EnumPlantType;
-import net.minecraftforge.common.IPlantable;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class GrassBlock extends Block {
 
@@ -115,7 +115,7 @@ public class GrassBlock extends Block {
 
     @Override
     public boolean canSustainPlant(IBlockAccess world, int x, int y, int z, ForgeDirection direction,
-                                   IPlantable plant) {
+            IPlantable plant) {
         EnumPlantType plantType = plant.getPlantType(world, x, y + 1, z);
         return plantType == EnumPlantType.Plains && plant.getPlant(world, x, y + 1, z) != Blocks.tallgrass;
     }
