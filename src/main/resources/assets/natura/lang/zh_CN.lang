@@ -81,9 +81,9 @@ hopseedNDoor.name=车桑子树木门
 sakuraNDoor.name=樱花树木门
 ghostNDoor.name=幽魂树木门
 bloodNDoor.name=血树木门
-redwoodBarkNDoor.name=红木树皮门
+redwoodBarkNDoor.name=红木树门
 
-block.bark.redwood.name=红木树皮
+block.bark.redwood.name=红木树
 block.heart.redwood.name=红木
 block.root.redwood.name=红木树根
 
@@ -135,7 +135,7 @@ tile.door.ghostwood.name=幽魂树门
 tile.door.hopseed.name=车桑子树门
 tile.door.redwood.name=红木门
 tile.door.bloodwood.name=血树门
-tile.door.redwoodbark.name=红木树皮门
+tile.door.redwoodbark.name=红木树门
 
 tile.pressureplate.eucalyptus.name=桉树压力板
 tile.pressureplate.sakura.name=樱花树压力板
@@ -254,8 +254,8 @@ bloodBoat.name=血树船
 whiteBoat.name=白色船
 eucalyptusBoat.name=桉树船
 
-item.impmeat.raw.name=生恶魔皮
-item.impmeat.cooked.name=鞣质恶魔皮
+item.impmeat.raw.name=生恶魔肉
+item.impmeat.cooked.name=熟恶魔肉
 
 block.soil.grass.name=修饰草地
 block.soil.bluegrass.name=蓝色草地
