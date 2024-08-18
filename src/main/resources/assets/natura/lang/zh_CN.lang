@@ -254,8 +254,8 @@ bloodBoat.name=血树船
 whiteBoat.name=白色船
 eucalyptusBoat.name=桉树船
 
-item.impmeat.raw.name=生恶魔皮
-item.impmeat.cooked.name=鞣质恶魔皮
+item.impmeat.raw.name=生恶魔肉
+item.impmeat.cooked.name=熟恶魔肉
 
 block.soil.grass.name=修饰草地
 block.soil.bluegrass.name=蓝色草地
