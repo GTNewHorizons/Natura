@@ -1722,7 +1722,8 @@ public class NContent implements IFuelHandler {
         OreDictionary.registerOre("logWood", new ItemStack(tree, 1, OreDictionary.WILDCARD_VALUE));
         OreDictionary.registerOre("logWood", new ItemStack(redwood, 1, OreDictionary.WILDCARD_VALUE));
         OreDictionary.registerOre("logWood", new ItemStack(willow, 1, OreDictionary.WILDCARD_VALUE));
-        OreDictionary.registerOre("logWood", new ItemStack(bloodwood, 1, OreDictionary.WILDCARD_VALUE));
+        OreDictionary.registerOre("logWood", new ItemStack(bloodwood, 1, 0));
+        OreDictionary.registerOre("logWood", new ItemStack(bloodwood, 1, 15));
         OreDictionary.registerOre("logWood", new ItemStack(rareTree, 1, OreDictionary.WILDCARD_VALUE));
         OreDictionary.registerOre("logWood", new ItemStack(darkTree, 1, OreDictionary.WILDCARD_VALUE));
 
