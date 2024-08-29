@@ -47,6 +47,7 @@ public class RedwoodTreeGen extends WorldGenerator {
     int fakeOakLeafDistanceLimit = 4;
     int[][] fakeOakLeafNodes;
     // -- --
+    double innerBranchSlope = 0.18;
     Block genWoodID;
     int genWoodMetadata = 0;
     boolean useHeight;
@@ -230,6 +231,15 @@ public class RedwoodTreeGen extends WorldGenerator {
         generateLeafNodeList();
         generateLeaves();
         generateLeafNodeBases();
+
+        int highestLogY = y;
+        for (int offset = 0; offset < 15; offset++) {
+            if (worldObj.getBlock(x, y + offset, z) == genWoodID) highestLogY = y + offset;
+        }
+        for (int currY = y; currY < highestLogY; currY++) {
+            setBlockAndNotifyAdequately(world, x, currY, z, genWoodID, genWoodMetadata);
+        }
+
         return false;
     }
 
@@ -241,6 +251,7 @@ public class RedwoodTreeGen extends WorldGenerator {
             generateLeafNodeList();
             generateLeaves();
             generateLeafNodeBases();
+            generateInnerBranch(x, z);
         }
         return false;
     }
@@ -253,6 +264,7 @@ public class RedwoodTreeGen extends WorldGenerator {
             generateLeafNodeList();
             generateLeaves();
             generateLeafNodeBases();
+            generateInnerBranch(x, z);
         }
 
         return false;
@@ -265,6 +277,7 @@ public class RedwoodTreeGen extends WorldGenerator {
         generateLeafNodeList();
         generateLeaves();
         generateLeafNodeBases();
+        generateInnerBranch(x, z);
         if (random.nextInt(2) == 0) {
             fakeOakBasePos[0] = (x + random.nextInt(17)) - 8;
             fakeOakBasePos[1] = y;
@@ -272,6 +285,7 @@ public class RedwoodTreeGen extends WorldGenerator {
             generateLeafNodeList();
             generateLeaves();
             generateLeafNodeBases();
+            generateInnerBranch(x, z);
         }
         fakeOakBasePos[0] = (x + random.nextInt(17)) - 8;
         fakeOakBasePos[1] = y;
@@ -279,6 +293,7 @@ public class RedwoodTreeGen extends WorldGenerator {
         generateLeafNodeList();
         generateLeaves();
         generateLeafNodeBases();
+        generateInnerBranch(x, z);
         return false;
     }
 
@@ -1748,7 +1763,8 @@ public class RedwoodTreeGen extends WorldGenerator {
                     }
                     int[] ai3 = { fakeOakBasePos[0], fakeOakBasePos[1], fakeOakBasePos[2] };
                     double d3 = Math.sqrt(
-                            Math.pow(Math.abs(fakeOakBasePos[0] - ai1[0]), 2D) + Math.pow(Math.abs(fakeOakBasePos[2] - ai1[2]), 2D));
+                            Math.pow(Math.abs(fakeOakBasePos[0] - ai1[0]), 2D)
+                                    + Math.pow(Math.abs(fakeOakBasePos[2] - ai1[2]), 2D));
                     double d4 = d3 * fakeOakBranchSlope;
                     if ((double) ai1[1] - d4 > (double) l) {
                         ai3[1] = l;
@@ -1883,7 +1899,10 @@ public class RedwoodTreeGen extends WorldGenerator {
     }
 
     boolean leafNodeNeedsBase(int i) {
-        return (double) i >= (double) fakeOakHeightLimit * 0.20000000000000001D;
+        // return (double) i >= (double) fakeOakHeightLimit * 0.20000000000000001D;
+        // Making all fake oak leaf nodes connect to the fake oak trunk location gives the tree a more stick-y look
+        // and makes branches more continuous
+        return true;
     }
 
     void generateLeafNodeBases() {
@@ -1899,6 +1918,25 @@ public class RedwoodTreeGen extends WorldGenerator {
                 placeBlockLine(ai, ai2, NContent.redwood);
             }
         }
+    }
+
+    void generateInnerBranch(int trunkX, int trunkZ) {
+        // The bottom few blocks of the fake oak trees don't have leave nodes, see generateLeafNodeList
+        int offset = 0;
+        while (worldObj.getBlock(fakeOakBasePos[0], fakeOakBasePos[1] + offset, fakeOakBasePos[2]) != this.genWoodID) {
+            offset++;
+            if (offset > 5) break;
+        }
+
+        int[] start = { fakeOakBasePos[0], fakeOakBasePos[1] + offset, fakeOakBasePos[2] };
+        int[] end = { trunkX, -1, trunkZ };
+
+        double xzDistance = Math
+                .sqrt(Math.pow(Math.abs(start[0] - end[0]), 2D) + Math.pow(Math.abs(start[2] - end[2]), 2D));
+        double yDistance = innerBranchSlope * xzDistance;
+        end[1] = start[1] - (int) yDistance;
+
+        placeBlockLine(start, end, NContent.redwood);
     }
 
     int checkBlockLine(int[] start, int[] end) {
