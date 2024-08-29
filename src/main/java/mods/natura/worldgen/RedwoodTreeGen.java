@@ -1898,12 +1898,11 @@ public class RedwoodTreeGen extends WorldGenerator {
         }
     }
 
-    int checkBlockLine(int[] ai, int[] ai1) {
+    int checkBlockLine(int[] start, int[] end) {
         int[] ai2 = { 0, 0, 0 };
-        byte byte0 = 0;
         int i = 0;
-        for (; byte0 < 3; byte0++) {
-            ai2[byte0] = ai1[byte0] - ai[byte0];
+        for (byte byte0 = 0; byte0 < 3; byte0++) {
+            ai2[byte0] = end[byte0] - start[byte0];
             if (Math.abs(ai2[byte0]) > Math.abs(ai2[i])) {
                 i = byte0;
             }
@@ -1929,11 +1928,11 @@ public class RedwoodTreeGen extends WorldGenerator {
             if (j == k) {
                 break;
             }
-            ai3[i] = ai[i] + j;
-            ai3[byte1] = MathHelper.floor_double((double) ai[byte1] + (double) j * d);
-            ai3[byte2] = MathHelper.floor_double((double) ai[byte2] + (double) j * d1);
-            Block l = worldObj.getBlock(ai3[0], ai3[1], ai3[2]);
-            if (l != Blocks.air && l != Blocks.leaves) {
+            ai3[i] = start[i] + j;
+            ai3[byte1] = MathHelper.floor_double((double) start[byte1] + (double) j * d);
+            ai3[byte2] = MathHelper.floor_double((double) start[byte2] + (double) j * d1);
+            Block block = worldObj.getBlock(ai3[0], ai3[1], ai3[2]);
+            if (block != Blocks.air && block != NContent.floraLeaves) {
                 break;
             }
             j += byte3;
