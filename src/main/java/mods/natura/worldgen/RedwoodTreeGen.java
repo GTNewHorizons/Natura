@@ -119,7 +119,7 @@ public class RedwoodTreeGen extends WorldGenerator {
             }
 
             growBigRoots(world, random, x, groundPoint - 1, z);
-            growTop(world, random, x, fakeOakHeight + groundPoint, z);
+            growTop(world, random, x, treeHeight + groundPoint, z);
         } else if (treeHeight > 100) {
             for (int currentHeight = 0; currentHeight < treeHeight; currentHeight++) {
                 if (currentHeight < treeHeight / 8) {
@@ -146,7 +146,7 @@ public class RedwoodTreeGen extends WorldGenerator {
             }
 
             growMediumRoots(world, random, x, groundPoint - 1, z);
-            growTop(world, random, x, fakeOakHeight + groundPoint, z);
+            growTop(world, random, x, treeHeight + groundPoint, z);
         } else {
             for (int currentHeight = 0; currentHeight < treeHeight; currentHeight++) {
                 if (currentHeight < treeHeight / 6) {
@@ -167,7 +167,7 @@ public class RedwoodTreeGen extends WorldGenerator {
                 }
             }
             growSmallRoots(world, random, x, groundPoint - 1, z);
-            growTop(world, random, x, fakeOakHeight + groundPoint, z);
+            growTop(world, random, x, treeHeight + groundPoint, z);
         }
         return true;
     }
