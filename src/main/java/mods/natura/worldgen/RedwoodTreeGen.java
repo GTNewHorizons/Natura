@@ -34,14 +34,12 @@ public class RedwoodTreeGen extends WorldGenerator {
     int[] fakeOakBasePos = { 0, 0, 0 };
     int fakeOakHeightLimit;
     int fakeOakHeight;
-    double fakeOakHeightAttenuation;
-    double fakeOakBranchDensity;
-    double fakeOakBranchSlope;
-    double fakeOakScaleWidth;
-    double fakeOakLeafDensity;
-    int fakeOakTrunkSize;
-    int fakeOakHeightLimitLimit;
-    int fakeOakLeafDistanceLimit;
+    double fakeOakHeightAttenuation = 0.61799999999999999D;
+    double fakeOakBranchSlope = 0.38100000000000001D;
+    double fakeOakScaleWidth = 1.0D;
+    double fakeOakLeafDensity = 1.0D;
+    int fakeOakHeightLimitLimit = 12;
+    int fakeOakLeafDistanceLimit = 4;
     int[][] fakeOakLeafNodes;
     Block genWoodID;
     int genWoodMetadata = 0;
@@ -51,15 +49,6 @@ public class RedwoodTreeGen extends WorldGenerator {
         super(notify);
         useHeight = notify;
         rand = new Random();
-        fakeOakHeightLimit = 0;
-        fakeOakHeightAttenuation = 0.61799999999999999D;
-        fakeOakBranchDensity = 1.0D;
-        fakeOakBranchSlope = 0.38100000000000001D;
-        fakeOakScaleWidth = 1.0D;
-        fakeOakLeafDensity = 1.0D;
-        fakeOakTrunkSize = 1;
-        fakeOakHeightLimitLimit = 12;
-        fakeOakLeafDistanceLimit = 4;
         genWoodID = woodBlock;
     }
 
