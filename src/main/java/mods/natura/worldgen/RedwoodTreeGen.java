@@ -1723,7 +1723,7 @@ public class RedwoodTreeGen extends WorldGenerator {
         j--;
         while (i1 >= 0) {
             int j1 = 0;
-            float f = func_528_a(i1);
+            float f = layerSize(i1);
             if (f < 0.0F) {
                 j--;
                 i1--;
@@ -1765,21 +1765,21 @@ public class RedwoodTreeGen extends WorldGenerator {
         System.arraycopy(ai, 0, fakeOakLeafNodes, 0, k);
     }
 
-    void func_523_a(int i, int j, int k, float f, byte byte0, Block l) {
-        int i1 = (int) ((double) f + 0.61799999999999999D);
-        byte byte1 = otherCoordPairs[byte0];
-        byte byte2 = otherCoordPairs[byte0 + 3];
-        int[] ai = { i, j, k };
+    void generateLeafNode(int x, int y, int z, float radius, byte axis, Block block) {
+        int i1 = (int) ((double) radius + 0.61799999999999999D);
+        byte byte1 = otherCoordPairs[axis];
+        byte byte2 = otherCoordPairs[axis + 3];
+        int[] ai = { x, y, z };
         int[] ai1 = { 0, 0, 0 };
         int j1 = -i1;
         int k1 = -i1;
-        ai1[byte0] = ai[byte0];
+        ai1[axis] = ai[axis];
         for (; j1 <= i1; j1++) {
             ai1[byte1] = ai[byte1] + j1;
             for (int l1 = -i1; l1 <= i1;) {
                 double d = Math
                         .sqrt(Math.pow((double) Math.abs(j1) + 0.5D, 2D) + Math.pow((double) Math.abs(l1) + 0.5D, 2D));
-                if (d > (double) f) {
+                if (d > (double) radius) {
                     l1++;
                 } else {
                     ai1[byte2] = ai[byte2] + l1;
@@ -1787,7 +1787,7 @@ public class RedwoodTreeGen extends WorldGenerator {
                     if (i2 != Blocks.air && i2 != Blocks.leaves) {
                         l1++;
                     } else {
-                        setBlockAndNotifyAdequately(worldObj, ai1[0], ai1[1], ai1[2], l, 0);
+                        setBlockAndNotifyAdequately(worldObj, ai1[0], ai1[1], ai1[2], block, 0);
                         l1++;
                     }
                 }
@@ -1795,7 +1795,7 @@ public class RedwoodTreeGen extends WorldGenerator {
         }
     }
 
-    float func_528_a(int i) {
+    float layerSize(int i) {
         if ((double) i < (double) (float) fakeOakHeightLimit * 0.29999999999999999D) {
             return -1.618F;
         }
@@ -1813,28 +1813,28 @@ public class RedwoodTreeGen extends WorldGenerator {
         return f2;
     }
 
-    float func_526_b(int i) {
-        if (i < 0 || i >= fakeOakLeafDistanceLimit) {
+    float calculateLeafRadius(int height) {
+        if (height < 0 || height >= fakeOakLeafDistanceLimit) {
             return -1F;
         } else {
-            return i == 0 || i == fakeOakLeafDistanceLimit - 1 ? 2.0F : 3F;
+            return height == 0 || height == fakeOakLeafDistanceLimit - 1 ? 2.0F : 3F;
         }
     }
 
     void generateLeafNode(int x, int y, int z) {
         int l = y;
         for (int i1 = y + fakeOakLeafDistanceLimit; l < i1; l++) {
-            float f = func_526_b(l - y);
-            func_523_a(x, l, z, f, (byte) 1, NContent.floraLeaves);
+            float f = calculateLeafRadius(l - y);
+            generateLeafNode(x, l, z, f, (byte) 1, NContent.floraLeaves);
         }
     }
 
-    void placeBlockLine(int[] ai, int[] ai1, Block i) {
+    void placeBlockLine(int[] start, int[] end, Block block) {
         int[] ai2 = { 0, 0, 0 };
         byte byte0 = 0;
         int j = 0;
         for (; byte0 < 3; byte0++) {
-            ai2[byte0] = ai1[byte0] - ai[byte0];
+            ai2[byte0] = end[byte0] - start[byte0];
             if (Math.abs(ai2[byte0]) > Math.abs(ai2[j])) {
                 j = byte0;
             }
@@ -1856,10 +1856,10 @@ public class RedwoodTreeGen extends WorldGenerator {
         int[] ai3 = { 0, 0, 0 };
         int k = 0;
         for (int l = ai2[j] + byte3; k != l; k += byte3) {
-            ai3[j] = MathHelper.floor_double((double) (ai[j] + k) + 0.5D);
-            ai3[byte1] = MathHelper.floor_double((double) ai[byte1] + (double) k * d + 0.5D);
-            ai3[byte2] = MathHelper.floor_double((double) ai[byte2] + (double) k * d1 + 0.5D);
-            setBlockAndNotifyAdequately(worldObj, ai3[0], ai3[1], ai3[2], i, 0);
+            ai3[j] = MathHelper.floor_double((double) (start[j] + k) + 0.5D);
+            ai3[byte1] = MathHelper.floor_double((double) start[byte1] + (double) k * d + 0.5D);
+            ai3[byte2] = MathHelper.floor_double((double) start[byte2] + (double) k * d1 + 0.5D);
+            setBlockAndNotifyAdequately(worldObj, ai3[0], ai3[1], ai3[2], block, 0);
         }
     }
 
