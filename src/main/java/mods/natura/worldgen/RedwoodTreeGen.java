@@ -28,10 +28,10 @@ public class RedwoodTreeGen extends WorldGenerator {
      * }
      */
 
-    static final byte otherCoordPairs[] = { 2, 0, 0, 1, 2, 1 };
+    static final byte[] otherCoordPairs = { 2, 0, 0, 1, 2, 1 };
     Random rand;
     World worldObj;
-    int basePos[] = { 0, 0, 0 };
+    int[] basePos = { 0, 0, 0 };
     int heightLimit;
     int height;
     double heightAttenuation;
@@ -42,7 +42,7 @@ public class RedwoodTreeGen extends WorldGenerator {
     int trunkSize;
     int heightLimitLimit;
     int leafDistanceLimit;
-    int leafNodes[][];
+    int[][] leafNodes;
     Block genWoodID;
     int genWoodMetadata = 0;
     boolean useHeight;
@@ -100,7 +100,7 @@ public class RedwoodTreeGen extends WorldGenerator {
 
         if (treeHeight > 120) {
             for (int currentHeight = 0; currentHeight < treeHeight; currentHeight++) {
-                if (currentHeight < treeHeight * 1 / 10) {
+                if (currentHeight < treeHeight / 10) {
                     genRing13(world, random, x, currentHeight + groundPoint, z);
                 } else if (currentHeight < treeHeight * 2 / 10) {
                     genRing12(world, random, x, currentHeight + groundPoint, z);
@@ -133,7 +133,7 @@ public class RedwoodTreeGen extends WorldGenerator {
             growTop(world, random, x, height + groundPoint, z);
         } else if (treeHeight > 100) {
             for (int currentHeight = 0; currentHeight < treeHeight; currentHeight++) {
-                if (currentHeight < treeHeight * 1 / 8) {
+                if (currentHeight < treeHeight / 8) {
                     genRing11(world, random, x, currentHeight + groundPoint, z);
                 } else if (currentHeight < treeHeight * 2 / 8) {
                     genRing10(world, random, x, currentHeight + groundPoint, z);
@@ -160,7 +160,7 @@ public class RedwoodTreeGen extends WorldGenerator {
             growTop(world, random, x, height + groundPoint, z);
         } else {
             for (int currentHeight = 0; currentHeight < treeHeight; currentHeight++) {
-                if (currentHeight < treeHeight * 1 / 6) {
+                if (currentHeight < treeHeight / 6) {
                     genRing9(world, random, x, currentHeight + groundPoint, z);
                 } else if (currentHeight < treeHeight * 2 / 6) {
                     genRing8(world, random, x, currentHeight + groundPoint, z);
@@ -1722,7 +1722,7 @@ public class RedwoodTreeGen extends WorldGenerator {
         if (i < 1) {
             i = 1;
         }
-        int ai[][] = new int[i * heightLimit][4];
+        int[][] ai = new int[i * heightLimit][4];
         int j = (basePos[1] + heightLimit) - leafDistanceLimit;
         int k = 1;
         int l = basePos[1] + height;
@@ -1745,12 +1745,12 @@ public class RedwoodTreeGen extends WorldGenerator {
                     double d2 = (double) rand.nextFloat() * 2D * 3.1415899999999999D;
                     int k1 = MathHelper.floor_double(d1 * Math.sin(d2) + (double) basePos[0] + d);
                     int l1 = MathHelper.floor_double(d1 * Math.cos(d2) + (double) basePos[2] + d);
-                    int ai1[] = { k1, j, l1 };
-                    int ai2[] = { k1, j + leafDistanceLimit, l1 };
+                    int[] ai1 = { k1, j, l1 };
+                    int[] ai2 = { k1, j + leafDistanceLimit, l1 };
                     if (checkBlockLine(ai1, ai2) != -1) {
                         continue;
                     }
-                    int ai3[] = { basePos[0], basePos[1], basePos[2] };
+                    int[] ai3 = { basePos[0], basePos[1], basePos[2] };
                     double d3 = Math.sqrt(
                             Math.pow(Math.abs(basePos[0] - ai1[0]), 2D) + Math.pow(Math.abs(basePos[2] - ai1[2]), 2D));
                     double d4 = d3 * field_874_i;
@@ -1780,8 +1780,8 @@ public class RedwoodTreeGen extends WorldGenerator {
         int i1 = (int) ((double) f + 0.61799999999999999D);
         byte byte1 = otherCoordPairs[byte0];
         byte byte2 = otherCoordPairs[byte0 + 3];
-        int ai[] = { i, j, k };
-        int ai1[] = { 0, 0, 0 };
+        int[] ai = { i, j, k };
+        int[] ai1 = { 0, 0, 0 };
         int j1 = -i1;
         int k1 = -i1;
         ai1[byte0] = ai[byte0];
@@ -1840,8 +1840,8 @@ public class RedwoodTreeGen extends WorldGenerator {
         }
     }
 
-    void placeBlockLine(int ai[], int ai1[], Block i) {
-        int ai2[] = { 0, 0, 0 };
+    void placeBlockLine(int[] ai, int[] ai1, Block i) {
+        int[] ai2 = { 0, 0, 0 };
         byte byte0 = 0;
         int j = 0;
         for (; byte0 < 3; byte0++) {
@@ -1864,7 +1864,7 @@ public class RedwoodTreeGen extends WorldGenerator {
         }
         double d = (double) ai2[byte1] / (double) ai2[j];
         double d1 = (double) ai2[byte2] / (double) ai2[j];
-        int ai3[] = { 0, 0, 0 };
+        int[] ai3 = { 0, 0, 0 };
         int k = 0;
         for (int l = ai2[j] + byte3; k != l; k += byte3) {
             ai3[j] = MathHelper.floor_double((double) (ai[j] + k) + 0.5D);
@@ -1890,10 +1890,10 @@ public class RedwoodTreeGen extends WorldGenerator {
     void generateLeafNodeBases() {
         int i = 0;
         int j = leafNodes.length;
-        int ai[] = { basePos[0], basePos[1], basePos[2] };
+        int[] ai = { basePos[0], basePos[1], basePos[2] };
         for (; i < j; i++) {
-            int ai1[] = leafNodes[i];
-            int ai2[] = { ai1[0], ai1[1], ai1[2] };
+            int[] ai1 = leafNodes[i];
+            int[] ai2 = { ai1[0], ai1[1], ai1[2] };
             ai[1] = ai1[3];
             int k = ai[1] - basePos[1];
             if (leafNodeNeedsBase(k)) {
@@ -1902,8 +1902,8 @@ public class RedwoodTreeGen extends WorldGenerator {
         }
     }
 
-    int checkBlockLine(int ai[], int ai1[]) {
-        int ai2[] = { 0, 0, 0 };
+    int checkBlockLine(int[] ai, int[] ai1) {
+        int[] ai2 = { 0, 0, 0 };
         byte byte0 = 0;
         int i = 0;
         for (; byte0 < 3; byte0++) {
@@ -1926,7 +1926,7 @@ public class RedwoodTreeGen extends WorldGenerator {
         }
         double d = (double) ai2[byte1] / (double) ai2[i];
         double d1 = (double) ai2[byte2] / (double) ai2[i];
-        int ai3[] = { 0, 0, 0 };
+        int[] ai3 = { 0, 0, 0 };
         int j = 0;
         int k = ai2[i] + byte3;
         do {
