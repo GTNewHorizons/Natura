@@ -28,9 +28,14 @@ public class RedwoodTreeGen extends WorldGenerator {
      * }
      */
 
+    // With an axis index i, find the two other axis incies by looking at indices [i] and [i+3] in this array
     static final byte[] otherCoordPairs = { 2, 0, 0, 1, 2, 1 };
     Random rand;
     World worldObj;
+    // Cursed code ahead! Most of this code is badly copy-pasted from Minecrafts WorldGenBigTree class,
+    // which is used to generate large Oak trees. The RedwoodTreeGen effectively spawns a lot of fake large oak trees
+    // without a trunk to generate leave clusters and branches.
+    // -- Below variables hold the state of the currently processed fake large Oak tree --
     int[] fakeOakBasePos = { 0, 0, 0 };
     int fakeOakHeightLimit;
     int fakeOakHeight;
@@ -41,6 +46,7 @@ public class RedwoodTreeGen extends WorldGenerator {
     int fakeOakHeightLimitLimit = 12;
     int fakeOakLeafDistanceLimit = 4;
     int[][] fakeOakLeafNodes;
+    // -- --
     Block genWoodID;
     int genWoodMetadata = 0;
     boolean useHeight;
@@ -85,6 +91,7 @@ public class RedwoodTreeGen extends WorldGenerator {
         fakeOakBasePos[0] = x;
         fakeOakBasePos[1] = groundPoint;
         fakeOakBasePos[2] = z;
+
         fakeOakHeightLimit = 5 + rand.nextInt(fakeOakHeightLimitLimit);
 
         if (treeHeight > 120) {
