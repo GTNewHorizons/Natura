@@ -1837,36 +1837,36 @@ public class RedwoodTreeGen extends WorldGenerator {
     }
 
     void placeBlockLine(int[] start, int[] end, Block block) {
-        int[] ai2 = { 0, 0, 0 };
-        byte byte0 = 0;
-        int j = 0;
-        for (; byte0 < 3; byte0++) {
-            ai2[byte0] = end[byte0] - start[byte0];
-            if (Math.abs(ai2[byte0]) > Math.abs(ai2[j])) {
-                j = byte0;
+        int[] delta = { 0, 0, 0 };
+        int longestAxis = 0;
+        for (byte axis = 0; axis < 3; axis++) {
+            delta[axis] = end[axis] - start[axis];
+            if (Math.abs(delta[axis]) > Math.abs(delta[longestAxis])) {
+                longestAxis = axis;
             }
         }
 
-        if (ai2[j] == 0) {
+        if (delta[longestAxis] == 0) {
             return;
         }
-        byte byte1 = otherCoordPairs[j];
-        byte byte2 = otherCoordPairs[j + 3];
-        byte byte3;
-        if (ai2[j] > 0) {
-            byte3 = 1;
+        byte axisA = otherCoordPairs[longestAxis];
+        byte axisB = otherCoordPairs[longestAxis + 3];
+        byte longestAxisSign;
+        if (delta[longestAxis] > 0) {
+            longestAxisSign = 1;
         } else {
-            byte3 = -1;
+            longestAxisSign = -1;
         }
-        double d = (double) ai2[byte1] / (double) ai2[j];
-        double d1 = (double) ai2[byte2] / (double) ai2[j];
-        int[] ai3 = { 0, 0, 0 };
+        double d = (double) delta[axisA] / (double) delta[longestAxis];
+        double d1 = (double) delta[axisB] / (double) delta[longestAxis];
+        int[] currentPos = { 0, 0, 0 };
         int k = 0;
-        for (int l = ai2[j] + byte3; k != l; k += byte3) {
-            ai3[j] = MathHelper.floor_double((double) (start[j] + k) + 0.5D);
-            ai3[byte1] = MathHelper.floor_double((double) start[byte1] + (double) k * d + 0.5D);
-            ai3[byte2] = MathHelper.floor_double((double) start[byte2] + (double) k * d1 + 0.5D);
-            setBlockAndNotifyAdequately(worldObj, ai3[0], ai3[1], ai3[2], block, 0);
+        for (int l = delta[longestAxis] + longestAxisSign; k != l; k += longestAxisSign) {
+            currentPos[longestAxis] = MathHelper.floor_double((double) (start[longestAxis] + k) + 0.5D);
+            currentPos[axisA] = MathHelper.floor_double((double) start[axisA] + (double) k * d + 0.5D);
+            currentPos[axisB] = MathHelper.floor_double((double) start[axisB] + (double) k * d1 + 0.5D);
+
+            setBlockAndNotifyAdequately(worldObj, currentPos[0], currentPos[1], currentPos[2], block, 0);
         }
     }
 
