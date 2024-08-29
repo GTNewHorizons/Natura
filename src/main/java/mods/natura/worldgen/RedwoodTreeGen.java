@@ -1866,6 +1866,9 @@ public class RedwoodTreeGen extends WorldGenerator {
             currentPos[axisA] = MathHelper.floor_double((double) start[axisA] + (double) k * d + 0.5D);
             currentPos[axisB] = MathHelper.floor_double((double) start[axisB] + (double) k * d1 + 0.5D);
 
+            Block occupiedBy = worldObj.getBlock(currentPos[0], currentPos[1], currentPos[2]);
+            if (occupiedBy != NContent.floraLeaves && occupiedBy != Blocks.air) continue;
+
             setBlockAndNotifyAdequately(worldObj, currentPos[0], currentPos[1], currentPos[2], block, 0);
         }
     }
