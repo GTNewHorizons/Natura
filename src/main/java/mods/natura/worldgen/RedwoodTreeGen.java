@@ -1788,7 +1788,7 @@ public class RedwoodTreeGen extends WorldGenerator {
         System.arraycopy(ai, 0, fakeOakLeafNodes, 0, k);
     }
 
-    void generateLeafNode(int x, int y, int z, float radius, byte axis, Block block) {
+    void generateBlockCircle(int x, int y, int z, float radius, byte axis, Block block) {
         int i1 = (int) ((double) radius + 0.61799999999999999D);
         byte byte1 = otherCoordPairs[axis];
         byte byte2 = otherCoordPairs[axis + 3];
@@ -1848,7 +1848,7 @@ public class RedwoodTreeGen extends WorldGenerator {
         int l = y;
         for (int i1 = y + fakeOakLeafDistanceLimit; l < i1; l++) {
             float f = calculateLeafRadius(l - y);
-            generateLeafNode(x, l, z, f, (byte) 1, NContent.floraLeaves);
+            generateBlockCircle(x, l, z, f, (byte) 1, NContent.floraLeaves);
         }
     }
 
