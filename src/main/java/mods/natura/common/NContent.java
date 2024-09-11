@@ -1734,7 +1734,20 @@ public class NContent implements IFuelHandler {
         OreDictionary.registerOre("treeLeaves", new ItemStack(darkLeaves, 1, OreDictionary.WILDCARD_VALUE));
 
         // Wooden Planks
-        OreDictionary.registerOre("plankWood", new ItemStack(planks, 1, OreDictionary.WILDCARD_VALUE));
+
+        if (!Loader.isModLoaded("ExtraTiC")) {
+            // Wooden Planks
+            OreDictionary.registerOre("plankWood", new ItemStack(planks, 1, OreDictionary.WILDCARD_VALUE));
+
+            // Wooden Sticks
+            OreDictionary.registerOre("stickWood", new ItemStack(stickItem, 1, OreDictionary.WILDCARD_VALUE));
+        } else {
+            int[] toRegister = { 0, 1, 3, 5, 6, 7, 8, 9, 10 };
+            for (int i : toRegister) {
+                OreDictionary.registerOre("plankWood", new ItemStack(planks, 1, i));
+                OreDictionary.registerOre("stickWood", new ItemStack(stickItem, 1, i));
+            }
+        }
 
         // Wooden Workbenches
         if (PHNatura.enableWoodenWorkbenches) {
@@ -1900,9 +1913,6 @@ public class NContent implements IFuelHandler {
 
         // Nether items
         OreDictionary.registerOre("bowlWood", new ItemStack(bowlEmpty, 1, 0));
-
-        // Wooden Sticks
-        OreDictionary.registerOre("stickWood", new ItemStack(stickItem, 1, OreDictionary.WILDCARD_VALUE));
     }
 
     public void createEntities() {
