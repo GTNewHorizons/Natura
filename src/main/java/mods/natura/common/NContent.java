@@ -1737,10 +1737,14 @@ public class NContent implements IFuelHandler {
 
         if (!Loader.isModLoaded("ExtraTiC")) {
             // Wooden Planks
-            OreDictionary.registerOre("plankWood", new ItemStack(planks, 1, OreDictionary.WILDCARD_VALUE));
+            for (int i = 0; i < Planks.textureNames.length; i++) {
+                OreDictionary.registerOre("plankWood", new ItemStack(planks, 1, i));
+            }
 
             // Wooden Sticks
-            OreDictionary.registerOre("stickWood", new ItemStack(stickItem, 1, OreDictionary.WILDCARD_VALUE));
+            for (int i = 0; i < StickItem.textureNames.length; i++) {
+                OreDictionary.registerOre("stickWood", new ItemStack(stickItem, 1, i));
+            }
         } else {
             int[] toRegister = { 0, 1, 3, 5, 6, 7, 8, 9, 10 };
             for (int i : toRegister) {
