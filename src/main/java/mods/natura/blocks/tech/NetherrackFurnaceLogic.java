@@ -154,7 +154,7 @@ public class NetherrackFurnaceLogic extends TileEntityFurnace {
 
         this.furnaceBurnTime = par1NBTTagCompound.getShort("BurnTime");
         this.furnaceCookTime = par1NBTTagCompound.getShort("CookTime");
-        this.currentItemBurnTime = getFuelTime(this.inventory[1]) * 2;
+        this.currentItemBurnTime = TileEntityFurnace.getItemBurnTime(this.inventory[1]) * 2;
 
         if (par1NBTTagCompound.hasKey("CustomName")) {
             this.field_94130_e = par1NBTTagCompound.getString("CustomName");
@@ -270,7 +270,7 @@ public class NetherrackFurnaceLogic extends TileEntityFurnace {
 
         if (!this.worldObj.isRemote) {
             if (this.furnaceBurnTime == 0 && this.canSmelt()) {
-                this.currentItemBurnTime = this.furnaceBurnTime = getFuelTime(this.inventory[1]) * 2;
+                this.currentItemBurnTime = this.furnaceBurnTime = TileEntityFurnace.getItemBurnTime(this.inventory[1]) * 2;
 
                 if (this.furnaceBurnTime > 0) {
                     flag1 = true;
@@ -358,52 +358,10 @@ public class NetherrackFurnaceLogic extends TileEntityFurnace {
     }
 
     /**
-     * Returns the number of ticks that the supplied fuel item will keep the furnace burning, or 0 if the item isn't
-     * fuel
-     */
-    public static int getFuelTime(ItemStack par0ItemStack) {
-        if (par0ItemStack == null) {
-            return 0;
-        } else {
-            Item item = par0ItemStack.getItem();
-
-            if (par0ItemStack.getItem() instanceof ItemBlock && item != null) {
-                Block block = BlockUtils.getBlockFromItem(item);
-
-                if (block == Blocks.wooden_slab) {
-                    return 150;
-                }
-
-                if (block instanceof BlockLog) {
-                    return 1200;
-                }
-
-                if (block.getMaterial() == Material.wood) {
-                    return 300;
-                }
-
-                if (block == Blocks.coal_block) {
-                    return 16000;
-                }
-            }
-
-            if (item instanceof ItemTool && ((ItemTool) item).getToolMaterialName().equals("WOOD")) return 200;
-            if (item instanceof ItemSword && ((ItemSword) item).getToolMaterialName().equals("WOOD")) return 200;
-            if (item instanceof ItemHoe && ((ItemHoe) item).getToolMaterialName().equals("WOOD")) return 200;
-            if (item == Items.stick) return 100;
-            if (item == Items.coal) return 1600;
-            if (item == Items.lava_bucket) return 20000;
-            if (BlockUtils.getBlockFromItem(item) == Blocks.sapling) return 100;
-            if (item == Items.blaze_rod) return 2400;
-            return GameRegistry.getFuelValue(par0ItemStack);
-        }
-    }
-
-    /**
      * Return true if item is a fuel source (getItemBurnTime() > 0).
      */
     public static boolean isItemFuel(ItemStack par0ItemStack) {
-        return getFuelTime(par0ItemStack) > 0;
+        return TileEntityFurnace.getItemBurnTime(par0ItemStack) > 0;
     }
 
     /**
