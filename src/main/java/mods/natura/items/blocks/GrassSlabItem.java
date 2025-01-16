@@ -1,8 +1,9 @@
 package mods.natura.items.blocks;
 
-import mods.natura.blocks.GrassSlab;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemSlab;
+
+import mods.natura.blocks.GrassSlab;
 
 public class GrassSlabItem extends ItemSlab {
 

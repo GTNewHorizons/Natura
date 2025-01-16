@@ -11,11 +11,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.natura.common.NContent;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class AlternateBookshelf extends BlockBookshelf {
 

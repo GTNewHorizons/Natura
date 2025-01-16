@@ -3,7 +3,6 @@ package mods.natura.blocks;
 import java.util.List;
 import java.util.Random;
 
-import mods.natura.common.NContent;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.material.Material;
@@ -20,6 +19,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.natura.client.GrassColorizerAlternate;
+import mods.natura.common.NContent;
 import mods.natura.common.NaturaTab;
 
 public class GrassSlab extends BlockSlab {
@@ -42,8 +42,7 @@ public class GrassSlab extends BlockSlab {
     }
 
     @Override
-    public String func_150002_b(int meta)
-    {
+    public String func_150002_b(int meta) {
         if (meta < 0 || meta >= blockType.length) meta = 0;
         return "block.soil." + blockType[meta] + ".slab";
     }

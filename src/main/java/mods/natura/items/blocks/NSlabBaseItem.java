@@ -1,9 +1,9 @@
 package mods.natura.items.blocks;
 
-import mods.natura.blocks.NSlabBase;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemSlab;
-import net.minecraft.item.ItemStack;
+
+import mods.natura.blocks.NSlabBase;
 
 public class NSlabBaseItem extends ItemSlab {
 

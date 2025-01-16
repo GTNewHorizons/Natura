@@ -7,6 +7,7 @@ import net.minecraft.block.BlockDoor;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.IconFlipped;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -114,12 +115,7 @@ public class NDoor extends BlockDoor {
     }
 
     @Override
-    public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
+    public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z, EntityPlayer player) {
         return new ItemStack(NContent.doorItem, 1, meta);
-    }
-
-    @Override
-    public int getRenderType() {
-        return 7;
     }
 }

@@ -1,7 +1,6 @@
 package mods.natura.blocks.trees;
 
 import java.util.List;
-import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
