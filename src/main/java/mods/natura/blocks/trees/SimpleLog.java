@@ -4,6 +4,7 @@ import java.util.List;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
@@ -20,7 +21,6 @@ public class SimpleLog extends Planks {
     public String[] textureNames = new String[] { "redwood_bark", "redwood_heart", "redwood_root" };
 
     public SimpleLog() {
-        super();
         this.setCreativeTab(NaturaTab.tab);
     }
 
@@ -45,13 +45,13 @@ public class SimpleLog extends Planks {
     }
 
     @Override
-    public int getFlammability(IBlockAccess world, int x, int y, int z, int metadata, ForgeDirection face) {
-        return this.getFlammability(world, x, y, z, face);
+    public int getFlammability(IBlockAccess world, int x, int y, int z, ForgeDirection face) {
+        return Blocks.fire.getFlammability(this);
     }
 
     @Override
-    public int getFireSpreadSpeed(World world, int x, int y, int z, int metadata, ForgeDirection face) {
-        return this.getFireSpreadSpeed(world, x, y, z, face);
+    public int getFireSpreadSpeed(IBlockAccess world, int x, int y, int z, ForgeDirection face) {
+        return Blocks.fire.getEncouragement(this);
     }
 
     @Override

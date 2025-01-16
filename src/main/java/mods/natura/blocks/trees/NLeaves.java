@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -20,14 +21,13 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.natura.common.NContent;
 import mods.natura.common.NaturaTab;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class NLeaves extends BlockLeaves {
 
     public NLeaves() {
-        super();
-        setBlockName("floraLeaves");
-        setCreativeTab(NaturaTab.tab);
-        // Blocks.fire.setFireInfo(this, 30, 60);
+        this.setBlockName("floraLeaves");
+        this.setCreativeTab(NaturaTab.tab);
     }
 
     @Override
@@ -62,42 +62,6 @@ public class NLeaves extends BlockLeaves {
         return (l / 9 & 255) << 16 | (i1 / 9 & 255) << 8 | j1 / 9 & 255;
     }
 
-    @Override
-    public void updateTick(World world, int x, int y, int z, Random random) {
-        if (!world.isRemote) {
-            int meta = world.getBlockMetadata(x, y, z);
-
-            if ((meta & 4) == 0) {
-                int range = 4;
-                if (world.checkChunksExist(x - range, y - range, z - range, x + range, y + range, z + range)) {
-                    // Do not decay leaves if can't check every possible support
-                    boolean nearbyTree = false;
-
-                    for (int posX = x - range; posX <= x + range; posX++) {
-                        for (int posY = y - range; posY <= y + range; posY++) {
-                            for (int posZ = z - range; posZ <= z + range; posZ++) {
-                                Block block = world.getBlock(posX, posY, posZ);
-                                if (block != null && block.canSustainLeaves(world, posX, posY, posZ)) nearbyTree = true;
-                            }
-                        }
-                    }
-
-                    if (!nearbyTree) {
-                        this.removeLeaves(world, x, y, z);
-                    }
-                }
-            }
-        }
-    }
-
-    public void removeLeaves(World world, int x, int y, int z) {
-        this.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z), 0);
-        world.setBlock(x, y, z, Blocks.air, 0, 7);
-    }
-
-    /**
-     * Returns the ID of the items to drop on destruction.
-     */
     @Override
     public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_) {
         return Item.getItemFromBlock(NContent.floraSapling);

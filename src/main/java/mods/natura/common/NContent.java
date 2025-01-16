@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import mods.natura.blocks.*;
+import mods.natura.items.blocks.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.block.BlockPressurePlate.Sensitivity;
@@ -35,15 +37,6 @@ import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import mods.natura.Natura;
-import mods.natura.blocks.CloudBlock;
-import mods.natura.blocks.GrassBlock;
-import mods.natura.blocks.GrassSlab;
-import mods.natura.blocks.NButton;
-import mods.natura.blocks.NFenceGate;
-import mods.natura.blocks.NPressurePlate;
-import mods.natura.blocks.NSlabBase;
-import mods.natura.blocks.NStairs;
-import mods.natura.blocks.NTrapdoor;
 import mods.natura.blocks.crops.BerryBush;
 import mods.natura.blocks.crops.CropBlock;
 import mods.natura.blocks.crops.FlowerBlock;
@@ -104,32 +97,6 @@ import mods.natura.items.SeedBag;
 import mods.natura.items.SeedFood;
 import mods.natura.items.SpawnEgg;
 import mods.natura.items.StickItem;
-import mods.natura.items.blocks.BerryBushItem;
-import mods.natura.items.blocks.CloudItem;
-import mods.natura.items.blocks.DarkTreeItem;
-import mods.natura.items.blocks.FenceItem;
-import mods.natura.items.blocks.GlowshroomItem;
-import mods.natura.items.blocks.GrassBlockItem;
-import mods.natura.items.blocks.GrassSlabItem;
-import mods.natura.items.blocks.LogTwoxTwoItem;
-import mods.natura.items.blocks.NAlternateItem;
-import mods.natura.items.blocks.NDoorItem;
-import mods.natura.items.blocks.NLeavesDarkItem;
-import mods.natura.items.blocks.NLeavesItem;
-import mods.natura.items.blocks.NSaplingItem;
-import mods.natura.items.blocks.NetherBerryBushItem;
-import mods.natura.items.blocks.NetherGlassItem;
-import mods.natura.items.blocks.NoColorLeavesItem;
-import mods.natura.items.blocks.OverworldLeavesItem;
-import mods.natura.items.blocks.OverworldSaplingItem;
-import mods.natura.items.blocks.OverworldTreeItem;
-import mods.natura.items.blocks.PlankSlab1Item;
-import mods.natura.items.blocks.PlankSlab2Item;
-import mods.natura.items.blocks.PlanksItem;
-import mods.natura.items.blocks.RedwoodItem;
-import mods.natura.items.blocks.SaguaroItem;
-import mods.natura.items.blocks.TreeItem;
-import mods.natura.items.blocks.WillowItem;
 import mods.natura.items.tools.FlintAndBlaze;
 import mods.natura.items.tools.NaturaArmor;
 import mods.natura.items.tools.NaturaBow;
@@ -223,6 +190,7 @@ public class NContent implements IFuelHandler {
         // Nether plants
         thornVines = new ThornVines().setBlockName("Thornvines").setLightLevel(0.625f);
         GameRegistry.registerBlock(thornVines, "Thornvines");
+        Blocks.fire.setFireInfo(thornVines, 5, 100);
         glowshroom = (Glowshroom) new Glowshroom().setBlockName("Glowshroom").setLightLevel(0.625f);
         GameRegistry.registerBlock(glowshroom, GlowshroomItem.class, "Glowshroom");
         glowshroomGreen = new LargeGlowshroom(Material.wood, "green").setBlockName("greenGlowshroom")
@@ -243,6 +211,7 @@ public class NContent implements IFuelHandler {
         if (PHNatura.enableBerryBushes) {
             berryBush = new BerryBush();
             GameRegistry.registerBlock(berryBush, BerryBushItem.class, "BerryBush");
+            Blocks.fire.setFireInfo(berryBush, 60, 100);
         }
 
         // Overworld plants
@@ -252,6 +221,7 @@ public class NContent implements IFuelHandler {
         GameRegistry.registerBlock(saguaro, SaguaroItem.class, "Saguaro");
         bluebells = (FlowerBlock) new FlowerBlock().setBlockName("bluebells");
         GameRegistry.registerBlock(bluebells, "Bluebells");
+        Blocks.fire.setFireInfo(bluebells, 60, 100);
         // TODO 1.7 apparently this isn't so simple anymore
         // MinecraftForge.addGrassPlant(bluebells, 0, 18);
 
@@ -259,9 +229,10 @@ public class NContent implements IFuelHandler {
         grassBlock = new GrassBlock().setBlockName("GrassBlock");
         grassBlock.stepSound = Block.soundTypeGrass;
         GameRegistry.registerBlock(grassBlock, GrassBlockItem.class, "GrassBlock");
-        grassSlab = new GrassSlab().setBlockName("GrassSlab");
-        grassSlab.stepSound = Block.soundTypeGrass;
-        GameRegistry.registerBlock(grassSlab, GrassSlabItem.class, "GrassSlab");
+        GrassSlab sGSlab = (GrassSlab) new GrassSlab(false).setBlockName("GrassSlab");
+        GrassSlab dGSlab = (GrassSlab) new GrassSlab(true).setBlockName("GrassSlabDouble");
+        grassSlab = GameRegistry.registerBlock(sGSlab, GrassSlabItem.class, "GrassSlab", sGSlab, dGSlab);
+        grassSlabDouble = GameRegistry.registerBlock(dGSlab, GrassSlabItem.class, "GrassSlabDouble", sGSlab, dGSlab);
 
         // Clouds
         cloud = new CloudBlock();
@@ -276,16 +247,22 @@ public class NContent implements IFuelHandler {
         // Logs
         tree = new TreeBlock().setBlockName("natura.treeblock");
         GameRegistry.registerBlock(tree, TreeItem.class, "tree");
+        Blocks.fire.setFireInfo(tree, 5, 5);
         redwood = new SimpleLog().setBlockName("natura.redwood");
         GameRegistry.registerBlock(redwood, RedwoodItem.class, "redwood");
+        // Redwood just a bit more flammable, because it is massive
+        Blocks.fire.setFireInfo(redwood, 40, 10);
         willow = new WillowBlock().setBlockName("willow");
         GameRegistry.registerBlock(willow, WillowItem.class, "willow");
+        Blocks.fire.setFireInfo(willow, 5, 5);
         bloodwood = new LogTwoxTwo(8f, Material.wood).setBlockName("bloodwood");
         GameRegistry.registerBlock(bloodwood, LogTwoxTwoItem.class, "bloodwood");
         rareTree = new OverworldTreeBlock().setBlockName("RareTree");
         GameRegistry.registerBlock(rareTree, OverworldTreeItem.class, "Rare Tree");
+        Blocks.fire.setFireInfo(rareTree, 5, 5);
         darkTree = new DarkTreeBlock().setBlockName("Darktree");
         GameRegistry.registerBlock(darkTree, DarkTreeItem.class, "Dark Tree");
+        // Nether trees shouldn't be burnable
         tree.setHarvestLevel("axe", -1);
         redwood.setHarvestLevel("axe", -1);
         bloodwood.setHarvestLevel("axe", 2);
@@ -295,16 +272,21 @@ public class NContent implements IFuelHandler {
         // Leaves
         floraLeaves = (NLeaves) new NLeaves().setBlockName("natura.leaves");
         GameRegistry.registerBlock(floraLeaves, NLeavesItem.class, "floraleaves");
+        Blocks.fire.setFireInfo(floraLeaves, 30, 60);
         floraLeavesNoColor = (NLeaves) new NLeavesNocolor().setBlockName("natura.leavesnocolor");
         GameRegistry.registerBlock(floraLeavesNoColor, NoColorLeavesItem.class, "floraleavesnocolor");
+        Blocks.fire.setFireInfo(floraLeavesNoColor, 30, 60);
         rareLeaves = (NLeaves) new OverworldLeaves().setBlockName("RareLeaves");
         GameRegistry.registerBlock(rareLeaves, OverworldLeavesItem.class, "Rare Leaves");
+        Blocks.fire.setFireInfo(rareLeaves, 30, 60);
         darkLeaves = (NLeaves) new NLeavesDark().setBlockName("Darkleaves");
         GameRegistry.registerBlock(darkLeaves, NLeavesDarkItem.class, "Dark Leaves");
+        // Nether trees shouldn't be burnable
 
         // Wooden Planks
         planks = new Planks().setBlockName("natura.planks");
         GameRegistry.registerBlock(planks, PlanksItem.class, "planks");
+        Blocks.fire.setFireInfo(planks, 5, 20);
 
         // Wooden Workbenches
         if (PHNatura.enableWoodenWorkbenches) {
@@ -318,6 +300,7 @@ public class NContent implements IFuelHandler {
             alternateBookshelf = new AlternateBookshelf().setHardness(1.5F).setStepSound(Block.soundTypeWood)
                     .setBlockName("bookshelf").setCreativeTab(NaturaTab.tab);
             GameRegistry.registerBlock(alternateBookshelf, NAlternateItem.class, "Natura.bookshelf");
+            Blocks.fire.setFireInfo(alternateBookshelf, 30, 20);
         }
 
         // Wooden Stairs
@@ -326,10 +309,12 @@ public class NContent implements IFuelHandler {
             stairEucalyptus = new NStairs(planks, 0).setBlockName("stair.eucalyptus");
             stairEucalyptus.stepSound = Block.soundTypeWood;
             GameRegistry.registerBlock(stairEucalyptus, "stair.eucalyptus");
+            Blocks.fire.setFireInfo(stairEucalyptus, 5, 20);
             // Sakura
             stairSakura = new NStairs(planks, 1).setBlockName("stair.sakura");
             stairSakura.stepSound = Block.soundTypeWood;
             GameRegistry.registerBlock(stairSakura, "stair.sakura");
+            Blocks.fire.setFireInfo(stairSakura, 5, 20);
             // Ghostwood
             stairGhostwood = new NStairs(planks, 2).setBlockName("stair.ghostwood");
             stairGhostwood.stepSound = Block.soundTypeWood;
@@ -338,6 +323,7 @@ public class NContent implements IFuelHandler {
             stairRedwood = new NStairs(planks, 3).setBlockName("stair.redwood");
             stairRedwood.stepSound = Block.soundTypeWood;
             GameRegistry.registerBlock(stairRedwood, "stair.redwood");
+            Blocks.fire.setFireInfo(stairRedwood, 5, 20);
             // Bloodwood
             stairBloodwood = new NStairs(planks, 4).setBlockName("stair.bloodwood");
             stairBloodwood.stepSound = Block.soundTypeWood;
@@ -346,26 +332,32 @@ public class NContent implements IFuelHandler {
             stairHopseed = new NStairs(planks, 5).setBlockName("stair.hopseed");
             stairHopseed.stepSound = Block.soundTypeWood;
             GameRegistry.registerBlock(stairHopseed, "stair.hopseed");
+            Blocks.fire.setFireInfo(stairHopseed, 5, 20);
             // Maple
             stairMaple = new NStairs(planks, 6).setBlockName("stair.maple");
             stairMaple.stepSound = Block.soundTypeWood;
             GameRegistry.registerBlock(stairMaple, "stair.maple");
+            Blocks.fire.setFireInfo(stairMaple, 5, 20);
             // Silverbell
             stairSilverbell = new NStairs(planks, 7).setBlockName("stair.silverbell");
             stairSilverbell.stepSound = Block.soundTypeWood;
             GameRegistry.registerBlock(stairSilverbell, "stair.silverbell");
+            Blocks.fire.setFireInfo(stairSilverbell, 5, 20);
             // Amaranth
             stairAmaranth = new NStairs(planks, 8).setBlockName("stair.amaranth");
             stairAmaranth.stepSound = Block.soundTypeWood;
             GameRegistry.registerBlock(stairAmaranth, "stair.amaranth");
+            Blocks.fire.setFireInfo(stairAmaranth, 5, 20);
             // Tiger
             stairTiger = new NStairs(planks, 9).setBlockName("stair.tiger");
             stairTiger.stepSound = Block.soundTypeWood;
             GameRegistry.registerBlock(stairTiger, "stair.tiger");
+            Blocks.fire.setFireInfo(stairTiger, 5, 20);
             // Willow
             stairWillow = new NStairs(planks, 10).setBlockName("stair.willow");
             stairWillow.stepSound = Block.soundTypeWood;
             GameRegistry.registerBlock(stairWillow, "stair.willow");
+            Blocks.fire.setFireInfo(stairWillow, 5, 20);
             // Darkwood
             stairDarkwood = new NStairs(planks, 11).setBlockName("stair.darkwood");
             stairDarkwood.stepSound = Block.soundTypeWood;
@@ -378,12 +370,19 @@ public class NContent implements IFuelHandler {
 
         // Wooden Slabs
         if (PHNatura.enableWoodenSlabs) {
-            plankSlab1 = new NSlabBase(Material.wood, planks, 0, 8).setHardness(2.0f).setBlockName("plankSlab1");
-            plankSlab1.stepSound = Block.soundTypeWood;
-            GameRegistry.registerBlock(plankSlab1, PlankSlab1Item.class, "plankSlab1");
-            plankSlab2 = new NSlabBase(Material.wood, planks, 8, 5).setHardness(2.0f).setBlockName("plankSlab2");
-            plankSlab2.stepSound = Block.soundTypeWood;
-            GameRegistry.registerBlock(plankSlab2, PlankSlab2Item.class, "plankSlab2");
+            NSlabBase sSlab = (NSlabBase) new NSlabBase(false, 1).setBlockName("plankSlab1");
+            NSlabBase dslab = (NSlabBase) new NSlabBase(true, 1).setBlockName("plankSlab1Double");
+            plankSlab1 = GameRegistry.registerBlock(sSlab, NSlabBaseItem.class, "plankSlab1", sSlab, dslab);
+            Blocks.fire.setFireInfo(plankSlab1, 5, 20);
+            plankSlab1Double = GameRegistry.registerBlock(dslab, NSlabBaseItem.class, "plankSlab1Double", sSlab, dslab);
+            Blocks.fire.setFireInfo(plankSlab1Double, 5, 20);
+
+            sSlab = (NSlabBase) new NSlabBase(false, 2).setBlockName("plankSlab2");
+            dslab = (NSlabBase) new NSlabBase(true, 2).setBlockName("plankSlab2Double");
+            plankSlab2 = GameRegistry.registerBlock(sSlab, NSlabBaseItem.class, "plankSlab2", sSlab, dslab);
+            Blocks.fire.setFireInfo(plankSlab2, 5, 20);
+            plankSlab2Double = GameRegistry.registerBlock(dslab, NSlabBaseItem.class, "plankSlab2Double", sSlab, dslab);
+            Blocks.fire.setFireInfo(plankSlab2Double, 5, 20);
         }
 
         // Wooden Trapdoors
@@ -447,6 +446,7 @@ public class NContent implements IFuelHandler {
             alternateFence = new AlternateFence(Material.wood).setHardness(2.0F).setResistance(5.0F)
                     .setStepSound(Block.soundTypeWood).setBlockName("fence").setCreativeTab(NaturaTab.tab);
             GameRegistry.registerBlock(alternateFence, FenceItem.class, "Natura.fence");
+            Blocks.fire.setFireInfo(alternateFence, 5, 20);
         }
 
         // Wooden Fence Gates
@@ -456,11 +456,13 @@ public class NContent implements IFuelHandler {
             fenceGateEucalyptus.setHardness(2.0F).setResistance(5.0F).setStepSound(Block.soundTypeWood)
                     .setBlockName("fenceGate.eucalyptus");
             GameRegistry.registerBlock(fenceGateEucalyptus, "fenceGate.eucalyptus");
+            Blocks.fire.setFireInfo(fenceGateEucalyptus, 5, 20);
             // Sakura
             fenceGateSakura = new NFenceGate(planks, 1);
             fenceGateSakura.setHardness(2.0F).setResistance(5.0F).setStepSound(Block.soundTypeWood)
                     .setBlockName("fenceGate.sakura");
             GameRegistry.registerBlock(fenceGateSakura, "fenceGate.sakura");
+            Blocks.fire.setFireInfo(fenceGateSakura, 5, 20);
             // Ghostwood
             fenceGateGhostwood = new NFenceGate(planks, 2);
             fenceGateGhostwood.setHardness(2.0F).setResistance(5.0F).setStepSound(Block.soundTypeWood)
@@ -471,6 +473,7 @@ public class NContent implements IFuelHandler {
             fenceGateRedwood.setHardness(2.0F).setResistance(5.0F).setStepSound(Block.soundTypeWood)
                     .setBlockName("fenceGate.redwood");
             GameRegistry.registerBlock(fenceGateRedwood, "fenceGate.redwood");
+            Blocks.fire.setFireInfo(fenceGateRedwood, 5, 20);
             // Bloodwood
             fenceGateBloodwood = new NFenceGate(planks, 4);
             fenceGateBloodwood.setHardness(2.0F).setResistance(5.0F).setStepSound(Block.soundTypeWood)
@@ -481,31 +484,37 @@ public class NContent implements IFuelHandler {
             fenceGateHopseed.setHardness(2.0F).setResistance(5.0F).setStepSound(Block.soundTypeWood)
                     .setBlockName("fenceGate.hopseed");
             GameRegistry.registerBlock(fenceGateHopseed, "fenceGate.hopseed");
+            Blocks.fire.setFireInfo(fenceGateHopseed, 5, 20);
             // Maple
             fenceGateMaple = new NFenceGate(planks, 6);
             fenceGateMaple.setHardness(2.0F).setResistance(5.0F).setStepSound(Block.soundTypeWood)
                     .setBlockName("fenceGate.maple");
             GameRegistry.registerBlock(fenceGateMaple, "fenceGate.maple");
+            Blocks.fire.setFireInfo(fenceGateMaple, 5, 20);
             // Amaranth
             fenceGateAmaranth = new NFenceGate(planks, 8);
             fenceGateAmaranth.setHardness(2.0F).setResistance(5.0F).setStepSound(Block.soundTypeWood)
                     .setBlockName("fenceGate.amaranth");
             GameRegistry.registerBlock(fenceGateAmaranth, "fenceGate.amaranth");
+            Blocks.fire.setFireInfo(fenceGateAmaranth, 5, 20);
             // Silverbell
             fenceGateSilverbell = new NFenceGate(planks, 7);
             fenceGateSilverbell.setHardness(2.0F).setResistance(5.0F).setStepSound(Block.soundTypeWood)
                     .setBlockName("fenceGate.silverbell");
             GameRegistry.registerBlock(fenceGateSilverbell, "fenceGate.silverbell");
+            Blocks.fire.setFireInfo(fenceGateSilverbell, 5, 20);
             // Tigerwood
             fenceGateTiger = new NFenceGate(planks, 9);
             fenceGateTiger.setHardness(2.0F).setResistance(5.0F).setStepSound(Block.soundTypeWood)
                     .setBlockName("fenceGate.tiger");
             GameRegistry.registerBlock(fenceGateTiger, "fenceGate.tiger");
+            Blocks.fire.setFireInfo(fenceGateTiger, 5, 20);
             // Willow
             fenceGateWillow = new NFenceGate(planks, 10);
             fenceGateWillow.setHardness(2.0F).setResistance(5.0F).setStepSound(Block.soundTypeWood)
                     .setBlockName("fenceGate.willow");
             GameRegistry.registerBlock(fenceGateWillow, "fenceGate.willow");
+            Blocks.fire.setFireInfo(fenceGateWillow, 5, 20);
             // Darkwood
             fenceGateDarkwood = new NFenceGate(planks, 11);
             fenceGateDarkwood.setHardness(2.0F).setResistance(5.0F).setStepSound(Block.soundTypeWood)
@@ -2016,6 +2025,7 @@ public class NContent implements IFuelHandler {
     // Full grass blocks and slabs
     public static Block grassBlock;
     public static Block grassSlab;
+    public static Block grassSlabDouble;
 
     // Clouds
     public static Block cloud;
@@ -2063,6 +2073,8 @@ public class NContent implements IFuelHandler {
     // Wooden Slabs
     public static Block plankSlab1;
     public static Block plankSlab2;
+    public static Block plankSlab1Double;
+    public static Block plankSlab2Double;
 
     // Wooden Trapdoors
     public static Block trapdoorEucalyptus;

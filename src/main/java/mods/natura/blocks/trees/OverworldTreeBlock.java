@@ -29,7 +29,6 @@ public class OverworldTreeBlock extends BlockLog {
         super();
         this.setHardness(2.0F);
         this.setStepSound(Block.soundTypeWood);
-        // TODO 1.7 Where the heck did this go? setBurnProperties(this, 5, 20);
         this.setCreativeTab(NaturaTab.tab);
     }
 
@@ -83,12 +82,6 @@ public class OverworldTreeBlock extends BlockLog {
     public int damageDropped(int meta) {
         return meta % 4;
     }
-
-    /*
-     * public int getFlammability(IBlockAccess world, int x, int y, int z, int metadata, ForgeDirection face) { return
-     * metadata % 4 != 2 ? blockFlammability[blockID] : 0; } public int getFireSpreadSpeed(World world, int x, int y,
-     * int z, int metadata, ForgeDirection face) { return metadata % 4 != 2 ? blockFireSpreadSpeed[blockID] : 0; }
-     */
 
     @SideOnly(Side.CLIENT)
     @Override

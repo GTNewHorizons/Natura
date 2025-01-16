@@ -1,102 +1,114 @@
 package mods.natura.blocks;
 
 import java.util.List;
+import java.util.Random;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import mods.natura.common.NContent;
+import net.minecraft.block.BlockWoodSlab;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.natura.common.NaturaTab;
+import net.minecraftforge.common.util.ForgeDirection;
 
-public class NSlabBase extends Block {
+public class NSlabBase extends BlockWoodSlab {
 
-    Block modelBlock;
-    int startingMeta;
-    int totalSize;
+    public static String[] woodNames = new String[] { "eucalyptus", "sakura", "ghost", "redwood", "blood",
+            "bush", "maple", "silverbell", "purpleheart", "tiger", "willow", "darkwood", "fusewood" };
+    private final int group;
 
-    public NSlabBase(Material material) {
-        super(material);
-        this.setCreativeTab(NaturaTab.tab);
+    public NSlabBase(boolean isDoubleSlab, int grp) {
+        super(isDoubleSlab);
+        this.setHardness(2.0F);
+        this.setResistance(5.0F);
+        if (!isDoubleSlab) {
+            this.setCreativeTab(NaturaTab.tab);
+        }
+        group = grp;
     }
-
-    public NSlabBase(Material material, Block model, int meta, int totalSize) {
-        super(material);
-        this.setCreativeTab(NaturaTab.tab);
-        this.modelBlock = model;
-        this.startingMeta = meta;
-        this.totalSize = totalSize;
-    }
-
-    @Override
-    public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB axisalignedbb, List arraylist,
-            Entity entity) {
-        setBlockBoundsBasedOnState(world, x, y, z);
-        super.addCollisionBoxesToList(world, x, y, z, axisalignedbb, arraylist, entity);
-    }
-
-    @Override
-    public void setBlockBoundsForItemRender() {
-        setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
-    }
-
-    @Override
-    public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z) {
-        int meta = world.getBlockMetadata(x, y, z) / 8;
-        float minY = meta == 1 ? 0.5F : 0.0F;
-        float maxY = meta == 1 ? 1.0F : 0.5F;
-        setBlockBounds(0.0F, minY, 0F, 1.0F, maxY, 1.0F);
-    }
-
-    @Override
-    public int onBlockPlaced(World par1World, int blockX, int blockY, int blockZ, int side, float clickX, float clickY,
-            float clickZ, int metadata) {
-        if (side == 1) return metadata;
-        if (side == 0 || clickY >= 0.5F) return metadata | 8;
-
-        return metadata;
-    }
-
-    @Override
-    public boolean isOpaqueCube() {
-        return false;
-    }
-
-    @Override
-    public boolean renderAsNormalBlock() {
-        return false;
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void registerBlockIcons(IIconRegister iconRegister) {}
 
     @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(int side, int meta) {
-        meta = meta % 8 + startingMeta;
-        return modelBlock.getIcon(side, meta);
+        return NContent.planks.getIcon(side, getWoodMeta(meta));
+    }
+
+    @Override
+    public Item getItemDropped(int meta, Random random, int fortune) {
+        // if double slab
+        if (field_150004_a) {
+            if (this == NContent.plankSlab1Double) return Item.getItemFromBlock(NContent.plankSlab1);
+            else return Item.getItemFromBlock(NContent.plankSlab2);
+        }
+        else return Item.getItemFromBlock(this);
+    }
+
+    @Override
+    public String func_150002_b(int meta)
+    {
+        return "block.wood." + woodNames[getWoodMeta(meta)] + ".slab";
+    }
+
+    @Override
+    public int getFlammability(IBlockAccess world, int x, int y, int z, ForgeDirection face) {
+        int metadata = getWoodMeta(world.getBlockMetadata(x, y, z));
+        if (metadata == 2 || metadata == 4 || metadata > 10) return 0;
+        return Blocks.fire.getFlammability(this);
+    }
+
+    @Override
+    public int getFireSpreadSpeed(IBlockAccess world, int x, int y, int z, ForgeDirection face) {
+        int metadata = getWoodMeta(world.getBlockMetadata(x, y, z));
+        if (metadata == 2 || metadata == 4 || metadata > 10) return 0;
+        return Blocks.fire.getEncouragement(this);
+    }
+
+    @Override
+    public boolean isFlammable(IBlockAccess world, int x, int y, int z, ForgeDirection face) {
+        int metadata = getWoodMeta(world.getBlockMetadata(x, y, z));
+        if (metadata == 2 || metadata == 4 || metadata > 10) return false;
+        return getFlammability(world, x, y, z, face) > 0;
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public void getSubBlocks(Item id, CreativeTabs tab, List list) {
-        for (int iter = 0; iter < totalSize; iter++) {
-            list.add(new ItemStack(id, 1, iter));
+        if (group == 1) {
+            if (id != Item.getItemFromBlock(NContent.plankSlab1Double)) {
+                for (int iter = 0; iter < 8; iter++) {
+                    list.add(new ItemStack(id, 1, iter));
+                }
+            }
+        }
+        else {
+            if (id != Item.getItemFromBlock(NContent.plankSlab2Double)) {
+                for (int iter = 0; iter < 5; iter++) {
+                    list.add(new ItemStack(id, 1, iter));
+                }
+            }
         }
     }
 
     @Override
-    public int damageDropped(int meta) {
-        return meta % 8;
+    protected ItemStack createStackedBlock(int meta)
+    {
+        if (group == 1) {
+            return new ItemStack(Item.getItemFromBlock(NContent.plankSlab1), 2, meta & 7);
+        }
+        else {
+            return new ItemStack(Item.getItemFromBlock(NContent.plankSlab2), 2, meta & 7);
+        }
+    }
+
+    private int getWoodMeta(int meta) {
+        meta = (meta & 7) + (group-1) * 8;
+        if (meta < 0 || meta >= woodNames.length) meta = 0;
+        return meta;
     }
 }

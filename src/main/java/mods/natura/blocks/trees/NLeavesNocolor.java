@@ -6,6 +6,7 @@ import java.util.Random;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -17,6 +18,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.natura.Natura;
 import mods.natura.common.NContent;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class NLeavesNocolor extends NLeaves {
 
@@ -71,6 +73,27 @@ public class NLeavesNocolor extends NLeaves {
         }
 
         return ret;
+    }
+
+    @Override
+    public int getFlammability(IBlockAccess world, int x, int y, int z, ForgeDirection face) {
+        int metadata = world.getBlockMetadata(x, y, z);
+        if (metadata == 1 || metadata == 2) return 0;
+        return Blocks.fire.getFlammability(this);
+    }
+
+    @Override
+    public int getFireSpreadSpeed(IBlockAccess world, int x, int y, int z, ForgeDirection face) {
+        int metadata = world.getBlockMetadata(x, y, z);
+        if (metadata == 1 || metadata == 2) return 0;
+        return Blocks.fire.getEncouragement(this);
+    }
+
+    @Override
+    public boolean isFlammable(IBlockAccess world, int x, int y, int z, ForgeDirection face) {
+        int metadata = world.getBlockMetadata(x, y, z);
+        if (metadata == 1 || metadata == 2) return false;
+        return getFlammability(world, x, y, z, face) > 0;
     }
 
     @Override
