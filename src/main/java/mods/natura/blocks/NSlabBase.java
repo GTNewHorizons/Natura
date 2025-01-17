@@ -78,17 +78,17 @@ public class NSlabBase extends BlockWoodSlab {
     @SideOnly(Side.CLIENT)
     public void getSubBlocks(Item id, CreativeTabs tab, List list) {
         if (group == 1) {
-            if (id != Item.getItemFromBlock(NContent.plankSlab1Double)) {
-                for (int iter = 0; iter < 8; iter++) {
-                    list.add(new ItemStack(id, 1, iter));
-                }
+            //if (id != Item.getItemFromBlock(NContent.plankSlab1Double)) {
+            for (int iter = 0; iter < 8; iter++) {
+                list.add(new ItemStack(id, 1, iter));
             }
+            //}
         } else {
-            if (id != Item.getItemFromBlock(NContent.plankSlab2Double)) {
-                for (int iter = 0; iter < 5; iter++) {
-                    list.add(new ItemStack(id, 1, iter));
-                }
+            //if (id != Item.getItemFromBlock(NContent.plankSlab2Double)) {
+            for (int iter = 0; iter < 5; iter++) {
+                list.add(new ItemStack(id, 1, iter));
             }
+            //}
         }
     }
 

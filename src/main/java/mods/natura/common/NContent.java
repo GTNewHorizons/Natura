@@ -402,18 +402,18 @@ public class NContent implements IFuelHandler {
 
         // Wooden Slabs
         if (PHNatura.enableWoodenSlabs) {
-            NSlabBase sSlab = (NSlabBase) new NSlabBase(false, 1).setBlockName("plankSlab1");
             NSlabBase dslab = (NSlabBase) new NSlabBase(true, 1).setBlockName("plankSlab1Double");
+            NSlabBase sSlab = (NSlabBase) new NSlabBase(false, 1).setBlockName("plankSlab1");
+            plankSlab1Double = GameRegistry.registerBlock(dslab, NSlabBaseItem.class, "plankSlab1Double", sSlab, dslab);
             plankSlab1 = GameRegistry.registerBlock(sSlab, NSlabBaseItem.class, "plankSlab1", sSlab, dslab);
             Blocks.fire.setFireInfo(plankSlab1, 5, 20);
-            plankSlab1Double = GameRegistry.registerBlock(dslab, NSlabBaseItem.class, "plankSlab1Double", sSlab, dslab);
             Blocks.fire.setFireInfo(plankSlab1Double, 5, 20);
 
-            sSlab = (NSlabBase) new NSlabBase(false, 2).setBlockName("plankSlab2");
             dslab = (NSlabBase) new NSlabBase(true, 2).setBlockName("plankSlab2Double");
+            sSlab = (NSlabBase) new NSlabBase(false, 2).setBlockName("plankSlab2");
+            plankSlab2Double = GameRegistry.registerBlock(dslab, NSlabBaseItem.class, "plankSlab2Double", sSlab, dslab);
             plankSlab2 = GameRegistry.registerBlock(sSlab, NSlabBaseItem.class, "plankSlab2", sSlab, dslab);
             Blocks.fire.setFireInfo(plankSlab2, 5, 20);
-            plankSlab2Double = GameRegistry.registerBlock(dslab, NSlabBaseItem.class, "plankSlab2Double", sSlab, dslab);
             Blocks.fire.setFireInfo(plankSlab2Double, 5, 20);
         }
 
