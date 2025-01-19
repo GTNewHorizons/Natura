@@ -1,13 +1,7 @@
 package mods.natura.blocks;
 
-import java.util.List;
-import java.util.Random;
-
 import net.minecraft.block.BlockWoodSlab;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -17,16 +11,20 @@ import cpw.mods.fml.relauncher.SideOnly;
 import mods.natura.common.NContent;
 import mods.natura.common.NaturaTab;
 
-public class NSlabBase extends BlockWoodSlab {
+public abstract class NSlabBase extends BlockWoodSlab {
 
     public static String[] woodNames = new String[] { "eucalyptus", "sakura", "ghost", "redwood", "blood", "bush",
             "maple", "silverbell", "purpleheart", "tiger", "willow", "darkwood", "fusewood" };
+    // group 1 is the first 8 types, group 2 is the next 8, etc.
+    // slabs are max of 8 per group due to vanilla use of metadata, so this variable
+    // maps slabs to the overall wood metadata used elsewhere, such as for textures and flammability
     private final int group;
 
     public NSlabBase(boolean isDoubleSlab, int grp) {
         super(isDoubleSlab);
         this.setHardness(2.0F);
         this.setResistance(5.0F);
+        this.useNeighborBrightness = true;
         if (!isDoubleSlab) {
             this.setCreativeTab(NaturaTab.tab);
         }
@@ -40,16 +38,8 @@ public class NSlabBase extends BlockWoodSlab {
     }
 
     @Override
-    public Item getItemDropped(int meta, Random random, int fortune) {
-        // if double slab
-        if (field_150004_a) {
-            if (this == NContent.plankSlab1Double) return Item.getItemFromBlock(NContent.plankSlab1);
-            else return Item.getItemFromBlock(NContent.plankSlab2);
-        } else return Item.getItemFromBlock(this);
-    }
-
-    @Override
     public String func_150002_b(int meta) {
+        // unlocalized name
         return "block.wood." + woodNames[getWoodMeta(meta)] + ".slab";
     }
 
@@ -72,29 +62,6 @@ public class NSlabBase extends BlockWoodSlab {
         int metadata = getWoodMeta(world.getBlockMetadata(x, y, z));
         if (metadata == 2 || metadata == 4 || metadata > 10) return false;
         return getFlammability(world, x, y, z, face) > 0;
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void getSubBlocks(Item id, CreativeTabs tab, List list) {
-        if (group == 1) {
-            for (int iter = 0; iter < 8; iter++) {
-                list.add(new ItemStack(id, 1, iter));
-            }
-        } else {
-            for (int iter = 0; iter < 5; iter++) {
-                list.add(new ItemStack(id, 1, iter));
-            }
-        }
-    }
-
-    @Override
-    protected ItemStack createStackedBlock(int meta) {
-        if (group == 1) {
-            return new ItemStack(Item.getItemFromBlock(NContent.plankSlab1), 2, meta & 7);
-        } else {
-            return new ItemStack(Item.getItemFromBlock(NContent.plankSlab2), 2, meta & 7);
-        }
     }
 
     private int getWoodMeta(int meta) {

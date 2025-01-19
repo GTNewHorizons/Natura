@@ -41,7 +41,8 @@ import mods.natura.blocks.GrassSlab;
 import mods.natura.blocks.NButton;
 import mods.natura.blocks.NFenceGate;
 import mods.natura.blocks.NPressurePlate;
-import mods.natura.blocks.NSlabBase;
+import mods.natura.blocks.NSlab1;
+import mods.natura.blocks.NSlab2;
 import mods.natura.blocks.NStairs;
 import mods.natura.blocks.NTrapdoor;
 import mods.natura.blocks.crops.BerryBush;
@@ -117,13 +118,14 @@ import mods.natura.items.blocks.NDoorItem;
 import mods.natura.items.blocks.NLeavesDarkItem;
 import mods.natura.items.blocks.NLeavesItem;
 import mods.natura.items.blocks.NSaplingItem;
-import mods.natura.items.blocks.NSlabBaseItem;
 import mods.natura.items.blocks.NetherBerryBushItem;
 import mods.natura.items.blocks.NetherGlassItem;
 import mods.natura.items.blocks.NoColorLeavesItem;
 import mods.natura.items.blocks.OverworldLeavesItem;
 import mods.natura.items.blocks.OverworldSaplingItem;
 import mods.natura.items.blocks.OverworldTreeItem;
+import mods.natura.items.blocks.PlankSlab1Item;
+import mods.natura.items.blocks.PlankSlab2Item;
 import mods.natura.items.blocks.PlanksItem;
 import mods.natura.items.blocks.RedwoodItem;
 import mods.natura.items.blocks.SaguaroItem;
@@ -402,17 +404,19 @@ public class NContent implements IFuelHandler {
 
         // Wooden Slabs
         if (PHNatura.enableWoodenSlabs) {
-            NSlabBase dslab = (NSlabBase) new NSlabBase(true, 1).setBlockName("plankSlab1Double");
-            NSlabBase sSlab = (NSlabBase) new NSlabBase(false, 1).setBlockName("plankSlab1");
-            plankSlab1Double = GameRegistry.registerBlock(dslab, NSlabBaseItem.class, "plankSlab1Double", sSlab, dslab);
-            plankSlab1 = GameRegistry.registerBlock(sSlab, NSlabBaseItem.class, "plankSlab1", sSlab, dslab);
+            NSlab1 dslab1 = (NSlab1) new NSlab1(true).setBlockName("plankSlab1Double");
+            NSlab1 sSlab1 = (NSlab1) new NSlab1(false).setBlockName("plankSlab1");
+            plankSlab1Double = GameRegistry
+                    .registerBlock(dslab1, PlankSlab1Item.class, "plankSlab1Double", sSlab1, dslab1);
+            plankSlab1 = GameRegistry.registerBlock(sSlab1, PlankSlab1Item.class, "plankSlab1", sSlab1, dslab1);
             Blocks.fire.setFireInfo(plankSlab1, 5, 20);
             Blocks.fire.setFireInfo(plankSlab1Double, 5, 20);
 
-            dslab = (NSlabBase) new NSlabBase(true, 2).setBlockName("plankSlab2Double");
-            sSlab = (NSlabBase) new NSlabBase(false, 2).setBlockName("plankSlab2");
-            plankSlab2Double = GameRegistry.registerBlock(dslab, NSlabBaseItem.class, "plankSlab2Double", sSlab, dslab);
-            plankSlab2 = GameRegistry.registerBlock(sSlab, NSlabBaseItem.class, "plankSlab2", sSlab, dslab);
+            NSlab2 dslab2 = (NSlab2) new NSlab2(true).setBlockName("plankSlab2Double");
+            NSlab2 sSlab2 = (NSlab2) new NSlab2(false).setBlockName("plankSlab2");
+            plankSlab2Double = GameRegistry
+                    .registerBlock(dslab2, PlankSlab2Item.class, "plankSlab2Double", sSlab2, dslab2);
+            plankSlab2 = GameRegistry.registerBlock(sSlab2, PlankSlab2Item.class, "plankSlab2", sSlab2, dslab2);
             Blocks.fire.setFireInfo(plankSlab2, 5, 20);
             Blocks.fire.setFireInfo(plankSlab2Double, 5, 20);
         }

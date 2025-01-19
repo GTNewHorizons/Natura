@@ -14,6 +14,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.ColorizerGrass;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
 import cpw.mods.fml.relauncher.Side;
@@ -30,6 +31,7 @@ public class GrassSlab extends BlockSlab {
         super(isDoubleSlab, Material.ground);
         this.setHardness(0.6F);
         this.setStepSound(Block.soundTypeGrass);
+        this.useNeighborBrightness = true;
         if (!isDoubleSlab) {
             this.setCreativeTab(NaturaTab.tab);
         }
@@ -66,6 +68,12 @@ public class GrassSlab extends BlockSlab {
         for (int iter = 0; iter < 3; iter++) {
             list.add(new ItemStack(id, 1, iter));
         }
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public Item getItem(World worldIn, int x, int y, int z) {
+        return Item.getItemFromBlock(NContent.grassSlab);
     }
 
     @Override
