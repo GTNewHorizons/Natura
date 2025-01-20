@@ -101,6 +101,11 @@ public class NLeaves extends BlockLeaves {
         }
     }
 
+    @Override
+    public int getDamageValue(World worldIn, int x, int y, int z) {
+        return worldIn.getBlockMetadata(x, y, z) & 3;
+    }
+
     /**
      * Returns true if the given side of this block type should be rendered, if the adjacent block is at the given
      * coordinates. Args: blockAccess, x, y, z, side
@@ -122,13 +127,9 @@ public class NLeaves extends BlockLeaves {
         par3List.add(new ItemStack(par1, 1, 2));
     }
 
-    public int getDamageValue(World par1World, int par2, int par3, int par4) {
-        return this.damageDropped(par1World.getBlockMetadata(par2, par3, par4)) % 3;
-    }
-
     @Override
     public int getLightOpacity(IBlockAccess world, int x, int y, int z) {
-        if (world.getBlockMetadata(x, y, z) % 4 == 0) {
+        if ((world.getBlockMetadata(x, y, z) & 3) == 0) {
             return 255;
         }
         return super.getLightOpacity(world, x, y, z);

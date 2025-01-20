@@ -51,22 +51,17 @@ public class NLeavesNocolor extends NLeaves {
         return 16777215;
     }
 
-    public int damageDropped(int meta) {
-        if (meta % 4 == 3) return 4;
-        return (meta & 3) + 3;
-    }
-
     @Override
     public Item getItemDropped(int meta, Random random, int fortune) {
-        if (meta % 4 == 3) return Item.getItemFromBlock(NContent.rareSapling);
+        if ((meta & 3) == 3) return Item.getItemFromBlock(NContent.rareSapling);
         return Item.getItemFromBlock(NContent.floraSapling);
     }
 
     @Override
-    public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
-        ArrayList<ItemStack> ret = super.getDrops(world, x, y, z, metadata, fortune);
+    public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int meta, int fortune) {
+        ArrayList<ItemStack> ret = super.getDrops(world, x, y, z, meta, fortune);
 
-        if (metadata % 4 == 2) {
+        if ((meta & 3) == 2) {
             if (fortune > 3 || Natura.random.nextInt(40 - fortune * 10) == 0) {
                 ret.add(new ItemStack(Items.redstone));
             }
@@ -76,24 +71,23 @@ public class NLeavesNocolor extends NLeaves {
     }
 
     @Override
+    public int damageDropped(int meta) {
+        if ((meta & 3) == 3) return 4;
+        return super.damageDropped(meta) + 3;
+    }
+
+    @Override
     public int getFlammability(IBlockAccess world, int x, int y, int z, ForgeDirection face) {
-        int metadata = world.getBlockMetadata(x, y, z);
-        if (metadata == 1 || metadata == 2) return 0;
+        int meta = world.getBlockMetadata(x, y, z) & 3;
+        if (meta == 1 || meta == 2) return 0;
         return Blocks.fire.getFlammability(this);
     }
 
     @Override
     public int getFireSpreadSpeed(IBlockAccess world, int x, int y, int z, ForgeDirection face) {
-        int metadata = world.getBlockMetadata(x, y, z);
-        if (metadata == 1 || metadata == 2) return 0;
+        int meta = world.getBlockMetadata(x, y, z) & 3;
+        if (meta == 1 || meta == 2) return 0;
         return Blocks.fire.getEncouragement(this);
-    }
-
-    @Override
-    public boolean isFlammable(IBlockAccess world, int x, int y, int z, ForgeDirection face) {
-        int metadata = world.getBlockMetadata(x, y, z);
-        if (metadata == 1 || metadata == 2) return false;
-        return getFlammability(world, x, y, z, face) > 0;
     }
 
     @Override
