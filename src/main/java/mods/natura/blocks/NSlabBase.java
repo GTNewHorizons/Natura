@@ -1,7 +1,5 @@
 package mods.natura.blocks;
 
-import mods.natura.blocks.trees.Planks;
-import mods.natura.items.blocks.PlanksItem;
 import net.minecraft.block.BlockWoodSlab;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
@@ -9,10 +7,13 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import mods.natura.blocks.trees.Planks;
 import mods.natura.common.NContent;
 import mods.natura.common.NaturaTab;
+import mods.natura.items.blocks.PlanksItem;
 
 public abstract class NSlabBase extends BlockWoodSlab {
+
     // metaGroup 1 is the first 8 types, metaGroup 2 is the next 8, etc.
     // slabs are max of 8 per group due to vanilla use of metadata, so this variable maps
     // wooden slabs to the overall wood metadata used elsewhere, such as for textures and flammability
