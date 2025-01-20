@@ -41,8 +41,8 @@ import mods.natura.blocks.GrassSlab;
 import mods.natura.blocks.NButton;
 import mods.natura.blocks.NFenceGate;
 import mods.natura.blocks.NPressurePlate;
-import mods.natura.blocks.NSlab1;
-import mods.natura.blocks.NSlab2;
+import mods.natura.blocks.PlankSlab1;
+import mods.natura.blocks.PlankSlab2;
 import mods.natura.blocks.NStairs;
 import mods.natura.blocks.NTrapdoor;
 import mods.natura.blocks.crops.BerryBush;
@@ -404,16 +404,16 @@ public class NContent implements IFuelHandler {
 
         // Wooden Slabs
         if (PHNatura.enableWoodenSlabs) {
-            NSlab1 dslab1 = (NSlab1) new NSlab1(true).setBlockName("plankSlab1Double");
-            NSlab1 sSlab1 = (NSlab1) new NSlab1(false).setBlockName("plankSlab1");
+            PlankSlab1 dslab1 = (PlankSlab1) new PlankSlab1(true).setBlockName("plankSlab1Double");
+            PlankSlab1 sSlab1 = (PlankSlab1) new PlankSlab1(false).setBlockName("plankSlab1");
             plankSlab1Double = GameRegistry
                     .registerBlock(dslab1, PlankSlab1Item.class, "plankSlab1Double", sSlab1, dslab1);
             plankSlab1 = GameRegistry.registerBlock(sSlab1, PlankSlab1Item.class, "plankSlab1", sSlab1, dslab1);
             Blocks.fire.setFireInfo(plankSlab1, 5, 20);
             Blocks.fire.setFireInfo(plankSlab1Double, 5, 20);
 
-            NSlab2 dslab2 = (NSlab2) new NSlab2(true).setBlockName("plankSlab2Double");
-            NSlab2 sSlab2 = (NSlab2) new NSlab2(false).setBlockName("plankSlab2");
+            PlankSlab2 dslab2 = (PlankSlab2) new PlankSlab2(true).setBlockName("plankSlab2Double");
+            PlankSlab2 sSlab2 = (PlankSlab2) new PlankSlab2(false).setBlockName("plankSlab2");
             plankSlab2Double = GameRegistry
                     .registerBlock(dslab2, PlankSlab2Item.class, "plankSlab2Double", sSlab2, dslab2);
             plankSlab2 = GameRegistry.registerBlock(sSlab2, PlankSlab2Item.class, "plankSlab2", sSlab2, dslab2);

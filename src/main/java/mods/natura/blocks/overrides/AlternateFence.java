@@ -2,6 +2,7 @@ package mods.natura.blocks.overrides;
 
 import java.util.List;
 
+import mods.natura.blocks.trees.Planks;
 import net.minecraft.block.BlockFence;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -48,23 +49,14 @@ public class AlternateFence extends BlockFence {
 
     @Override
     public int getFlammability(IBlockAccess world, int x, int y, int z, ForgeDirection face) {
-        int metadata = world.getBlockMetadata(x, y, z);
-        if (metadata == 2 || metadata == 4 || metadata > 10) return 0;
-        return Blocks.fire.getFlammability(this);
+        int meta = world.getBlockMetadata(x, y, z);
+        return Planks.getPlankFlammability(this, meta);
     }
 
     @Override
     public int getFireSpreadSpeed(IBlockAccess world, int x, int y, int z, ForgeDirection face) {
-        int metadata = world.getBlockMetadata(x, y, z);
-        if (metadata == 2 || metadata == 4 || metadata > 10) return 0;
-        return Blocks.fire.getEncouragement(this);
-    }
-
-    @Override
-    public boolean isFlammable(IBlockAccess world, int x, int y, int z, ForgeDirection face) {
-        int metadata = world.getBlockMetadata(x, y, z);
-        if (metadata == 2 || metadata == 4 || metadata > 10) return false;
-        return getFlammability(world, x, y, z, face) > 0;
+        int meta = world.getBlockMetadata(x, y, z);
+        return Planks.getPlankFireSpreadSpeed(this, meta);
     }
 
     @Override

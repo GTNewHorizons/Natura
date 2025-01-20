@@ -12,22 +12,22 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.natura.common.NContent;
 
-public class NSlab2 extends NSlabBase {
+public class PlankSlab1 extends NSlabBase {
 
-    public NSlab2(boolean isDoubleSlab) {
-        super(isDoubleSlab, 2);
+    public PlankSlab1(boolean isDoubleSlab) {
+        super(isDoubleSlab, 1);
     }
 
     @Override
     public Item getItemDropped(int meta, Random random, int fortune) {
         // handles so both double and single drop the single slab version
-        return Item.getItemFromBlock(NContent.plankSlab2);
+        return Item.getItemFromBlock(NContent.plankSlab1);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public void getSubBlocks(Item id, CreativeTabs tab, List list) {
-        for (int iter = 0; iter < 5; iter++) {
+        for (int iter = 0; iter < 8; iter++) {
             list.add(new ItemStack(id, 1, iter));
         }
     }
@@ -35,11 +35,11 @@ public class NSlab2 extends NSlabBase {
     @Override
     @SideOnly(Side.CLIENT)
     public Item getItem(World worldIn, int x, int y, int z) {
-        return Item.getItemFromBlock(NContent.plankSlab2);
+        return Item.getItemFromBlock(NContent.plankSlab1);
     }
 
     @Override
     protected ItemStack createStackedBlock(int meta) {
-        return new ItemStack(Item.getItemFromBlock(NContent.plankSlab2), 2, meta & 7);
+        return new ItemStack(Item.getItemFromBlock(NContent.plankSlab1), 2, meta & 7);
     }
 }

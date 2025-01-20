@@ -10,11 +10,11 @@ import net.minecraft.util.StatCollector;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import mods.natura.blocks.NSlab2;
+import mods.natura.blocks.PlankSlab2;
 
 public class PlankSlab2Item extends ItemSlab {
 
-    public PlankSlab2Item(Block block, NSlab2 singleSlab, NSlab2 doubleSlab) {
+    public PlankSlab2Item(Block block, PlankSlab2 singleSlab, PlankSlab2 doubleSlab) {
         super(block, singleSlab, doubleSlab, block == doubleSlab);
     }
 

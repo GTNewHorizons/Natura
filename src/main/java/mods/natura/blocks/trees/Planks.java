@@ -49,23 +49,24 @@ public class Planks extends Block {
 
     @Override
     public int getFlammability(IBlockAccess world, int x, int y, int z, ForgeDirection face) {
-        int metadata = world.getBlockMetadata(x, y, z);
-        if (metadata == 2 || metadata == 4 || metadata > 10) return 0;
-        return Blocks.fire.getFlammability(this);
+        int meta = world.getBlockMetadata(x, y, z);
+        return getPlankFlammability(this, meta);
+    }
+
+    public static int getPlankFlammability(Block block, int meta) {
+        if (meta == 2 || meta == 4 || meta > 10) return 0;
+        return Blocks.fire.getFlammability(block);
     }
 
     @Override
     public int getFireSpreadSpeed(IBlockAccess world, int x, int y, int z, ForgeDirection face) {
-        int metadata = world.getBlockMetadata(x, y, z);
-        if (metadata == 2 || metadata == 4 || metadata > 10) return 0;
-        return Blocks.fire.getEncouragement(this);
+        int meta = world.getBlockMetadata(x, y, z);
+        return getPlankFireSpreadSpeed(this, meta);
     }
 
-    @Override
-    public boolean isFlammable(IBlockAccess world, int x, int y, int z, ForgeDirection face) {
-        int metadata = world.getBlockMetadata(x, y, z);
-        if (metadata == 2 || metadata == 4 || metadata > 10) return false;
-        return getFlammability(world, x, y, z, face) > 0;
+    public static int getPlankFireSpreadSpeed(Block block, int meta) {
+        if (meta == 2 || meta == 4 || meta > 10) return 0;
+        return Blocks.fire.getEncouragement(block);
     }
 
     @Override

@@ -10,11 +10,11 @@ import net.minecraft.util.StatCollector;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import mods.natura.blocks.NSlab1;
+import mods.natura.blocks.PlankSlab1;
 
 public class PlankSlab1Item extends ItemSlab {
 
-    public PlankSlab1Item(Block block, NSlab1 singleSlab, NSlab1 doubleSlab) {
+    public PlankSlab1Item(Block block, PlankSlab1 singleSlab, PlankSlab1 doubleSlab) {
         super(block, singleSlab, doubleSlab, block == doubleSlab);
     }
 
@@ -29,12 +29,14 @@ public class PlankSlab1Item extends ItemSlab {
                 list.add(StatCollector.translateToLocal("tooltip.tree2"));
                 break;
             case 2:
+                list.add(StatCollector.translateToLocal("tooltip.nethertree"));
                 list.add(StatCollector.translateToLocal("tooltip.tree3"));
                 break;
             case 3:
                 list.add(StatCollector.translateToLocal("tooltip.tree4"));
                 break;
             case 4:
+                list.add(StatCollector.translateToLocal("tooltip.nethertree"));
                 list.add(StatCollector.translateToLocal("tooltip.tree5"));
                 break;
             case 5:
