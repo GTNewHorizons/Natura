@@ -140,7 +140,10 @@ public class BaseTreeWorldgen implements IWorldGenerator {
             }
         }
 
-        if (biomeName == "Desert" || biomeName == "DesertHills") {
+        if (biomeName == "Desert" || biomeName == "DesertHills"
+                || biomeName == "Lush Desert"
+                || biomeName == "Hot Desert"
+                || biomeName == "Oasis") {
             if (PHNatura.generateSaguaro && random.nextInt((PHNatura.saguaroSpawnRarity)) == 0) {
                 xSpawn = xPos + random.nextInt(16);
                 ySpawn = random.nextInt(PHNatura.seaLevel) + 16;
