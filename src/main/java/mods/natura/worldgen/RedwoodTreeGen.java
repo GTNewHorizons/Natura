@@ -93,7 +93,11 @@ public class RedwoodTreeGen extends WorldGenerator {
         fakeOakBasePos[1] = groundPoint;
         fakeOakBasePos[2] = z;
 
-        fakeOakHeightLimit = 5 + rand.nextInt(fakeOakHeightLimitLimit);
+        // Set the height of the fake oak trees to a constant 10 because it doesn't make sense to have their
+        // height be random like vanilla trees.
+        // This makes redwood trees look more consistently good
+        // fakeOakHeightLimit = 5 + rand.nextInt(fakeOakHeightLimitLimit);
+        fakeOakHeightLimit = 10;
 
         if (treeHeight > 120) {
             for (int currentHeight = 0; currentHeight < treeHeight; currentHeight++) {
