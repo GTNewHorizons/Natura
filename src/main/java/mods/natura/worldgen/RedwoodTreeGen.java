@@ -1900,9 +1900,9 @@ public class RedwoodTreeGen extends WorldGenerator {
     }
 
     boolean leafNodeNeedsBase(int i) {
-        // return (double) i >= (double) fakeOakHeightLimit * 0.20000000000000001D;
-        // Making all fake oak leaf nodes connect to the fake oak trunk location gives the tree a more stick-y look
-        // and makes branches more continuous
+//         return (double) i >= (double) fakeOakHeightLimit * 0.20000000000000001D;
+        // This check assumes that the fake oak trees have a trunk
+        // They don't, so spawning leave nodes without a branch base can make logs non-continuous
         return true;
     }
 
