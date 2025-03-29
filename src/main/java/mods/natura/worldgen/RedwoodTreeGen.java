@@ -1980,7 +1980,7 @@ public class RedwoodTreeGen extends WorldGenerator {
             currentPos[otherAxisIndex1] = MathHelper.floor_double((double) start[otherAxisIndex1] + (double) i * d);
             currentPos[otherAxisIndex2] = MathHelper.floor_double((double) start[otherAxisIndex2] + (double) i * d1);
             Block block = worldObj.getBlock(currentPos[0], currentPos[1], currentPos[2]);
-            if (block != Blocks.air && block != NContent.floraLeaves) { // TODO other logs may be blocking branches from fully forming
+            if (block != Blocks.air && block != NContent.floraLeaves && block != NContent.redwood) {
                 break;
             }
             i += longestAxisSign;
