@@ -1,7 +1,6 @@
 package mods.natura.blocks.trees;
 
 import java.util.List;
-import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -30,7 +29,6 @@ public class DarkTreeBlock extends Block {
         this.setHardness(3.5F);
         this.setResistance(40F);
         this.setStepSound(Block.soundTypeWood);
-        // setBurnProperties(this.blockID, 5, 20);
         this.setCreativeTab(NaturaTab.tab);
     }
 
@@ -74,25 +72,18 @@ public class DarkTreeBlock extends Block {
     }
 
     @Override
-    public Item getItemDropped(int par1, Random par2Random, int par3) {
-        return Item.getItemFromBlock(this);
-    }
-
-    /**
-     * ejects contained items into the world, and notifies neighbours of an update, as appropriate
-     */
-    public void breakBlock(World par1World, int par2, int par3, int par4, int par5, int par6) {
+    public void breakBlock(World worldIn, int x, int y, int z, Block blockBroken, int meta) {
         byte b0 = 4;
         int j1 = b0 + 1;
 
-        if (par1World.checkChunksExist(par2 - j1, par3 - j1, par4 - j1, par2 + j1, par3 + j1, par4 + j1)) {
+        if (worldIn.checkChunksExist(x - j1, y - j1, z - j1, x + j1, y + j1, z + j1)) {
             for (int k1 = -b0; k1 <= b0; ++k1) {
                 for (int l1 = -b0; l1 <= b0; ++l1) {
                     for (int i2 = -b0; i2 <= b0; ++i2) {
-                        Block j2 = par1World.getBlock(par2 + k1, par3 + l1, par4 + i2);
+                        Block j2 = worldIn.getBlock(x + k1, y + l1, z + i2);
 
                         if (j2 != null) {
-                            j2.beginLeavesDecay(par1World, par2 + k1, par3 + l1, par4 + i2);
+                            j2.beginLeavesDecay(worldIn, x + k1, y + l1, z + i2);
                         }
                     }
                 }
@@ -100,9 +91,6 @@ public class DarkTreeBlock extends Block {
         }
     }
 
-    /**
-     * Called when a block is placed using its ItemBlock. Args: World, X, Y, Z, side, hitX, hitY, hitZ, block metadata
-     */
     @Override
     public int onBlockPlaced(World par1World, int par2, int par3, int par4, int par5, float par6, float par7,
             float par8, int par9) {
@@ -126,9 +114,6 @@ public class DarkTreeBlock extends Block {
         return j1 | b0;
     }
 
-    /**
-     * Determines the damage on the item the block drops. Used in cloth and wood.
-     */
     @Override
     public int damageDropped(int par1) {
         return par1 & 3;
@@ -144,10 +129,6 @@ public class DarkTreeBlock extends Block {
     @Override
     protected ItemStack createStackedBlock(int par1) {
         return new ItemStack(this, 1, limitToValidMetadata(par1));
-    }
-
-    public boolean isBlockReplaceable(World world, int x, int y, int z) {
-        return false;
     }
 
     @Override

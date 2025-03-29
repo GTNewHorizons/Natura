@@ -21,11 +21,10 @@ public class OverworldLeavesItem extends MultiItemBlock {
         setHasSubtypes(true);
     }
 
-    /*
-     * @Override public String getUnlocalizedName (ItemStack itemstack) { int i =
-     * MathHelper.clamp_int(itemstack.getItemDamage(), 0, 3); return (new
-     * StringBuilder()).append("block.leaves.").append(blockType[i]).toString(); }
-     */
+    @Override
+    public int getMetadata(int meta) {
+        return meta | 4;
+    }
 
     @Override
     @SideOnly(Side.CLIENT)

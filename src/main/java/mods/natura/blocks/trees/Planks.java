@@ -11,7 +11,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import cpw.mods.fml.relauncher.Side;
@@ -26,7 +25,6 @@ public class Planks extends Block {
 
     public Planks() {
         super(Material.wood);
-        // TODO 1.7 Where the heck did this go? setBurnProperties(this, 5, 20);
         this.setHardness(2.0f);
         this.setCreativeTab(NaturaTab.tab);
         this.setStepSound(Block.soundTypeWood);
@@ -49,18 +47,26 @@ public class Planks extends Block {
         }
     }
 
-    /*
-     * public boolean renderAsNormalBlock() { return false; }
-     */
-
-    public int getFlammability(IBlockAccess world, int x, int y, int z, int metadata, ForgeDirection face) {
-        if (metadata == 2 || metadata == 4 || metadata > 10) return 0;
-        return this.getFlammability(world, x, y, z, face);
+    @Override
+    public int getFlammability(IBlockAccess world, int x, int y, int z, ForgeDirection face) {
+        int meta = world.getBlockMetadata(x, y, z);
+        return getPlankFlammability(this, meta);
     }
 
-    public int getFireSpreadSpeed(World world, int x, int y, int z, int metadata, ForgeDirection face) {
-        if (metadata == 2 || metadata == 4 || metadata > 10) return 0;
-        return this.getFireSpreadSpeed(world, x, y, z, face);
+    public static int getPlankFlammability(Block block, int meta) {
+        if (meta == 2 || meta == 4 || meta > 10) return 0;
+        return Blocks.fire.getFlammability(block);
+    }
+
+    @Override
+    public int getFireSpreadSpeed(IBlockAccess world, int x, int y, int z, ForgeDirection face) {
+        int meta = world.getBlockMetadata(x, y, z);
+        return getPlankFireSpreadSpeed(this, meta);
+    }
+
+    public static int getPlankFireSpreadSpeed(Block block, int meta) {
+        if (meta == 2 || meta == 4 || meta > 10) return 0;
+        return Blocks.fire.getEncouragement(block);
     }
 
     @Override

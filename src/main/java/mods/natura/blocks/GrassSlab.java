@@ -1,7 +1,10 @@
 package mods.natura.blocks;
 
 import java.util.List;
+import java.util.Random;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockSlab;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -11,19 +14,27 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.ColorizerGrass;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.natura.client.GrassColorizerAlternate;
+import mods.natura.common.NContent;
 import mods.natura.common.NaturaTab;
 
-public class GrassSlab extends NSlabBase {
+public class GrassSlab extends BlockSlab {
 
-    public GrassSlab() {
-        super(Material.ground);
-        setHardness(0.6F);
-        this.setCreativeTab(NaturaTab.tab);
+    public static final String blockType[] = { "grass", "bluegrass", "autumngrass" };
+
+    public GrassSlab(boolean isDoubleSlab) {
+        super(isDoubleSlab, Material.ground);
+        this.setHardness(0.6F);
+        this.setStepSound(Block.soundTypeGrass);
+        this.useNeighborBrightness = true;
+        if (!isDoubleSlab) {
+            this.setCreativeTab(NaturaTab.tab);
+        }
     }
 
     @Override
@@ -33,9 +44,22 @@ public class GrassSlab extends NSlabBase {
     }
 
     @Override
+    public String func_150002_b(int meta) {
+        if (meta < 0 || meta >= blockType.length) meta = 0;
+        return "block.soil." + blockType[meta] + ".slab";
+    }
+
+    @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(int side, int meta) {
         return this.blockIcon;
+    }
+
+    @Override
+    public Item getItemDropped(int meta, Random random, int fortune) {
+        // if double slab
+        if (field_150004_a) return Item.getItemFromBlock(NContent.grassSlab);
+        return Item.getItemFromBlock(this);
     }
 
     @Override
@@ -44,6 +68,12 @@ public class GrassSlab extends NSlabBase {
         for (int iter = 0; iter < 3; iter++) {
             list.add(new ItemStack(id, 1, iter));
         }
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public Item getItem(World worldIn, int x, int y, int z) {
+        return Item.getItemFromBlock(NContent.grassSlab);
     }
 
     @Override

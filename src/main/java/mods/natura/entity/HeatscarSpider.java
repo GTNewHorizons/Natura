@@ -179,7 +179,7 @@ public class HeatscarSpider extends EntitySpider {
     @Override
     public void setDead() {
 
-        if (!this.worldObj.isRemote) {
+        if (!this.worldObj.isRemote && this.getHealth() <= 0.0f) {
             int num = PHNatura.babyHeatscarMaximum - PHNatura.babyHeatscarMinimum + 1;
             int amount = rand.nextInt(num) + PHNatura.babyHeatscarMinimum;
             for (int i = 0; i < amount; i++) {

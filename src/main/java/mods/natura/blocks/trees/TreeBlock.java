@@ -7,11 +7,11 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockLog;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import cpw.mods.fml.relauncher.Side;
@@ -30,7 +30,6 @@ public class TreeBlock extends BlockLog {
         this.setHardness(1.5F);
         this.setResistance(5F);
         this.setStepSound(Block.soundTypeWood);
-        // TODO 1.7 Where the heck did this go? setBurnProperties(this, 5, 20);
         this.setCreativeTab(NaturaTab.tab);
     }
 
@@ -83,12 +82,25 @@ public class TreeBlock extends BlockLog {
         return meta % 4;
     }
 
-    public int getFlammability(IBlockAccess world, int x, int y, int z, int metadata, ForgeDirection face) {
-        return metadata % 4 != 2 ? this.getFlammability(world, x, y, z, face) : 0;
+    @Override
+    public int getFlammability(IBlockAccess world, int x, int y, int z, ForgeDirection face) {
+        int metadata = world.getBlockMetadata(x, y, z);
+        if (metadata % 4 == 2) return 0;
+        return Blocks.fire.getFlammability(this);
     }
 
-    public int getFireSpreadSpeed(World world, int x, int y, int z, int metadata, ForgeDirection face) {
-        return metadata % 4 != 2 ? this.getFireSpreadSpeed(world, x, y, z, face) : 0;
+    @Override
+    public int getFireSpreadSpeed(IBlockAccess world, int x, int y, int z, ForgeDirection face) {
+        int metadata = world.getBlockMetadata(x, y, z);
+        if (metadata % 4 == 2) return 0;
+        return Blocks.fire.getEncouragement(this);
+    }
+
+    @Override
+    public boolean isFlammable(IBlockAccess world, int x, int y, int z, ForgeDirection face) {
+        int metadata = world.getBlockMetadata(x, y, z);
+        if (metadata % 4 == 2) return false;
+        return getFlammability(world, x, y, z, face) > 0;
     }
 
     @SideOnly(Side.CLIENT)

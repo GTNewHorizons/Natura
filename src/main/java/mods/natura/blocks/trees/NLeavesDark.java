@@ -58,21 +58,27 @@ public class NLeavesDark extends NLeaves {
     }
 
     @Override
-    public Item getItemDropped(int metadata, Random random, int fortune) {
-        if (metadata % 4 == 2) return NContent.potashApple;
+    public Item getItemDropped(int meta, Random random, int fortune) {
+        if ((meta & 3) == 2) return NContent.potashApple;
         return Item.getItemFromBlock(NContent.floraSapling);
     }
 
     @Override
-    public int damageDropped(int par1) {
-        if (par1 % 4 == 2) return 0;
-        if (par1 % 4 == 3) return 7;
-        return 6;
+    public int damageDropped(int meta) {
+        meta = meta & 3;
+        switch (meta) {
+            case 2:
+                return 0;
+            case 3:
+                return 7;
+            default:
+                return 6;
+        }
     }
 
     @Override
     public int quantityDropped(int meta, int fortune, Random random) {
-        if (meta % 4 == 2) return 1;
+        if ((meta & 3) == 2) return 1;
         return quantityDroppedWithBonus(fortune, random);
     }
 
