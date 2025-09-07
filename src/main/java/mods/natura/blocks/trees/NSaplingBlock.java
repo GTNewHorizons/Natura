@@ -109,6 +109,33 @@ public class NSaplingBlock extends BlockSapling {
         else return EnumPlantType.Nether;
     }
 
+    private boolean canGrowRedwood(World world, int x, int y, int z) {
+        int numSaplings = 0;
+
+        for (int xPos = -3; xPos <= 3; xPos++) {
+            for (int zPos = -3; zPos <= 3; zPos++) {
+                int ecks = x + xPos, zee = z + zPos;
+                if (world.getBlock(x + xPos, y, z + zPos) == this
+                        && world.getBlockMetadata(x + xPos, y, z + zPos) % 8 == 0) {
+                    numSaplings++;
+                }
+            }
+        }
+
+        return numSaplings >= 40;
+    }
+
+    private void clearRedwoodGrowthArea(World world, int x, int y, int z) {
+        for (int xPos = -4; xPos <= 4; xPos++) {
+            for (int zPos = -4; zPos <= 4; zPos++) {
+                int ecks = x + xPos, zee = z + zPos;
+                if (world.getBlock(ecks, y, zee) == this && world.getBlockMetadata(ecks, y, zee) % 8 == 0) {
+                    world.setBlock(ecks, y, zee, Blocks.air, 0, 4);
+                }
+            }
+        }
+    }
+
     @Override
     public void updateTick(World world, int x, int y, int z, Random random) {
         if (world.isRemote) {
@@ -118,35 +145,10 @@ public class NSaplingBlock extends BlockSapling {
         if (md % 8 == 0) {
             if (world.getBlockLightValue(x, y + 1, z) >= 9 && random.nextInt(120) == 0) {
                 if ((md & 8) == 0) world.setBlockMetadataWithNotify(x, y, z, md | 8, 4);
-                else {
-                    int numSaplings = 0;
-                    for (int xPos = -3; xPos <= 3; xPos++) {
-                        for (int zPos = -3; zPos <= 3; zPos++) {
-                            int ecks = x + xPos, zee = z + zPos;
-                            if (world.getBlock(x + xPos, y, z + zPos) == this
-                                    && world.getBlockMetadata(x + xPos, y, z + zPos) % 8 == 0) {
-                                numSaplings++;
-                            }
-                        }
-                    }
-
-                    if (numSaplings >= 40) {
-                        for (int xPos = -4; xPos <= 4; xPos++) {
-                            for (int zPos = -4; zPos <= 4; zPos++) {
-                                int ecks = x + xPos, zee = z + zPos;
-                                if (world.getBlock(ecks, y, zee) == this
-                                        && world.getBlockMetadata(ecks, y, zee) % 8 == 0) {
-                                    world.setBlock(ecks, y, zee, Blocks.air, 0, 4);
-                                }
-                            }
-                        }
-                        func_149879_c(world, x, y, z, random);
-                    }
-                }
+                else func_149879_c(world, x, y, z, random);
             }
         } else if (md % 8 <= 3) {
-            if (random.nextInt(10) == 0 && world.getBlockLightValue(x, y + 1, z) >= 9) // && random.nextInt(120) == 0)
-            {
+            if (random.nextInt(10) == 0 && world.getBlockLightValue(x, y + 1, z) >= 9) {
                 if ((md & 8) == 0) world.setBlockMetadataWithNotify(x, y, z, md | 8, 4);
                 else func_149879_c(world, x, y, z, random);
             }
@@ -176,7 +178,6 @@ public class NSaplingBlock extends BlockSapling {
     public void func_149878_d(World world, int x, int y, int z, Random random) {
         if (!net.minecraftforge.event.terraingen.TerrainGen.saplingGrowTree(world, random, x, y, z)) return;
         int md = world.getBlockMetadata(x, y, z) % 8;
-        world.setBlock(x, y, z, Blocks.air);
         WorldGenerator obj = null;
 
         if (md == 1) obj = new EucalyptusTreeGenShort(0, 1);
@@ -186,8 +187,12 @@ public class NSaplingBlock extends BlockSapling {
         else if (md == 5) obj = new BloodTreeLargeGen(3, 2);
         else if (md == 6) obj = new DarkwoodGen(true, 3, 0);
         else if (md == 7) obj = new FusewoodGen(true, 3, 1);
-        else obj = new RedwoodTreeGen(true, NContent.redwood);
+        else if (canGrowRedwood(world, x, y, z)) {
+            clearRedwoodGrowthArea(world, x, y, z);
+            obj = new RedwoodTreeGen(true, NContent.redwood);
+        } else return;
 
+        world.setBlock(x, y, z, Blocks.air);
         if (!(obj.generate(world, random, x, y, z))) world.setBlock(x, y, z, this, md + 8, 3);
     }
 
