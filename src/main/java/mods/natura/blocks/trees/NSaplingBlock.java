@@ -114,7 +114,6 @@ public class NSaplingBlock extends BlockSapling {
         if (world.isRemote) {
             return;
         }
-        super.updateTick(world, x, y, z, random);
         int md = world.getBlockMetadata(x, y, z);
         if (md % 8 == 0) {
             if (world.getBlockLightValue(x, y + 1, z) >= 9 && random.nextInt(120) == 0) {
