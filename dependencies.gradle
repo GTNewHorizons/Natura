@@ -1,13 +1,13 @@
 // Add your dependencies here
 
 dependencies {
-    api("com.github.GTNewHorizons:Mantle:0.5.0:dev")
+    api("com.github.GTNewHorizons:Mantle:0.5.1:dev")
 
-    compileOnly("com.github.GTNewHorizons:waila:1.8.8:dev") {transitive = false}
-    compileOnly("com.github.GTNewHorizons:ForgeMultipart:1.6.6:dev") {transitive = false}
-    compileOnly("com.github.GTNewHorizons:TinkersConstruct:1.13.37-GTNH:dev") {transitive = false}
+    compileOnly("com.github.GTNewHorizons:waila:1.8.12:dev") {transitive = false}
+    compileOnly("com.github.GTNewHorizons:ForgeMultipart:1.6.8:dev") {transitive = false}
+    compileOnly("com.github.GTNewHorizons:TinkersConstruct:1.13.51-GTNH:dev") {transitive = false}
     compileOnly("curse.maven:minefactory-reloaded-66672:2366150") {transitive = false}
     compileOnly("thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev") {transitive = false}
 
-    devOnlyNonPublishable("com.github.GTNewHorizons:NotEnoughItems:2.7.57-GTNH:dev")
+    devOnlyNonPublishable("com.github.GTNewHorizons:NotEnoughItems:2.7.81-GTNH:dev")
 }
