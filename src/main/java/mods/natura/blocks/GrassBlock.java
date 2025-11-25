@@ -22,6 +22,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.natura.client.GrassColorizerAlternate;
 import mods.natura.common.NaturaTab;
+import net.minecraft.entity.EnumCreatureType;
 
 public class GrassBlock extends Block {
 
@@ -119,4 +120,10 @@ public class GrassBlock extends Block {
         EnumPlantType plantType = plant.getPlantType(world, x, y + 1, z);
         return plantType == EnumPlantType.Plains && plant.getPlant(world, x, y + 1, z) != Blocks.tallgrass;
     }
+    
+    @Override
+    public boolean canCreatureSpawn(EnumCreatureType type, IBlockAccess world, int x, int y, int z) {
+        return false;
+    }
+    
 }

@@ -1,5 +1,7 @@
 itemGroup.natura.plants=Natura
 
+item.block.nomobspawnsonthisblock.desc=Mobs cannot Spawn on this Block
+
 item.natura.spawnegg.name=Spawn 
 
 item.wheatBag.name=Wheat Seed Bag
