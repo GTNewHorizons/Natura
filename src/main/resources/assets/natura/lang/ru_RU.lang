@@ -1,5 +1,7 @@
 itemGroup.natura.plants=Natura
 
+item.block.nomobspawnsonthisblock.desc=Монстры не могут появляться на этом блоке
+
 item.natura.spawnegg.name=Призвать существо - 
 
 item.wheatBag.name=Мешочек семян пшеницы
