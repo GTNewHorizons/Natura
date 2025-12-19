@@ -22,7 +22,7 @@ public class GrassBlockItem extends MultiItemBlock {
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List lines, boolean advancedTooltips) {
-        lines.add(StatCollector.translateToLocal("item.block.nomobspawnsonthisblock.desc"));
+        lines.add(StatCollector.translateToLocal("block.soil.grass.desc"));
     }
     /*
      * @Override public String getUnlocalizedName (ItemStack itemstack) { int pos =
