@@ -1,7 +1,5 @@
 itemGroup.natura.plants=Natura
 
-item.block.nomobspawnsonthisblock.desc=Монстры не могут появляться на этом блоке
-
 item.natura.spawnegg.name=Призвать существо - 
 
 item.wheatBag.name=Мешочек семян пшеницы
@@ -246,6 +244,7 @@ item.impmeat.raw.name=Сырое мясо импа
 item.impmeat.cooked.name=Приготовленное мясо импа
 
 block.soil.grass.name=Подстриженная трава
+block.soil.grass.desc=Монстры не могут появляться на этом блоке
 block.soil.bluegrass.name=Синяя трава
 block.soil.autumngrass.name=Осенняя трава
 block.soil.grass.slab.name=Плита из подстриженной травы
