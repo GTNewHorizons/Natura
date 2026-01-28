@@ -110,30 +110,16 @@ public class NSaplingBlock extends BlockSapling {
     }
 
     private boolean canGrowRedwood(World world, int x, int y, int z) {
-        int numSaplings = 0;
-
         for (int xPos = -3; xPos <= 3; xPos++) {
             for (int zPos = -3; zPos <= 3; zPos++) {
-                int ecks = x + xPos, zee = z + zPos;
-                if (world.getBlock(x + xPos, y, z + zPos) == this
-                        && world.getBlockMetadata(x + xPos, y, z + zPos) % 8 == 0) {
-                    numSaplings++;
+                if (world.getBlock(x + xPos, y, z + zPos) != this
+                        || world.getBlockMetadata(x + xPos, y, z + zPos) % 8 != 0) {
+                    return false;
                 }
             }
         }
 
-        return numSaplings >= 40;
-    }
-
-    private void clearRedwoodGrowthArea(World world, int x, int y, int z) {
-        for (int xPos = -4; xPos <= 4; xPos++) {
-            for (int zPos = -4; zPos <= 4; zPos++) {
-                int ecks = x + xPos, zee = z + zPos;
-                if (world.getBlock(ecks, y, zee) == this && world.getBlockMetadata(ecks, y, zee) % 8 == 0) {
-                    world.setBlock(ecks, y, zee, Blocks.air, 0, 4);
-                }
-            }
-        }
+        return true;
     }
 
     @Override
@@ -188,7 +174,6 @@ public class NSaplingBlock extends BlockSapling {
         else if (md == 6) obj = new DarkwoodGen(true, 3, 0);
         else if (md == 7) obj = new FusewoodGen(true, 3, 1);
         else if (canGrowRedwood(world, x, y, z)) {
-            clearRedwoodGrowthArea(world, x, y, z);
             obj = new RedwoodTreeGen(true, NContent.redwood);
         } else return;
 
