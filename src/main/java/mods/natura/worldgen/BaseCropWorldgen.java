@@ -42,9 +42,11 @@ public class BaseCropWorldgen implements IWorldGenerator {
             return;
         }
         final int xChunk = chunkX * 16 + 8, zChunk = chunkZ * 16 + 8;
-        int xCh = chunkX * 16 + random.nextInt(16);
+
+        // Same spawn origin ends up being used for Barley, Cotton, and Bluebells,
+        int xCh = xChunk + random.nextInt(16);
         int yCh = random.nextInt(128);
-        int zCh = chunkZ * 16 + random.nextInt(16);
+        int zCh = zChunk + random.nextInt(16);
 
         BiomeGenBase biome = world.getWorldChunkManager().getBiomeGenAt(chunkX * 16, chunkZ * 16);
 
