@@ -92,10 +92,10 @@ public class LogTwoxTwo extends Block {
     }
 
     /**
-     * returns a number between 0 and 3
+     * returns 15 or a number between 0 and 3
      */
     public static int limitToValidMetadata(int par0) {
-        return par0 & 3;
+        return (par0 == 15) ? par0 : (par0 & 3);
     }
 
     @Override
