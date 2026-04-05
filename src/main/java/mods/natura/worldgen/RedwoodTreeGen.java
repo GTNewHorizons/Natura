@@ -181,6 +181,7 @@ public class RedwoodTreeGen extends WorldGenerator {
             growSmallRoots(world, random, x, groundPoint - 1, z);
             growTop(world, random, x, treeHeight + groundPoint, z);
         }
+        worldObj = null;
         return true;
     }
 
