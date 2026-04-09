@@ -404,12 +404,14 @@ public class SakuraTreeGen extends WorldGenAbstractTree {
         }
 
         if (!this.validTreeLocation()) {
+            this.worldObj = null;
             return false;
         } else {
             this.generateLeafNodeList();
             this.generateLeaves();
             this.generateTrunk();
             this.generateLeafNodeBases();
+            this.worldObj = null;
             return true;
         }
     }
