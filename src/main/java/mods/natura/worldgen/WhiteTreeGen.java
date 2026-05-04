@@ -19,7 +19,6 @@ public class WhiteTreeGen extends WorldGenAbstractTree {
     // JAVADOC FIELD $$ field_76505_b
     Random rand = new Random();
     // JAVADOC FIELD $$ field_76506_c
-    World worldObj;
     int[] basePos = new int[] { 0, 0, 0 };
     int heightLimit;
     int height;
@@ -49,7 +48,7 @@ public class WhiteTreeGen extends WorldGenAbstractTree {
     }
 
     // JAVADOC METHOD $$ func_76489_a
-    void generateLeafNodeList() {
+    void generateLeafNodeList(World world) {
         this.height = (int) ((double) this.heightLimit * this.heightAttenuation);
 
         if (this.height >= this.heightLimit) {
@@ -89,7 +88,7 @@ public class WhiteTreeGen extends WorldGenAbstractTree {
                     int[] aint1 = new int[] { k1, j, l1 };
                     int[] aint2 = new int[] { k1, j + this.leafDistanceLimit, l1 };
 
-                    if (this.checkBlockLine(aint1, aint2) == -1) {
+                    if (this.checkBlockLine(world, aint1, aint2) == -1) {
                         int[] aint3 = new int[] { this.basePos[0], this.basePos[1], this.basePos[2] };
                         double d3 = Math.sqrt(
                                 Math.pow((double) Math.abs(this.basePos[0] - aint1[0]), 2.0D)
@@ -102,7 +101,7 @@ public class WhiteTreeGen extends WorldGenAbstractTree {
                             aint3[1] = (int) ((double) aint1[1] - d4);
                         }
 
-                        if (this.checkBlockLine(aint3, aint1) == -1) {
+                        if (this.checkBlockLine(world, aint3, aint1) == -1) {
                             aint[k][0] = k1;
                             aint[k][1] = j;
                             aint[k][2] = l1;
@@ -120,7 +119,7 @@ public class WhiteTreeGen extends WorldGenAbstractTree {
         System.arraycopy(aint, 0, this.leafNodes, 0, k);
     }
 
-    void func_150529_a(int p_150529_1_, int p_150529_2_, int p_150529_3_, float p_150529_4_, byte p_150529_5_,
+    void func_150529_a(World world, int p_150529_1_, int p_150529_2_, int p_150529_3_, float p_150529_4_, byte p_150529_5_,
             Block block) {
         int l = (int) ((double) p_150529_4_ + 0.618D);
         byte b1 = otherCoordPairs[p_150529_5_];
@@ -141,14 +140,14 @@ public class WhiteTreeGen extends WorldGenAbstractTree {
                     ++j1;
                 } else {
                     aint1[b2] = aint[b2] + j1;
-                    Block block1 = this.worldObj.getBlock(aint1[0], aint1[1], aint1[2]);
+                    Block block1 = world.getBlock(aint1[0], aint1[1], aint1[2]);
 
-                    if (!block1.isAir(worldObj, aint1[0], aint1[1], aint1[2])
-                            && !block1.isLeaves(worldObj, aint1[0], aint1[1], aint1[2])) {
+                    if (!block1.isAir(world, aint1[0], aint1[1], aint1[2])
+                            && !block1.isLeaves(world, aint1[0], aint1[1], aint1[2])) {
                         ++j1;
                     } else {
                         this.setBlockAndNotifyAdequately(
-                                this.worldObj,
+                                world,
                                 aint1[0],
                                 aint1[1],
                                 aint1[2],
@@ -189,16 +188,16 @@ public class WhiteTreeGen extends WorldGenAbstractTree {
     }
 
     // JAVADOC METHOD $$ func_76491_a
-    void generateLeafNode(int par1, int par2, int par3) {
+    void generateLeafNode(World world, int par1, int par2, int par3) {
         int l = par2;
 
         for (int i1 = par2 + this.leafDistanceLimit; l < i1; ++l) {
             float f = this.leafSize(l - par2);
-            this.func_150529_a(par1, l, par3, f, (byte) 1, NContent.floraLeavesNoColor);
+            this.func_150529_a(world, par1, l, par3, f, (byte) 1, NContent.floraLeavesNoColor);
         }
     }
 
-    void func_150530_a(int[] p_150530_1_, int[] p_150530_2_, Block p_150530_3_) {
+    void func_150530_a(World world, int[] p_150530_1_, int[] p_150530_2_, Block p_150530_3_) {
         int[] aint2 = new int[] { 0, 0, 0 };
         byte b0 = 0;
         byte b1;
@@ -244,20 +243,20 @@ public class WhiteTreeGen extends WorldGenAbstractTree {
                     }
                 }
 
-                this.setBlockAndNotifyAdequately(this.worldObj, aint3[0], aint3[1], aint3[2], p_150530_3_, metadata);
+                this.setBlockAndNotifyAdequately(world, aint3[0], aint3[1], aint3[2], p_150530_3_, metadata);
             }
         }
     }
 
     // JAVADOC METHOD $$ func_76498_b
-    void generateLeaves() {
+    void generateLeaves(World world) {
         int i = 0;
 
         for (int j = this.leafNodes.length; i < j; ++i) {
             int k = this.leafNodes[i][0];
             int l = this.leafNodes[i][1];
             int i1 = this.leafNodes[i][2];
-            this.generateLeafNode(k, l, i1);
+            this.generateLeafNode(world, k, l, i1);
         }
     }
 
@@ -267,30 +266,30 @@ public class WhiteTreeGen extends WorldGenAbstractTree {
     }
 
     // JAVADOC METHOD $$ func_76499_c
-    void generateTrunk() {
+    void generateTrunk(World world) {
         int i = this.basePos[0];
         int j = this.basePos[1];
         int k = this.basePos[1] + this.height;
         int l = this.basePos[2];
         int[] aint = new int[] { i, j, l };
         int[] aint1 = new int[] { i, k, l };
-        this.func_150530_a(aint, aint1, NContent.tree);
+        this.func_150530_a(world, aint, aint1, NContent.tree);
 
         if (this.trunkSize == 2) {
             ++aint[0];
             ++aint1[0];
-            this.func_150530_a(aint, aint1, NContent.tree);
+            this.func_150530_a(world, aint, aint1, NContent.tree);
             ++aint[2];
             ++aint1[2];
-            this.func_150530_a(aint, aint1, NContent.tree);
+            this.func_150530_a(world, aint, aint1, NContent.tree);
             aint[0] += -1;
             aint1[0] += -1;
-            this.func_150530_a(aint, aint1, NContent.tree);
+            this.func_150530_a(world, aint, aint1, NContent.tree);
         }
     }
 
     // JAVADOC METHOD $$ func_76494_d
-    void generateLeafNodeBases() {
+    void generateLeafNodeBases(World world) {
         int i = 0;
         int j = this.leafNodes.length;
 
@@ -301,13 +300,13 @@ public class WhiteTreeGen extends WorldGenAbstractTree {
             int k = aint[1] - this.basePos[1];
 
             if (this.leafNodeNeedsBase(k)) {
-                this.func_150530_a(aint, aint2, NContent.tree);
+                this.func_150530_a(world, aint, aint2, NContent.tree);
             }
         }
     }
 
     // JAVADOC METHOD $$ func_76496_a
-    int checkBlockLine(int[] par1ArrayOfInteger, int[] par2ArrayOfInteger) {
+    int checkBlockLine(World world, int[] par1ArrayOfInteger, int[] par2ArrayOfInteger) {
         int[] aint2 = new int[] { 0, 0, 0 };
         byte b0 = 0;
         byte b1;
@@ -343,9 +342,7 @@ public class WhiteTreeGen extends WorldGenAbstractTree {
                 aint3[b1] = par1ArrayOfInteger[b1] + i;
                 aint3[b2] = MathHelper.floor_double((double) par1ArrayOfInteger[b2] + (double) i * d0);
                 aint3[b3] = MathHelper.floor_double((double) par1ArrayOfInteger[b3] + (double) i * d1);
-                Block block = this.worldObj.getBlock(aint3[0], aint3[1], aint3[2]);
-
-                if (!this.isReplaceable(worldObj, aint3[0], aint3[1], aint3[2])) {
+                if (!this.isReplaceable(world, aint3[0], aint3[1], aint3[2])) {
                     break;
                 }
             }
@@ -355,13 +352,13 @@ public class WhiteTreeGen extends WorldGenAbstractTree {
     }
 
     // JAVADOC METHOD $$ func_76497_e
-    boolean validTreeLocation() {
+    boolean validTreeLocation(World world) {
         int[] aint = new int[] { this.basePos[0], this.basePos[1], this.basePos[2] };
         int[] aint1 = new int[] { this.basePos[0], this.basePos[1] + this.heightLimit - 1, this.basePos[2] };
-        Block block = this.worldObj.getBlock(this.basePos[0], this.basePos[1] - 1, this.basePos[2]);
+        Block block = world.getBlock(this.basePos[0], this.basePos[1] - 1, this.basePos[2]);
 
         boolean isSoil = block.canSustainPlant(
-                worldObj,
+                world,
                 basePos[0],
                 basePos[1] - 1,
                 basePos[2],
@@ -370,7 +367,7 @@ public class WhiteTreeGen extends WorldGenAbstractTree {
         if (!isSoil) {
             return false;
         } else {
-            int i = this.checkBlockLine(aint, aint1);
+            int i = this.checkBlockLine(world, aint, aint1);
 
             if (i == -1) {
                 return true;
@@ -410,7 +407,6 @@ public class WhiteTreeGen extends WorldGenAbstractTree {
     }
 
     public boolean generate(World world, Random par2Random, int x, int y, int z) {
-        this.worldObj = world;
         long l = par2Random.nextLong();
         this.rand.setSeed(l);
         this.basePos[0] = x;
@@ -425,15 +421,13 @@ public class WhiteTreeGen extends WorldGenAbstractTree {
             this.heightLimit = 5 + this.rand.nextInt(this.heightLimitLimit);
         }
 
-        if (!this.validTreeLocation()) {
-            this.worldObj = null;
+        if (!this.validTreeLocation(world)) {
             return false;
         } else {
-            this.generateLeafNodeList();
-            this.generateLeaves();
-            this.generateTrunk();
-            this.generateLeafNodeBases();
-            this.worldObj = null;
+            this.generateLeafNodeList(world);
+            this.generateLeaves(world);
+            this.generateTrunk(world);
+            this.generateLeafNodeBases(world);
             return true;
         }
     }
