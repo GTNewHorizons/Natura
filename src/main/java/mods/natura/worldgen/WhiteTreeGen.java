@@ -14,11 +14,8 @@ import mods.natura.common.NContent;
 
 public class WhiteTreeGen extends WorldGenAbstractTree {
 
-    // JAVADOC FIELD $$ field_76507_a
     static final byte[] otherCoordPairs = new byte[] { (byte) 2, (byte) 0, (byte) 0, (byte) 1, (byte) 2, (byte) 1 };
-    // JAVADOC FIELD $$ field_76505_b
     Random rand = new Random();
-    // JAVADOC FIELD $$ field_76506_c
     int[] basePos = new int[] { 0, 0, 0 };
     int heightLimit;
     int height;
@@ -27,13 +24,9 @@ public class WhiteTreeGen extends WorldGenAbstractTree {
     double branchSlope = 0.381D;
     double scaleWidth = 1.0D;
     double leafDensity = 1.0D;
-    // JAVADOC FIELD $$ field_76510_l
     int trunkSize = 1;
-    // JAVADOC FIELD $$ field_76511_m
     int heightLimitLimit = 12;
-    // JAVADOC FIELD $$ field_76508_n
     int leafDistanceLimit = 4;
-    // JAVADOC FIELD $$ field_76509_o
     int[][] leafNodes;
 
     int metaWood;
@@ -47,7 +40,6 @@ public class WhiteTreeGen extends WorldGenAbstractTree {
         metaLeaves = 1;
     }
 
-    // JAVADOC METHOD $$ func_76489_a
     void generateLeafNodeList(World world) {
         this.height = (int) ((double) this.heightLimit * this.heightAttenuation);
 
@@ -160,7 +152,6 @@ public class WhiteTreeGen extends WorldGenAbstractTree {
         }
     }
 
-    // JAVADOC METHOD $$ func_76490_a
     float layerSize(int par1) {
         if ((double) par1 < (double) ((float) this.heightLimit) * 0.3D) {
             return -1.618F;
@@ -187,7 +178,6 @@ public class WhiteTreeGen extends WorldGenAbstractTree {
                 : -1.0F;
     }
 
-    // JAVADOC METHOD $$ func_76491_a
     void generateLeafNode(World world, int par1, int par2, int par3) {
         int l = par2;
 
@@ -248,7 +238,6 @@ public class WhiteTreeGen extends WorldGenAbstractTree {
         }
     }
 
-    // JAVADOC METHOD $$ func_76498_b
     void generateLeaves(World world) {
         int i = 0;
 
@@ -260,12 +249,10 @@ public class WhiteTreeGen extends WorldGenAbstractTree {
         }
     }
 
-    // JAVADOC METHOD $$ func_76493_c
     boolean leafNodeNeedsBase(int par1) {
         return (double) par1 >= (double) this.heightLimit * 0.2D;
     }
 
-    // JAVADOC METHOD $$ func_76499_c
     void generateTrunk(World world) {
         int i = this.basePos[0];
         int j = this.basePos[1];
@@ -288,7 +275,6 @@ public class WhiteTreeGen extends WorldGenAbstractTree {
         }
     }
 
-    // JAVADOC METHOD $$ func_76494_d
     void generateLeafNodeBases(World world) {
         int i = 0;
         int j = this.leafNodes.length;
@@ -305,7 +291,6 @@ public class WhiteTreeGen extends WorldGenAbstractTree {
         }
     }
 
-    // JAVADOC METHOD $$ func_76496_a
     int checkBlockLine(World world, int[] par1ArrayOfInteger, int[] par2ArrayOfInteger) {
         int[] aint2 = new int[] { 0, 0, 0 };
         byte b0 = 0;
@@ -351,7 +336,6 @@ public class WhiteTreeGen extends WorldGenAbstractTree {
         }
     }
 
-    // JAVADOC METHOD $$ func_76497_e
     boolean validTreeLocation(World world) {
         int[] aint = new int[] { this.basePos[0], this.basePos[1], this.basePos[2] };
         int[] aint1 = new int[] { this.basePos[0], this.basePos[1] + this.heightLimit - 1, this.basePos[2] };
@@ -380,7 +364,6 @@ public class WhiteTreeGen extends WorldGenAbstractTree {
         }
     }
 
-    // JAVADOC METHOD $$ func_76487_a
     public void setScale(double par1, double par3, double par5) {
         this.heightLimitLimit = (int) (par1 * 12.0D);
 
