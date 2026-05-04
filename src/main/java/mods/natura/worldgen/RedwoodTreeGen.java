@@ -13,25 +13,9 @@ import mods.natura.common.PHNatura;
 
 public class RedwoodTreeGen extends WorldGenerator {
 
-    /*
-     * public boolean drawCircle (World par1World, int radius, int x, int y, int z) { int tempX = x; int tempZ = z; int
-     * tempRadius = radius; int aTrig = 0; int bTrig = 0; for (int loopCount = 0; loopCount <= radius; loopCount++) { //
-     * draw quadrants aTrig = (radius - loopCount); bTrig = (int) (Math.sqrt(radius * radius - aTrig * aTrig)); //if (
-     * par1World.getBlockId(x + aTrig, y, z + bTrig) != 56) // top right //{ par1World.setBlock(x + aTrig, y, z + bTrig,
-     * 56); for (int i = z + bTrig; i >= z; i--) { par1World.setBlock(x + aTrig, y, i, 56); } //} //if (
-     * par1World.getBlockId(x - aTrig, y, z - bTrig) != 56) // bottom left //{ par1World.setBlock(x - aTrig, y, z -
-     * bTrig, 56); for (int i = z - bTrig; i <= z; i++) { par1World.setBlock(x - aTrig, y, i, 56); } //} //if (
-     * par1World.getBlockId(x - aTrig, y, z + bTrig) != 56) // top left //{ par1World.setBlock(x - aTrig, y, z + bTrig,
-     * 56); for (int i = z + bTrig; i >= z; i--) { par1World.setBlock(x - aTrig, y, i, 56); } //} //if (
-     * par1World.getBlockId(x + aTrig, y, z - bTrig) != 56) // bottom right //{ par1World.setBlock(x + aTrig, y, z -
-     * bTrig, 56); for (int i = z - bTrig; i <= z; i++) { par1World.setBlock(x + aTrig, y, i, 56); } //} } return true;
-     * }
-     */
-
     // With an axis index i, find the two other axis incies by looking at indices [i] and [i+3] in this array
     static final byte[] otherCoordPairs = { 2, 0, 0, 1, 2, 1 };
     Random rand;
-    World worldObj;
     // Cursed code ahead! Most of this code is badly copy-pasted from Minecrafts WorldGenBigTree class,
     // which is used to generate large Oak trees. The RedwoodTreeGen effectively spawns a lot of fake large oak trees
     // without a trunk to generate leave clusters and branches.
@@ -86,7 +70,6 @@ public class RedwoodTreeGen extends WorldGenerator {
         }
 
         int treeHeight = random.nextInt(60) + 80;
-        worldObj = world;
         long ran = random.nextLong();
         rand.setSeed(ran);
         fakeOakBasePos[0] = x;
@@ -96,7 +79,6 @@ public class RedwoodTreeGen extends WorldGenerator {
         // Set the height of the fake oak trees to a constant 10 because it doesn't make sense to have their
         // height be random like vanilla trees.
         // This makes redwood trees look more consistently good
-        // fakeOakHeightLimit = 5 + rand.nextInt(fakeOakHeightLimitLimit);
         fakeOakHeightLimit = 10;
 
         if (treeHeight > 120) {
@@ -181,65 +163,38 @@ public class RedwoodTreeGen extends WorldGenerator {
             growSmallRoots(world, random, x, groundPoint - 1, z);
             growTop(world, random, x, treeHeight + groundPoint, z);
         }
-        worldObj = null;
         return true;
     }
-
-    /*
-     * else if (height > 70) { if (heightPos >= 70) { for (int j3 = currentHeight + groundPoint; j3 <= (groundPoint +
-     * heightPos) - 70; j3++) { genRing11(world, random, x, currentHeight + groundPoint, z); heightPos--; currentHeight
-     * + groundPoint++; } } if (heightPos >= 58) { for (int k3 = currentHeight + groundPoint; k3 <= (groundPoint +
-     * heightPos) - 58; k3++) { genRing10(world, random, x, currentHeight + groundPoint, z); heightPos--; currentHeight
-     * + groundPoint++; } } if (heightPos >= 35) { for (int l3 = currentHeight + groundPoint; l3 <= (groundPoint +
-     * heightPos) - 35; l3++) { genRing9(world, random, x, currentHeight + groundPoint, z); heightPos--;
-     * growMediumLowerBranch(world, random, x, currentHeight + groundPoint, z); currentHeight + groundPoint++; } } if
-     * (heightPos >= 15) { for (int i4 = currentHeight + groundPoint; i4 <= (groundPoint + heightPos) - 15; i4++) {
-     * genRing8(world, random, x, currentHeight + groundPoint, z); heightPos--; growMediumUpperBranch(world, random, x,
-     * currentHeight + groundPoint, z); currentHeight + groundPoint++; } } if (heightPos >= 0) { for (int j4 =
-     * currentHeight + groundPoint; j4 <= (groundPoint + heightPos) - 0; j4++) { genRing7(world, random, x,
-     * currentHeight + groundPoint, z); heightPos--; growMediumUpperBranch(world, random, x, currentHeight +
-     * groundPoint, z); currentHeight + groundPoint++; } } growMediumRoots(world, random, x, groundPoint - 1, z);
-     * growMediumTop(world, random, x, currentHeight + groundPoint, z); } else { if (heightPos >= 50) { for (int k4 =
-     * currentHeight + groundPoint; k4 <= (groundPoint + heightPos) - 50; k4++) { genRing9(world, random, x,
-     * currentHeight + groundPoint, z); heightPos--; currentHeight + groundPoint++; } } if (heightPos >= 25) { for (int
-     * l4 = currentHeight + groundPoint; l4 <= (groundPoint + heightPos) - 25; l4++) { genRing8(world, random, x,
-     * currentHeight + groundPoint, z); heightPos--; growSmallLowerBranch(world, random, x, currentHeight + groundPoint,
-     * z); currentHeight + groundPoint++; } } if (heightPos >= 0) { for (int i5 = currentHeight + groundPoint; i5 <=
-     * (groundPoint + heightPos) - 0; i5++) { genRing7(world, random, x, currentHeight + groundPoint, z); heightPos--;
-     * growSmallUpperBranch(world, random, x, currentHeight + groundPoint, z); currentHeight + groundPoint++; } }
-     * growSmallRoots(world, random, x, groundPoint - 1, z); growSmallTop(world, random, x, currentHeight + groundPoint,
-     * z); }
-     */
 
     public boolean growTop(World world, Random random, int x, int y, int z) {
         fakeOakBasePos[0] = x;
         fakeOakBasePos[1] = y + 4;
         fakeOakBasePos[2] = z;
-        generateLeafNodeList();
-        generateLeaves();
-        generateLeafNodeBases();
+        generateLeafNodeList(world);
+        generateLeaves(world);
+        generateLeafNodeBases(world);
         fakeOakBasePos[0] = x;
         fakeOakBasePos[1] = y + 4;
         fakeOakBasePos[2] = z;
-        generateLeafNodeList();
-        generateLeaves();
-        generateLeafNodeBases();
+        generateLeafNodeList(world);
+        generateLeaves(world);
+        generateLeafNodeBases(world);
         fakeOakBasePos[0] = x;
         fakeOakBasePos[1] = y;
         fakeOakBasePos[2] = z;
-        generateLeafNodeList();
-        generateLeaves();
-        generateLeafNodeBases();
+        generateLeafNodeList(world);
+        generateLeaves(world);
+        generateLeafNodeBases(world);
         fakeOakBasePos[0] = x;
         fakeOakBasePos[1] = y;
         fakeOakBasePos[2] = z;
-        generateLeafNodeList();
-        generateLeaves();
-        generateLeafNodeBases();
+        generateLeafNodeList(world);
+        generateLeaves(world);
+        generateLeafNodeBases(world);
 
         int highestLogY = y;
         for (int offset = 0; offset < 15; offset++) {
-            if (worldObj.getBlock(x, y + offset, z) == genWoodID) highestLogY = y + offset;
+            if (world.getBlock(x, y + offset, z) == genWoodID) highestLogY = y + offset;
         }
         for (int currY = y; currY < highestLogY; currY++) {
             setBlockAndNotifyAdequately(world, x, currY, z, genWoodID, genWoodMetadata);
@@ -253,10 +208,10 @@ public class RedwoodTreeGen extends WorldGenerator {
             fakeOakBasePos[0] = (x + random.nextInt(21)) - 10;
             fakeOakBasePos[1] = y;
             fakeOakBasePos[2] = (z + random.nextInt(21)) - 10;
-            generateLeafNodeList();
-            generateLeaves();
-            generateLeafNodeBases();
-            generateInnerBranch(x, z);
+            generateLeafNodeList(world);
+            generateLeaves(world);
+            generateLeafNodeBases(world);
+            generateInnerBranch(world, x, z);
         }
         return false;
     }
@@ -266,10 +221,10 @@ public class RedwoodTreeGen extends WorldGenerator {
             fakeOakBasePos[0] = (x + random.nextInt(31)) - 15;
             fakeOakBasePos[1] = y;
             fakeOakBasePos[2] = (z + random.nextInt(31)) - 15;
-            generateLeafNodeList();
-            generateLeaves();
-            generateLeafNodeBases();
-            generateInnerBranch(x, z);
+            generateLeafNodeList(world);
+            generateLeaves(world);
+            generateLeafNodeBases(world);
+            generateInnerBranch(world, x, z);
         }
 
         return false;
@@ -279,26 +234,26 @@ public class RedwoodTreeGen extends WorldGenerator {
         fakeOakBasePos[0] = (x + random.nextInt(17)) - 8;
         fakeOakBasePos[1] = y;
         fakeOakBasePos[2] = (z + random.nextInt(17)) - 8;
-        generateLeafNodeList();
-        generateLeaves();
-        generateLeafNodeBases();
-        generateInnerBranch(x, z);
+        generateLeafNodeList(world);
+        generateLeaves(world);
+        generateLeafNodeBases(world);
+        generateInnerBranch(world, x, z);
         if (random.nextInt(2) == 0) {
             fakeOakBasePos[0] = (x + random.nextInt(17)) - 8;
             fakeOakBasePos[1] = y;
             fakeOakBasePos[2] = (z + random.nextInt(17)) - 8;
-            generateLeafNodeList();
-            generateLeaves();
-            generateLeafNodeBases();
-            generateInnerBranch(x, z);
+            generateLeafNodeList(world);
+            generateLeaves(world);
+            generateLeafNodeBases(world);
+            generateInnerBranch(world, x, z);
         }
         fakeOakBasePos[0] = (x + random.nextInt(17)) - 8;
         fakeOakBasePos[1] = y;
         fakeOakBasePos[2] = (z + random.nextInt(17)) - 8;
-        generateLeafNodeList();
-        generateLeaves();
-        generateLeafNodeBases();
-        generateInnerBranch(x, z);
+        generateLeafNodeList(world);
+        generateLeaves(world);
+        generateLeafNodeBases(world);
+        generateInnerBranch(world, x, z);
         return false;
     }
 
@@ -1729,7 +1684,7 @@ public class RedwoodTreeGen extends WorldGenerator {
         return true;
     }
 
-    void generateLeafNodeList() {
+    void generateLeafNodeList(World world) {
         fakeOakHeight = (int) ((double) fakeOakHeightLimit * fakeOakHeightAttenuation);
         if (fakeOakHeight >= fakeOakHeightLimit) {
             fakeOakHeight = fakeOakHeightLimit - 1;
@@ -1764,7 +1719,7 @@ public class RedwoodTreeGen extends WorldGenerator {
                     int posZ = MathHelper.floor_double(distance * Math.cos(direction) + (double) fakeOakBasePos[2] + d);
                     int[] ai1 = { posX, maxTrunkY, posZ };
                     int[] ai2 = { posX, maxTrunkY + fakeOakLeafDistanceLimit, posZ };
-                    if (checkBlockLine(ai1, ai2) != -1) {
+                    if (checkBlockLine(world, ai1, ai2) != -1) {
                         continue;
                     }
                     int[] ai3 = { fakeOakBasePos[0], fakeOakBasePos[1], fakeOakBasePos[2] };
@@ -1777,7 +1732,7 @@ public class RedwoodTreeGen extends WorldGenerator {
                     } else {
                         ai3[1] = (int) ((double) ai1[1] - d4);
                     }
-                    if (checkBlockLine(ai3, ai1) == -1) {
+                    if (checkBlockLine(world, ai3, ai1) == -1) {
                         ai[k][0] = posX;
                         ai[k][1] = maxTrunkY;
                         ai[k][2] = posZ;
@@ -1794,7 +1749,7 @@ public class RedwoodTreeGen extends WorldGenerator {
         System.arraycopy(ai, 0, fakeOakLeafNodes, 0, k);
     }
 
-    void generateBlockCircle(int x, int y, int z, float radius, byte axis, Block block) {
+    void generateBlockCircle(World world, int x, int y, int z, float radius, byte axis, Block block) {
         int i1 = (int) ((double) radius + 0.61799999999999999D);
         byte byte1 = otherCoordPairs[axis];
         byte byte2 = otherCoordPairs[axis + 3];
@@ -1812,11 +1767,11 @@ public class RedwoodTreeGen extends WorldGenerator {
                     l1++;
                 } else {
                     ai1[byte2] = ai[byte2] + l1;
-                    Block i2 = worldObj.getBlock(ai1[0], ai1[1], ai1[2]);
+                    Block i2 = world.getBlock(ai1[0], ai1[1], ai1[2]);
                     if (i2 != Blocks.air && i2 != Blocks.leaves) {
                         l1++;
                     } else {
-                        setBlockAndNotifyAdequately(worldObj, ai1[0], ai1[1], ai1[2], block, 0);
+                        setBlockAndNotifyAdequately(world, ai1[0], ai1[1], ai1[2], block, 0);
                         l1++;
                     }
                 }
@@ -1850,15 +1805,15 @@ public class RedwoodTreeGen extends WorldGenerator {
         }
     }
 
-    void generateLeafNode(int x, int y, int z) {
+    void generateLeafNode(World world, int x, int y, int z) {
         int l = y;
         for (int i1 = y + fakeOakLeafDistanceLimit; l < i1; l++) {
             float f = calculateLeafRadius(l - y);
-            generateBlockCircle(x, l, z, f, (byte) 1, NContent.floraLeaves);
+            generateBlockCircle(world, x, l, z, f, (byte) 1, NContent.floraLeaves);
         }
     }
 
-    void placeBlockLine(int[] start, int[] end, Block block) {
+    void placeBlockLine(World world, int[] start, int[] end, Block block) {
         int[] delta = { 0, 0, 0 };
         int longestAxis = 0;
         for (byte axis = 0; axis < 3; axis++) {
@@ -1888,30 +1843,29 @@ public class RedwoodTreeGen extends WorldGenerator {
             currentPos[axisA] = MathHelper.floor_double((double) start[axisA] + (double) k * d + 0.5D);
             currentPos[axisB] = MathHelper.floor_double((double) start[axisB] + (double) k * d1 + 0.5D);
 
-            Block occupiedBy = worldObj.getBlock(currentPos[0], currentPos[1], currentPos[2]);
+            Block occupiedBy = world.getBlock(currentPos[0], currentPos[1], currentPos[2]);
             if (occupiedBy != NContent.floraLeaves && occupiedBy != Blocks.air) continue;
 
-            setBlockAndNotifyAdequately(worldObj, currentPos[0], currentPos[1], currentPos[2], block, 0);
+            setBlockAndNotifyAdequately(world, currentPos[0], currentPos[1], currentPos[2], block, 0);
         }
     }
 
-    void generateLeaves() {
+    void generateLeaves(World world) {
         for (int iter = 0; iter < this.fakeOakLeafNodes.length; iter++) {
             int posX = this.fakeOakLeafNodes[iter][0];
             int posY = this.fakeOakLeafNodes[iter][1];
             int posZ = this.fakeOakLeafNodes[iter][2];
-            this.generateLeafNode(posX, posY, posZ);
+            this.generateLeafNode(world, posX, posY, posZ);
         }
     }
 
     boolean leafNodeNeedsBase(int i) {
-        // return (double) i >= (double) fakeOakHeightLimit * 0.20000000000000001D;
         // This check assumes that the fake oak trees have a trunk
         // They don't, so spawning leave nodes without a branch base can make logs non-continuous
         return true;
     }
 
-    void generateLeafNodeBases() {
+    void generateLeafNodeBases(World world) {
         int i = 0;
         int j = fakeOakLeafNodes.length;
         int[] ai = { fakeOakBasePos[0], fakeOakBasePos[1], fakeOakBasePos[2] };
@@ -1921,15 +1875,15 @@ public class RedwoodTreeGen extends WorldGenerator {
             ai[1] = ai1[3];
             int k = ai[1] - fakeOakBasePos[1];
             if (leafNodeNeedsBase(k)) {
-                placeBlockLine(ai, ai2, NContent.redwood);
+                placeBlockLine(world, ai, ai2, NContent.redwood);
             }
         }
     }
 
-    void generateInnerBranch(int trunkX, int trunkZ) {
+    void generateInnerBranch(World world, int trunkX, int trunkZ) {
         // The bottom few blocks of the fake oak trees don't have leave nodes, see generateLeafNodeList
         int offset = 0;
-        while (worldObj.getBlock(fakeOakBasePos[0], fakeOakBasePos[1] + offset, fakeOakBasePos[2]) != this.genWoodID) {
+        while (world.getBlock(fakeOakBasePos[0], fakeOakBasePos[1] + offset, fakeOakBasePos[2]) != this.genWoodID) {
             offset++;
             if (offset > 5) break;
         }
@@ -1942,7 +1896,7 @@ public class RedwoodTreeGen extends WorldGenerator {
         double yDistance = innerBranchSlope * xzDistance;
         end[1] = start[1] - (int) yDistance;
 
-        placeBlockLine(start, end, NContent.redwood);
+        placeBlockLine(world, start, end, NContent.redwood);
     }
 
     /**
@@ -1950,7 +1904,7 @@ public class RedwoodTreeGen extends WorldGenerator {
      *
      * @return -1 if there are no blocking blocks, otherwise the distance before the first blocking block
      */
-    int checkBlockLine(int[] start, int[] end) {
+    int checkBlockLine(World world, int[] start, int[] end) {
         int[] offset = { 0, 0, 0 }; // Offset from start to end
         int longestAxisIndex = 0;
         for (byte axisIndex = 0; axisIndex < 3; axisIndex++) {
@@ -1984,7 +1938,7 @@ public class RedwoodTreeGen extends WorldGenerator {
             currentPos[longestAxisIndex] = start[longestAxisIndex] + i;
             currentPos[otherAxisIndex1] = MathHelper.floor_double((double) start[otherAxisIndex1] + (double) i * d);
             currentPos[otherAxisIndex2] = MathHelper.floor_double((double) start[otherAxisIndex2] + (double) i * d1);
-            Block block = worldObj.getBlock(currentPos[0], currentPos[1], currentPos[2]);
+            Block block = world.getBlock(currentPos[0], currentPos[1], currentPos[2]);
             if (block != Blocks.air && block != NContent.floraLeaves && block != NContent.redwood) {
                 break;
             }
@@ -1997,12 +1951,4 @@ public class RedwoodTreeGen extends WorldGenerator {
             return Math.abs(i);
         }
     }
-    /*
-     * Unused? - jss2a98aj boolean validTreeLocation() { int ai[] = { basePos[0], basePos[1], basePos[2] }; int ai1[] =
-     * { basePos[0], (basePos[1] + heightLimit) - 1, basePos[2] }; Block i = worldObj.getBlock(basePos[0], basePos[1] -
-     * 1, basePos[2]); if (i != Blocks.dirt && i != Blocks.glass) { return false; } int j = checkBlockLine(ai, ai1); if
-     * (j == -1) { return true; } if (j < 6) { return false; } else { heightLimit = j; return true; } } public void
-     * func_517_a (double d, double d1, double d2) { heightLimitLimit = (int) (d * 12D); if (d > 0.5D) {
-     * leafDistanceLimit = 5; } field_873_j = d1; field_872_k = d2; }
-     */
 }
