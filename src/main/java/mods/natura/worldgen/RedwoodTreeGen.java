@@ -12,6 +12,7 @@ import mods.natura.common.NContent;
 import mods.natura.common.PHNatura;
 
 public class RedwoodTreeGen extends WorldGenerator {
+
     // With an axis index i, find the two other axis incies by looking at indices [i] and [i+3] in this array
     static final byte[] otherCoordPairs = { 2, 0, 0, 1, 2, 1 };
     Random rand;

@@ -139,13 +139,7 @@ public class SakuraTreeGen extends WorldGenAbstractTree {
                             && !block1.isLeaves(world, aint1[0], aint1[1], aint1[2])) {
                         ++j1;
                     } else {
-                        this.setBlockAndNotifyAdequately(
-                                world,
-                                aint1[0],
-                                aint1[1],
-                                aint1[2],
-                                block,
-                                metaLeaves);
+                        this.setBlockAndNotifyAdequately(world, aint1[0], aint1[1], aint1[2], block, metaLeaves);
                         ++j1;
                     }
                 }

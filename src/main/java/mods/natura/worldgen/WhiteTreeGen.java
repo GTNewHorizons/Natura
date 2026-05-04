@@ -111,8 +111,8 @@ public class WhiteTreeGen extends WorldGenAbstractTree {
         System.arraycopy(aint, 0, this.leafNodes, 0, k);
     }
 
-    void func_150529_a(World world, int p_150529_1_, int p_150529_2_, int p_150529_3_, float p_150529_4_, byte p_150529_5_,
-            Block block) {
+    void func_150529_a(World world, int p_150529_1_, int p_150529_2_, int p_150529_3_, float p_150529_4_,
+            byte p_150529_5_, Block block) {
         int l = (int) ((double) p_150529_4_ + 0.618D);
         byte b1 = otherCoordPairs[p_150529_5_];
         byte b2 = otherCoordPairs[p_150529_5_ + 3];
@@ -138,13 +138,7 @@ public class WhiteTreeGen extends WorldGenAbstractTree {
                             && !block1.isLeaves(world, aint1[0], aint1[1], aint1[2])) {
                         ++j1;
                     } else {
-                        this.setBlockAndNotifyAdequately(
-                                world,
-                                aint1[0],
-                                aint1[1],
-                                aint1[2],
-                                block,
-                                metaLeaves);
+                        this.setBlockAndNotifyAdequately(world, aint1[0], aint1[1], aint1[2], block, metaLeaves);
                         ++j1;
                     }
                 }
