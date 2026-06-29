@@ -13,7 +13,7 @@ import mantle.blocks.abstracts.MultiItemBlock;
 
 public class OverworldTreeItem extends MultiItemBlock {
 
-    public static final String blockType[] = { "maple", "silverbell", "purpleheart", "tiger" };
+    public static final String[] blockType = { "maple", "silverbell", "purpleheart", "tiger" };
 
     public OverworldTreeItem(Block i) {
         super(i, "block.log", blockType);
@@ -21,11 +21,10 @@ public class OverworldTreeItem extends MultiItemBlock {
         setHasSubtypes(true);
     }
 
-    /*
-     * @Override public String getUnlocalizedName (ItemStack itemstack) { int i =
-     * MathHelper.clamp_int(itemstack.getItemDamage(), 0, 3); return (new
-     * StringBuilder()).append("block.log.").append(blockType[i]).toString(); }
-     */
+    @Override
+    protected int getLocalizationMeta(ItemStack itemStack) {
+        return itemStack.getItemDamage() % 4;
+    }
 
     @Override
     @SideOnly(Side.CLIENT)

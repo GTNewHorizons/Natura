@@ -13,7 +13,7 @@ import mantle.blocks.abstracts.MultiItemBlock;
 
 public class WillowItem extends MultiItemBlock {
 
-    public static final String blockType[] = { "willow", "sakura", "ghost", "hopseed" };
+    public static final String[] blockType = { "willow" };
 
     public WillowItem(Block i) {
         super(i, "block.log", blockType);
@@ -21,19 +21,9 @@ public class WillowItem extends MultiItemBlock {
         setHasSubtypes(true);
     }
 
-    /*
-     * @Override public String getUnlocalizedName (ItemStack itemstack) { int i =
-     * MathHelper.clamp_int(itemstack.getItemDamage(), 0, 3); return (new
-     * StringBuilder()).append("block.log.").append(blockType[i]).toString(); }
-     */
-
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
-        switch (stack.getItemDamage() % 4) {
-            case 0:
-                list.add(StatCollector.translateToLocal("tooltip.tree11"));
-                break;
-        }
+        list.add(StatCollector.translateToLocal("tooltip.tree11"));
     }
 }
