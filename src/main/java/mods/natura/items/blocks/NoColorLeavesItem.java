@@ -13,8 +13,7 @@ import mantle.blocks.abstracts.MultiItemBlock;
 
 public class NoColorLeavesItem extends MultiItemBlock {
 
-    public static final String blockType[] = { "sakura", "ghost", "blood", "willow", "", "", "", "", "", "", "", "", "",
-            "", "", "", "" };
+    public static final String[] blockType = { "sakura", "ghost", "blood", "willow" };
 
     public NoColorLeavesItem(Block i) {
         super(i, "block.leaves", blockType);
@@ -27,10 +26,10 @@ public class NoColorLeavesItem extends MultiItemBlock {
         return md | 4;
     }
 
-    /*
-     * @Override public String getUnlocalizedName (ItemStack itemstack) { return (new
-     * StringBuilder()).append("block.leaves.").append(blockType[itemstack.getItemDamage()]).toString(); }
-     */
+    @Override
+    protected int getLocalizationMeta(ItemStack itemStack) {
+        return itemStack.getItemDamage() % 4;
+    }
 
     @Override
     @SideOnly(Side.CLIENT)

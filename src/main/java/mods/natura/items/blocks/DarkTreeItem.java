@@ -21,11 +21,10 @@ public class DarkTreeItem extends MultiItemBlock {
         setHasSubtypes(true);
     }
 
-    /*
-     * @Override public String getUnlocalizedName (ItemStack itemstack) { if (itemstack.getItemDamage() <
-     * blockType.length) { return (new
-     * StringBuilder()).append("block.log.").append(blockType[itemstack.getItemDamage()]).toString(); } return null; }
-     */
+    @Override
+    protected int getLocalizationMeta(ItemStack itemStack) {
+        return itemStack.getItemDamage() % 4;
+    }
 
     @Override
     @SideOnly(Side.CLIENT)

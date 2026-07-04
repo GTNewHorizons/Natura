@@ -13,7 +13,7 @@ import mantle.blocks.abstracts.MultiItemBlock;
 
 public class OverworldLeavesItem extends MultiItemBlock {
 
-    public static final String blockType[] = { "maple", "silverbell", "purpleheart", "tiger" };
+    public static final String[] blockType = { "maple", "silverbell", "purpleheart", "tiger" };
 
     public OverworldLeavesItem(Block i) {
         super(i, "block.leaves", blockType);
@@ -24,6 +24,11 @@ public class OverworldLeavesItem extends MultiItemBlock {
     @Override
     public int getMetadata(int meta) {
         return meta | 4;
+    }
+
+    @Override
+    protected int getLocalizationMeta(ItemStack itemStack) {
+        return itemStack.getItemDamage() % 4;
     }
 
     @Override

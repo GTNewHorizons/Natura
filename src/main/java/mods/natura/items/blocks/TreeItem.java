@@ -13,7 +13,7 @@ import mantle.blocks.abstracts.MultiItemBlock;
 
 public class TreeItem extends MultiItemBlock {
 
-    public static final String blockType[] = { "eucalyptus", "sakura", "ghost", "hopseed" };
+    public static final String[] blockType = { "eucalyptus", "sakura", "ghost", "hopseed" };
 
     public TreeItem(Block i) {
         super(i, "block", "log", blockType);
@@ -21,11 +21,15 @@ public class TreeItem extends MultiItemBlock {
         setHasSubtypes(true);
     }
 
-    /*
-     * @Override public String getUnlocalizedName (ItemStack itemstack) { int i =
-     * MathHelper.clamp_int(itemstack.getItemDamage(), 0, 3); return (new
-     * StringBuilder()).append(blockType[i]).append("Log").toString(); }
-     */
+    @Override
+    public int getMetadata(int meta) {
+        return meta;
+    }
+
+    @Override
+    protected int getLocalizationMeta(ItemStack itemStack) {
+        return itemStack.getItemDamage() % 4;
+    }
 
     @Override
     @SideOnly(Side.CLIENT)
