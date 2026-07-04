@@ -4,10 +4,10 @@ dependencies {
     api("com.github.GTNewHorizons:Mantle:0.5.4:dev")
 
     compileOnly("com.github.GTNewHorizons:waila:1.19.30:dev") {transitive = false}
-    compileOnly("com.github.GTNewHorizons:ForgeMultipart:1.7.3:dev") {transitive = false}
-    compileOnly("com.github.GTNewHorizons:TinkersConstruct:1.14.46-GTNH:dev") {transitive = false}
+    compileOnly("com.github.GTNewHorizons:ForgeMultipart:1.7.10:dev") {transitive = false}
+    compileOnly("com.github.GTNewHorizons:TinkersConstruct:1.14.93-GTNH:dev") {transitive = false}
     compileOnly("curse.maven:minefactory-reloaded-66672:2366150") {transitive = false}
     compileOnly("thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev") {transitive = false}
 
-    devOnlyNonPublishable("com.github.GTNewHorizons:NotEnoughItems:2.8.84-GTNH:dev")
+    devOnlyNonPublishable("com.github.GTNewHorizons:NotEnoughItems:2.8.110-GTNH:dev")
 }
