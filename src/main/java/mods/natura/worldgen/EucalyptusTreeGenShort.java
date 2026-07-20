@@ -3,6 +3,7 @@ package mods.natura.worldgen;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
@@ -27,7 +28,7 @@ public class EucalyptusTreeGenShort extends WorldGenerator {
     int findGround(World world, int x, int y, int z) {
         int l = 0;
         Block i1 = world.getBlock(x, y - 1, z);
-        if (!world.getBlock(x, y, z).func_149730_j() && (i1 == Blocks.grass || i1 == Blocks.dirt)) {
+        if (!world.getBlock(x, y, z).func_149730_j() && (i1 == Blocks.grass || i1.getMaterial() == Material.ground)) {
             return y;
         }
         int k1 = 96;
@@ -36,7 +37,8 @@ public class EucalyptusTreeGenShort extends WorldGenerator {
                 break;
             }
             Block j1 = world.getBlock(x, k1, z);
-            if ((j1 == Blocks.grass || j1 == Blocks.dirt) && !world.getBlock(x, k1 + 1, z).func_149730_j()) {
+            if ((j1 == Blocks.grass || j1.getMaterial() == Material.ground)
+                    && !world.getBlock(x, k1 + 1, z).func_149730_j()) {
                 l = k1 + 1;
                 break;
             }
@@ -84,10 +86,12 @@ public class EucalyptusTreeGenShort extends WorldGenerator {
             return false;
         }
         Block j1 = world.getBlock(posX, posY - 1, posZ);
-        if (j1 != Blocks.grass && j1 != Blocks.dirt || posY >= 256 - height - 1) {
+        if (j1 != Blocks.grass && j1.getMaterial() != Material.ground || posY >= 256 - height - 1) {
             return false;
         }
-        world.setBlock(posX, posY - 1, posZ, Blocks.dirt);
+        if (j1 == Blocks.grass) {
+            world.setBlock(posX, posY - 1, posZ, Blocks.dirt);
+        }
         world.setBlock(posX, posY, posZ, Blocks.air);
         Block test = world.getBlock(posX, posY, posZ);
         boolean test1;
