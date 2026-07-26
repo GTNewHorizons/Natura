@@ -5,6 +5,7 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSapling;
+import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
@@ -70,10 +71,10 @@ public class NSaplingBlock extends BlockSapling {
     }
 
     public boolean canThisPlantGrowOnThisBlock(Block id) {
-        return id == Blocks.grass || id == Blocks.dirt
-                || id == Blocks.soul_sand
+        return id == Blocks.grass || id == Blocks.soul_sand
                 || id == Blocks.netherrack
-                || id == NContent.taintedSoil;
+                || id == NContent.taintedSoil
+                || id.getMaterial() == Material.ground;
     }
 
     @Override
