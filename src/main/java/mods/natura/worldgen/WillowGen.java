@@ -25,7 +25,8 @@ public class WillowGen extends WorldGenerator {
         int height = y;
         do {
             Block blockAtHeight = world.getBlock(x, height, z);
-            if ((blockAtHeight == Blocks.dirt || blockAtHeight == Blocks.grass || blockAtHeight == Blocks.sand)
+            if ((blockAtHeight == Blocks.grass || blockAtHeight == Blocks.sand
+                    || blockAtHeight.getMaterial() == Material.ground)
                     && !world.getBlock(x, height + 1, z).func_149730_j()) {
                 ret = height + 1;
                 break;
@@ -82,8 +83,10 @@ public class WillowGen extends WorldGenerator {
             } else {
                 Block block = world.getBlock(x, y - 1, z);
 
-                if ((block == Blocks.grass || block == Blocks.dirt) && y < 128 - l - 1) {
-                    this.setBlockAndNotifyAdequately(world, x, y - 1, z, Blocks.dirt, 0);
+                if ((block == Blocks.grass || block.getMaterial() == Material.ground) && y < 128 - l - 1) {
+                    if (block == Blocks.grass) {
+                        this.setBlockAndNotifyAdequately(world, x, y - 1, z, Blocks.dirt, 0);
+                    }
                     int i2;
                     int j2;
 
