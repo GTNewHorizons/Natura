@@ -48,14 +48,6 @@ public class OverworldSapling extends BlockSapling {
         }
     }
 
-    @Override
-    public boolean canPlaceBlockAt(World world, int x, int y, int z) {
-        Block blockID = world.getBlock(x, y, z);
-        if (blockID == Blocks.air || blockID.getMaterial().isReplaceable()) return true;
-        // return canBlockStay(world, x, y, z);
-        return false;
-    }
-
     public boolean canThisPlantGrowOnThisBlock(Block id) {
         return id == Blocks.grass || id == Blocks.dirt
                 || id == Blocks.soul_sand
