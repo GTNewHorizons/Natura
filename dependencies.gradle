@@ -8,6 +8,7 @@ dependencies {
     compileOnly("com.github.GTNewHorizons:TinkersConstruct:1.14.93-GTNH:dev") {transitive = false}
     compileOnly("curse.maven:minefactory-reloaded-66672:2366150") {transitive = false}
     compileOnly("thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev") {transitive = false}
+    implementation("com.github.GTNewHorizons:GTNHLib:0.11.34:dev")
 
     devOnlyNonPublishable("com.github.GTNewHorizons:NotEnoughItems:2.8.110-GTNH:dev")
 }
