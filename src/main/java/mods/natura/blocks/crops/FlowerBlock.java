@@ -6,12 +6,16 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 
+import com.gtnewhorizon.gtnhlib.api.IFlowerPottable;
+
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.ObfuscationReflectionHelper;
+import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class FlowerBlock extends BlockFlower {
+@Optional.Interface(iface = "com.gtnewhorizon.gtnhlib.api.IFlowerPottable", modid = "gtnhlib")
+public class FlowerBlock extends BlockFlower implements IFlowerPottable {
 
     public FlowerBlock() {
         super(0);

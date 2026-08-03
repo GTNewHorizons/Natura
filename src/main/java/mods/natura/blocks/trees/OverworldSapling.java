@@ -17,6 +17,9 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import com.gtnewhorizon.gtnhlib.api.IFlowerPottable;
+
+import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.natura.common.NContent;
@@ -24,7 +27,8 @@ import mods.natura.common.NaturaTab;
 import mods.natura.worldgen.RareTreeGen;
 import mods.natura.worldgen.WillowGen;
 
-public class OverworldSapling extends BlockSapling {
+@Optional.Interface(iface = "com.gtnewhorizon.gtnhlib.api.IFlowerPottable", modid = "gtnhlib")
+public class OverworldSapling extends BlockSapling implements IFlowerPottable {
 
     public IIcon[] icons;
     public String[] textureNames = new String[] { "maple", "silverbell", "purpleheart", "tiger", "willow" };

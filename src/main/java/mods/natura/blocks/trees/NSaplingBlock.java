@@ -18,6 +18,9 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import com.gtnewhorizon.gtnhlib.api.IFlowerPottable;
+
+import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.natura.common.NContent;
@@ -31,7 +34,8 @@ import mods.natura.worldgen.RedwoodTreeGen;
 import mods.natura.worldgen.SakuraTreeGen;
 import mods.natura.worldgen.WhiteTreeGen;
 
-public class NSaplingBlock extends BlockSapling {
+@Optional.Interface(iface = "com.gtnewhorizon.gtnhlib.api.IFlowerPottable", modid = "gtnhlib")
+public class NSaplingBlock extends BlockSapling implements IFlowerPottable {
 
     public IIcon[] icons;
     public String[] textureNames = new String[] { "redwood", "eucalyptus", "hopseed", "sakura", "ghostwood",

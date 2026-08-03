@@ -12,13 +12,17 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
+import com.gtnewhorizon.gtnhlib.api.IFlowerPottable;
+
+import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.natura.common.NaturaTab;
 import mods.natura.worldgen.GlowshroomGenBlueGreen;
 import mods.natura.worldgen.GlowshroomGenPurple;
 
-public class Glowshroom extends BlockMushroom {
+@Optional.Interface(iface = "com.gtnewhorizon.gtnhlib.api.IFlowerPottable", modid = "gtnhlib")
+public class Glowshroom extends BlockMushroom implements IFlowerPottable {
 
     IIcon[] icons;
     String[] textureNames = { "green", "purple", "blue" };
