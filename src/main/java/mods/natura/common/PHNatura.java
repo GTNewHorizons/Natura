@@ -36,6 +36,16 @@ public class PHNatura {
         if (babyHeatscarMinimum < 0) babyHeatscarMinimum = 0;
         babyHeatscarMaximum = config.get(catMobChanges, "Maximum Baby Heatscar Spiders on Spider Death", 4).getInt(4);
         if (babyHeatscarMaximum < 0) babyHeatscarMaximum = 0;
+        nitroCreeperExplosionMultiplier = (float) config.get(catMobChanges, "Nitro Creeper Explosion Multiplier", 1.0D)
+                .getDouble(1.0D);
+        if (nitroCreeperExplosionMultiplier < 0.0F) nitroCreeperExplosionMultiplier = 0.0F;
+        if (nitroCreeperExplosionMultiplier > 10.0F) nitroCreeperExplosionMultiplier = 10.0F;
+        mobBiomeWhitelist = config.get(catMobChanges, "biome whitelist(mob spawning)", new String[] {}).getStringList();
+        mobBiomeBlacklist = config.get(catMobChanges, "biome blacklist(mob spawning)", new String[] {}).getStringList();
+        mobDimensionWhitelist = config.get(catMobChanges, "dimension whitelist(mob spawning)", new int[] {})
+                .getIntList();
+        mobDimensionBlacklist = config.get(catMobChanges, "dimension blacklist(mob spawning)", new int[] {})
+                .getIntList();
         overrideNether = config.get(catDisabler, "Override Nether", !BoP).getBoolean(!BoP);
         canRespawnInNether = config.get(catDisabler, "Obelisks let players respawn in the Nether", true)
                 .getBoolean(true);
@@ -152,6 +162,25 @@ public class PHNatura {
         darkCloudBlacklist = config.get(catWorldgen, "dimension blacklist(dark clouds)", new int[] {}).getIntList();
         cloudBlacklist = config.get(catWorldgen, "dimension blacklist(clouds)", new int[] {}).getIntList();
         sulfurCloudBlacklist = config.get(catWorldgen, "dimension blacklist(sulfur clouds)", new int[] {}).getIntList();
+        ashCloudBlacklist = config.get(catWorldgen, "dimension blacklist(ash clouds)", new int[] {}).getIntList();
+        cloudBiomeWhitelist = config.get(catWorldgen, "biome whitelist(clouds)", new String[] {}).getStringList();
+        cloudBiomeBlacklist = config.get(catWorldgen, "biome blacklist(clouds)", new String[] {}).getStringList();
+        darkCloudBiomeWhitelist = config.get(catWorldgen, "biome whitelist(dark clouds)", new String[] {})
+                .getStringList();
+        darkCloudBiomeBlacklist = config.get(catWorldgen, "biome blacklist(dark clouds)", new String[] {})
+                .getStringList();
+        sulfurCloudBiomeWhitelist = config.get(catWorldgen, "biome whitelist(sulfur clouds)", new String[] {})
+                .getStringList();
+        sulfurCloudBiomeBlacklist = config.get(catWorldgen, "biome blacklist(sulfur clouds)", new String[] {})
+                .getStringList();
+        ashCloudBiomeWhitelist = config.get(catWorldgen, "biome whitelist(ash clouds)", new String[] {})
+                .getStringList();
+        ashCloudBiomeBlacklist = config.get(catWorldgen, "biome blacklist(ash clouds)", new String[] {})
+                .getStringList();
+        treeDimensionWhitelist = config.get(catWorldgen, "dimension whitelist(trees)", new int[] {}).getIntList();
+        treeDimensionBlacklist = config.get(catWorldgen, "dimension blacklist(trees)", new int[] {}).getIntList();
+        cropDimensionWhitelist = config.get(catWorldgen, "dimension whitelist(crops)", new int[] {}).getIntList();
+        cropDimensionBlacklist = config.get(catWorldgen, "dimension blacklist(crops)", new int[] {}).getIntList();
 
         enableWoodenBookshelves = config.get(catWoodProducts, "Enable Wooden Bookshevles", true).getBoolean(true);
         enableWoodenButtons = config.get(catWoodProducts, "Enable Wooden Buttons", true).getBoolean(true);
@@ -186,6 +215,7 @@ public class PHNatura {
         enableObelisks = config.get(catNetherProducts, "Enable Obelisks", true).getBoolean(true);
         enableQuartzTools = config.get(catNetherProducts, "Enable Quartz Tools", true).getBoolean(true);
 
+        allowEatingBerriesWhenFull = config.get(catGeneral, "Allow eating berries when full", true).getBoolean(true);
         seaLevel = config.get(catGeneral, "Sea level", 64).getInt(64);
 
         /* Save the configuration file */
@@ -195,6 +225,19 @@ public class PHNatura {
     public static int[] darkCloudBlacklist;
     public static int[] cloudBlacklist;
     public static int[] sulfurCloudBlacklist;
+    public static int[] ashCloudBlacklist;
+    public static String[] cloudBiomeWhitelist;
+    public static String[] cloudBiomeBlacklist;
+    public static String[] darkCloudBiomeWhitelist;
+    public static String[] darkCloudBiomeBlacklist;
+    public static String[] sulfurCloudBiomeWhitelist;
+    public static String[] sulfurCloudBiomeBlacklist;
+    public static String[] ashCloudBiomeWhitelist;
+    public static String[] ashCloudBiomeBlacklist;
+    public static int[] treeDimensionWhitelist;
+    public static int[] treeDimensionBlacklist;
+    public static int[] cropDimensionWhitelist;
+    public static int[] cropDimensionBlacklist;
     /* Prototype fields, used elsewhere */
 
     public static int seaLevel;
@@ -309,6 +352,11 @@ public class PHNatura {
 
     public static int babyHeatscarMinimum;
     public static int babyHeatscarMaximum;
+    public static float nitroCreeperExplosionMultiplier;
+    public static String[] mobBiomeWhitelist;
+    public static String[] mobBiomeBlacklist;
+    public static int[] mobDimensionWhitelist;
+    public static int[] mobDimensionBlacklist;
 
     public static boolean enableNitroCreepers;
     public static boolean enableImps;
@@ -331,6 +379,7 @@ public class PHNatura {
     // Overworld products
 
     public static boolean enableBerryBushes;
+    public static boolean allowEatingBerriesWhenFull;
     public static boolean enableBonemealBags;
     public static boolean enableCactusJuice;
     public static boolean enableSeedBags;

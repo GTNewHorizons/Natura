@@ -18,6 +18,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.natura.Natura;
 import mods.natura.common.NaturaTab;
+import mods.natura.common.PHNatura;
 
 public class NetherBerryItem extends ItemFood {
 
@@ -29,12 +30,15 @@ public class NetherBerryItem extends ItemFood {
         setHasSubtypes(true);
         setMaxDamage(0);
         this.setCreativeTab(NaturaTab.tab);
-        // this.setAlwaysEdible();
+        if (PHNatura.allowEatingBerriesWhenFull) {
+            this.setAlwaysEdible();
+        }
     }
 
     @Override
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-        if (player.canEat(true) && player.getFoodStats().getSaturationLevel() < 18F) {
+        if (player.canEat(true)
+                && (PHNatura.allowEatingBerriesWhenFull || player.getFoodStats().getSaturationLevel() < 18F)) {
             player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
         }
         return stack;

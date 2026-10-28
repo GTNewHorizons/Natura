@@ -15,6 +15,7 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.natura.common.NaturaTab;
+import mods.natura.common.PHNatura;
 
 public class BerryItem extends ItemFood {
 
@@ -26,12 +27,15 @@ public class BerryItem extends ItemFood {
         setHasSubtypes(true);
         setMaxDamage(0);
         this.setCreativeTab(NaturaTab.tab);
-        this.setAlwaysEdible();
+        if (PHNatura.allowEatingBerriesWhenFull) {
+            this.setAlwaysEdible();
+        }
     }
 
     @Override
     public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player) {
-        if (player.canEat(true) && player.getFoodStats().getSaturationLevel() < 18F) {
+        if (player.canEat(true)
+                && (PHNatura.allowEatingBerriesWhenFull || player.getFoodStats().getSaturationLevel() < 18F)) {
             player.setItemInUse(itemStack, this.getMaxItemUseDuration(itemStack));
         }
         return itemStack;

@@ -16,9 +16,11 @@ import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.MathHelper;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.event.entity.player.BonemealEvent;
 import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.event.world.ChunkDataEvent;
@@ -49,8 +51,13 @@ import mods.natura.common.NProxyCommon;
 import mods.natura.common.NaturaTab;
 import mods.natura.common.PHNatura;
 import mods.natura.dimension.NetheriteWorldProvider;
+import mods.natura.entity.BabyHeatscarSpider;
+import mods.natura.entity.HeatscarSpider;
+import mods.natura.entity.ImpEntity;
+import mods.natura.entity.NitroCreeper;
 import mods.natura.gui.NGuiHandler;
 import mods.natura.plugins.PluginController;
+import mods.natura.util.ConfigUtil;
 import mods.natura.worldgen.BaseCloudWorldgen;
 import mods.natura.worldgen.BaseCropWorldgen;
 import mods.natura.worldgen.BaseTreeWorldgen;
@@ -241,6 +248,27 @@ public class Natura {
         } else if (event.entity instanceof EntityChicken) {
             ((EntityLiving) event.entity).tasks
                     .addTask(3, new EntityAITempt((EntityCreature) event.entity, 0.25F, NContent.seeds, false));
+        }
+    }
+
+    @SubscribeEvent
+    public void checkSpawnEvent(LivingSpawnEvent.CheckSpawn event) {
+        if (!(event.entityLiving instanceof NitroCreeper) && !(event.entityLiving instanceof HeatscarSpider)
+                && !(event.entityLiving instanceof BabyHeatscarSpider)
+                && !(event.entityLiving instanceof ImpEntity)) {
+            return;
+        }
+        int x = MathHelper.floor_double(event.x);
+        int z = MathHelper.floor_double(event.z);
+        if (!ConfigUtil.isDimensionAllowed(
+                event.world.provider.dimensionId,
+                PHNatura.mobDimensionWhitelist,
+                PHNatura.mobDimensionBlacklist)
+                || !ConfigUtil.isBiomeAllowed(
+                        event.world.getBiomeGenForCoords(x, z),
+                        PHNatura.mobBiomeWhitelist,
+                        PHNatura.mobBiomeBlacklist)) {
+            event.setResult(Result.DENY);
         }
     }
 
