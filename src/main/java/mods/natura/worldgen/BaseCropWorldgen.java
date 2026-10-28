@@ -11,6 +11,7 @@ import cpw.mods.fml.common.IWorldGenerator;
 import mods.natura.Natura;
 import mods.natura.common.NContent;
 import mods.natura.common.PHNatura;
+import mods.natura.util.ConfigUtil;
 
 /*
  * Adds crops to the overworld Current crops: Barley, Berry bushes
@@ -39,6 +40,12 @@ public class BaseCropWorldgen implements IWorldGenerator {
             IChunkProvider chunkProvider) {
         int dimSettings = Natura.getDimensionWorldgenOverrides(world.provider.dimensionId);
         if ((dimSettings & Natura.DIM_WORLDGEN_CROP_BIT) == 0) {
+            return;
+        }
+        if (!ConfigUtil.isDimensionAllowed(
+                world.provider.dimensionId,
+                PHNatura.cropDimensionWhitelist,
+                PHNatura.cropDimensionBlacklist)) {
             return;
         }
         final int xChunk = chunkX * 16 + 8, zChunk = chunkZ * 16 + 8;
