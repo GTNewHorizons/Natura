@@ -139,6 +139,7 @@ import mods.natura.items.tools.NaturaKama;
 import mods.natura.items.tools.NaturaPickaxe;
 import mods.natura.items.tools.NaturaShovel;
 import mods.natura.items.tools.NaturaSword;
+import mods.natura.util.ConfigUtil;
 import mods.natura.util.DispenserBehaviorSpawnEgg;
 import tconstruct.library.crafting.PatternBuilder;
 
@@ -1966,7 +1967,7 @@ public class NContent implements IFuelHandler {
 
     public void createEntities() {
         if (PHNatura.anyMobsEnabled) {
-            BiomeGenBase[] nether = BiomeDictionary.getBiomesForType(BiomeDictionary.Type.NETHER);
+            BiomeGenBase[] nether = getMobSpawnBiomes();
 
             if (PHNatura.enableNitroCreepers) {
                 EntityRegistry.registerModEntity(NitroCreeper.class, "NitroCreeper", 2, Natura.instance, 64, 5, true);
@@ -1994,6 +1995,24 @@ public class NContent implements IFuelHandler {
         }
 
         EntityRegistry.registerModEntity(FusewoodArrow.class, "FusewoodArrow", 3, Natura.instance, 64, 3, true);
+    }
+
+    private BiomeGenBase[] getMobSpawnBiomes() {
+        BiomeGenBase[] candidates = PHNatura.mobBiomeWhitelist != null && PHNatura.mobBiomeWhitelist.length > 0
+                ? ConfigUtil.resolveBiomes(PHNatura.mobBiomeWhitelist)
+                : BiomeDictionary.getBiomesForType(BiomeDictionary.Type.NETHER);
+        List<BiomeGenBase> result = new ArrayList<>();
+        if (candidates != null) {
+            for (BiomeGenBase biome : candidates) {
+                if (biome != null && ConfigUtil.isBiomeAllowed(biome, null, PHNatura.mobBiomeBlacklist)) {
+                    result.add(biome);
+                }
+            }
+        }
+        if (result.isEmpty()) {
+            Natura.logger.warn("Natura mob spawn biome list is empty, natural mob spawning is disabled");
+        }
+        return result.toArray(new BiomeGenBase[result.size()]);
     }
 
     public void modIntegration() {
