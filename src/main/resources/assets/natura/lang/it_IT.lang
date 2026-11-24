@@ -306,7 +306,7 @@ item.natura.armor.impboots.name=Stivali di Imp
 
 item.flintandblaze.name=Selce e Vampo
 
-entity.Natura.imp.name=Imp
+entity.Natura.Imp.name=Imp
 entity.Natura.HeatscarSpider.name=Ragno fiammeggiante
 entity.Natura.BabyHeatscarSpider.name=Ragno fiammeggiante baby
 entity.Natura.FlameSpider.name=Ragno fiammeggiante
