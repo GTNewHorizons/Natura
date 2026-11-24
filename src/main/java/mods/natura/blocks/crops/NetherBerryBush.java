@@ -41,7 +41,7 @@ public class NetherBerryBush extends BlockLeavesBase implements IPlantable {
         random = new Random();
         this.setHardness(0.3F);
         this.setStepSound(Block.soundTypeGrass);
-        this.setBlockName("berrybush");
+        this.setBlockName("netherberrybush");
         this.setCreativeTab(NaturaTab.tab);
     }
 
