@@ -9,6 +9,8 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
 import net.minecraft.world.World;
 
+import mods.natura.common.PHNatura;
+
 public class NitroCreeper extends EntityCreeper {
 
     protected int fuseTime = 12;
@@ -21,6 +23,7 @@ public class NitroCreeper extends EntityCreeper {
         super(world);
         this.tasks.addTask(4, new EntityAIAttackOnCollide(this, 1.0F, false));
         this.isImmuneToFire = true;
+        this.explosionRadius = PHNatura.nitroCreeperExplosionMultiplier;
     }
 
     /*
@@ -39,9 +42,9 @@ public class NitroCreeper extends EntityCreeper {
                 boolean flag = this.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing");
 
                 if (this.getPowered()) {
-                    this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, 20f, flag);
+                    this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, 20f * explosionRadius, flag);
                 } else {
-                    this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, 3f, false);
+                    this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, 3f * explosionRadius, false);
                 }
 
                 this.setDead();
@@ -91,9 +94,11 @@ public class NitroCreeper extends EntityCreeper {
                     boolean flag = this.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing");
 
                     if (powered > 0) {
-                        this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, 20f, flag);
+                        this.worldObj
+                                .createExplosion(this, this.posX, this.posY, this.posZ, 20f * explosionRadius, flag);
                     } else {
-                        this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, 3f, flag);
+                        this.worldObj
+                                .createExplosion(this, this.posX, this.posY, this.posZ, 3f * explosionRadius, flag);
                     }
 
                     this.setDead();

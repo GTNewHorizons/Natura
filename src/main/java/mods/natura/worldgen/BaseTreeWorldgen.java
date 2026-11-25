@@ -12,6 +12,7 @@ import cpw.mods.fml.common.IWorldGenerator;
 import mods.natura.Natura;
 import mods.natura.common.NContent;
 import mods.natura.common.PHNatura;
+import mods.natura.util.ConfigUtil;
 
 public class BaseTreeWorldgen implements IWorldGenerator {
 
@@ -63,6 +64,12 @@ public class BaseTreeWorldgen implements IWorldGenerator {
             IChunkProvider chunkProvider) {
         int dimSettings = Natura.getDimensionWorldgenOverrides(world.provider.dimensionId);
         if ((dimSettings & Natura.DIM_WORLDGEN_TREE_BIT) == 0) {
+            return;
+        }
+        if (!ConfigUtil.isDimensionAllowed(
+                world.provider.dimensionId,
+                PHNatura.treeDimensionWhitelist,
+                PHNatura.treeDimensionBlacklist)) {
             return;
         }
         int xSpawn, ySpawn, zSpawn;
